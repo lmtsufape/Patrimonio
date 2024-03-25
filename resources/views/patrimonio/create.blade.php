@@ -58,6 +58,15 @@
                                 class="red-asterisk">*</span></label>
                         <input type="text" class="form-control inputs" name="descricao" id="descricao" required>
                     </div>
+                    <div class="col">
+                        <label for="setor" class="form-label labels">Setor: <span class="red-asterisk">*</span></label>
+                        <select class="form-select selects inputs" aria-label="Selecione um setor" id="setor_id" name="setor_id">
+                            <option selected value="">Selecione um setor</option>
+                            @foreach ($setores as $setor)
+                                <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row mb-3">
