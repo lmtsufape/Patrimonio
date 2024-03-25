@@ -1,14 +1,21 @@
 @extends('layouts.app')
 @section('content')
-    @include('layouts.components.header', ['page_title' => 'Criar Classificação Contábil', 'back' => true])
 
-    <form method="POST" action="{{route('classificacao.store')}}" enctype="multipart/form-data">
-        @csrf
-        @include('classificacao.form')
-        <div class="row mt-4">
-            <div class="col-3">
-                <button type="submit" class="btn btn-success w-100">Cadastrar</button>
-            </div>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="card p-4" style="width: 55%;">
+            @include('layouts.components.header', ['page_title' => 'Criar Classificação Contábil', 'back' => true])
+            <div class="card-body">
+            <form method="POST" action="{{route('classificacao.store')}}" enctype="multipart/form-data">
+                @csrf
+                @include('classificacao.form')
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary w-50"style="background-color: #3252C1;">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+</div>
+
 @endsection
