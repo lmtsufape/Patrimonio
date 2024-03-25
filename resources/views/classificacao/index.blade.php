@@ -21,7 +21,7 @@
                         <td class="py-4">{{ $classificacao->id }}</td>
                         <td class="py-4">{{ $classificacao->codigo }}</td>
                         <td class="py-4">{{ $classificacao->nome }}</td>
-                        <td class="py-4">{{ $classificacao->created_at }}</td>
+                        <td class="py-4">{{ \Carbon\Carbon::parse($classificacao->created_at)->format('d-m-Y') }}</td>
                         <td class="py-4">
                             <div>
                                 <a href="{{ route('classificacao.edit', ['classificacao_id' => $classificacao->id]) }}">
@@ -48,25 +48,6 @@
 
 
     <script>
-        $(document).ready(function() {
-            $('#classificacao_table').DataTable({
-                searching: true,
-                "language": {
-                    "search": "Pesquisar: ",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Nenhum registro disponível",
-                    "zeroRecords": "Nenhum registro disponível",
-                    "paginate": {
-                        "previous": "Anterior",
-                        "next": "Próximo"
-                    }
-                },
-                "columnDefs": [{
-                    "targets": [3],
-                    "orderable": false
-                }]
-            });
-        });
+
     </script>
 @endsection

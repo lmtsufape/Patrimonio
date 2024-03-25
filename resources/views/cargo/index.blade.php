@@ -17,7 +17,13 @@
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
             'header' => ['ID', 'Nome', 'Data de Criação', 'Ações'],
-            'content' => [$cargos->pluck('id'), $cargos->pluck('nome'), $cargos->pluck('created_at')],
+            'content' => [
+                $cargos->pluck('id'),
+                $cargos->pluck('nome'),
+                $cargos->pluck('created_at')->map(function($date) {
+                    return \Carbon\Carbon::parse($date)->format('d-m-Y');
+                })
+            ],
             'acoes' => [
                 [
                     'modal' => 'editarCargoModal',
