@@ -68,7 +68,8 @@ Route::prefix('classificacao')->name('classificacao.')->controller(Classificacao
     Route::post('/store', 'store')->name('store');
     Route::get('/{classificacao_id}/editar', 'edit')->name('edit');
     Route::post('/update', 'update')->name('update');
-    Route::delete('/{classificacao_id}/delete', 'delete')->name('delete');
+    Route::get('/{classificacao_id}/delete', 'delete')->name('delete');
+    Route::get('/search', 'search')->name('buscar');
 });
 
 Route::prefix('servidor')->name('servidor.')->controller(ServidorController::class)->group(function () {
@@ -106,7 +107,9 @@ Route::prefix('patrimonio')->name('patrimonio.')->controller(PatrimonioControlle
     Route::get('/busca', 'busca')->name('busca.get');
 
     Route::get('/getSalas', 'getSalas')->name('getSalas');
-    Route::get('/gerar-relatorio-patrimonio', 'gerarRelatorio')->name('pdf');
+    Route::get('/relatorio-pdf/{id}', 'gerarRelatorioPatrimonio')->name('relatorio.pdf');
+    Route::get('/relatorio', 'relatorio')->name('relatorio.index');
+
 });
 
 Route::prefix('movimento')->name('movimento.')->controller(MovimentoController::class)->group(function () {

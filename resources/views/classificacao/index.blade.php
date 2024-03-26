@@ -10,7 +10,7 @@
     @include('layouts.components.searchbar', [
         'title' => 'Classificação Contábil',
         'addButton' => route ('classificacao.create'),
-        'searchForm' =>('#'),
+        'searchForm' => route ('classificacao.buscar'),
     ])
 
     <div class="col-md-10 mx-auto">
@@ -26,6 +26,7 @@
             ],
             'acoes' => [
                 ['link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],
+                ['link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
             ],
         ])
         <div class="d-flex justify-content-center mt-5">
@@ -33,7 +34,6 @@
         </div>
 
 </div>
-
    
     <script>
 

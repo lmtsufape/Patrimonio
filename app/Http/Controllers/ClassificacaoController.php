@@ -43,12 +43,14 @@ class ClassificacaoController extends Controller
     public function delete($classificacao_id)
     {
         $classificacao = Classificacao::find($classificacao_id);
-        $patrimonio = Patrimonio::where('classificacao_id', $classificacao->id)->first();
-        if ($patrimonio == null) {
             $classificacao->delete();
             return redirect(route('classificacao.index'))->with('success', 'Classificação Removida com Sucesso!');
-        } else {
-            return redirect(route('classificacao.index'))->with('fail', 'Não é possivel remover esta classificação, há patrimonios vinculados a ela!');
-        }
+    }
+
+    public function search(Request $request)
+    {
+        $classificacaos = Classificacao::where('nome', 'ilike', "%$request->busca%")->paginate(10);
+
+        return view('classificacao.index', compact('classificacaos'));
     }
 }

@@ -23,3 +23,9 @@
     </div>
 
 @endsection
+<form action="{{ route('classificacao.delete', ['classificacao_id' => $classificacao->id]) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="submit">Deletar Classificação</button>
+</form>
+

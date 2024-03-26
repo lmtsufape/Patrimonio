@@ -15,7 +15,7 @@
                           <li><a class="dropdown-item" href="{{ route('patrimonio.index') }}">Listar</a></li>
                           <li><a class="dropdown-item" href="{{ route('classificacao.index') }}">Classificação contábil</a></li>
                           <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="{{ route('patrimonio.pdf') }}">Relatório</a></li>
+                          <li><a class="dropdown-item" href="{{ route('patrimonio.relatorio.index') }}">Relatório</a></li>
                         </ul>
                       </li>
                     <li class="nav-item mx-4">
