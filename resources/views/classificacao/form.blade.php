@@ -2,7 +2,7 @@
     @if(isset($classificacao))
         <input type="hidden" name="classificacao_id" value="{{$classificacao->id}}">
     @endif
-    <div class="col-sm-8">
+    <div class="col">
         <label for="nome">Nome:<strong style="color: red">*</strong></label>
         <input class="form-control form-input @error('nome') is-invalid @enderror" id="nome" type="text"
                name="nome" @if(isset($classificacao)) value="{{$classificacao->nome}}"

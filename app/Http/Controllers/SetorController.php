@@ -77,4 +77,11 @@ class SetorController extends Controller
         }
 
     }
+
+    public function search(Request $request)
+    {
+        $setores = Setor::where('nome', 'ilike', "%$request->busca%")->paginate(10);
+
+        return view('setor.index', compact('setores'));
+    }
 }

@@ -1,92 +1,102 @@
 @extends('layouts.app')
-@section('content')
-    <div class="row">
-        <div class="">
-            <h3 class="text-center">Lista de @if (isset($setor_pai))
-                    Setores de {{ $setor_pai->nome }}
-                @else
-                    Coordenações
-                @endif
-            </h3>
-        </div>
-    </div>
 
-    <div class="container">
-        <table class="table table-hover shadow-lg" style="border-radius: 10px; overflow:hidden; ">
-            <thead class="text-md-center" style="background-color: #1A2876; color: white;">
-                <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Código</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($setores as $setor)
-                    <tr class="text-md-center">
-                        <td class="py-4">{{ $setor->id }}</td>
-                        <td class="py-4">{{ $setor->nome }}</td>
-                        <td class="py-4">{{ $setor->codigo }}</td>
-                        <td class="py-4">
-                            <div>
-                                <a href="{{ route('setor.edit', ['setor_id' => $setor->id]) }}">
-                                    <img src="{{asset('/images/pencil.png')}}" width="24px" alt="Icon de edição">
-                                </a>
-                                <a href="{{ route('setor.delete', ['setor_id' => $setor->id]) }}" method="post">
-                                    <img src="{{asset('/images/delete.png')}}" width="24px" alt="Icon de remoção">
-                                </a>
-                                <a href="{{ route('setor.index', ['setor_pai_id' => $setor->id]) }}">
-                                    <img src="{{asset('/images/vision.png')}}" width="24px" alt="Icon de remoção">
-                                </a>
-                            </div>
-                        </td>
+@section('content')
+    @push('styles')
+        <link rel="stylesheet" href="/css/modal.css">
+        <link rel="stylesheet" href="/css/layouts/searchbar.css">
+        <link rel="stylesheet" href="/css/layouts/table.css">
+    @endpush
+
+    @include('layouts.components.searchbar', [
+        'title' => 'Setores',
+        'addButtonModal' => ['modal' => 'cadastrarSetorModal'],
+        'searchForm' => route('setor.buscar'),
+    ])
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <table class="table table-hover">
+                <thead class="text-md-center">
+                    <tr>
+                        <th class="col-2">ID</th>
+                        <th class="col-3">Nome</th>
+                        <th class="col-3">Codigo</th>
+                        <th class="col-2">Ações</th>
                     </tr>
-                    @empty
-                        <td class="text-center" colspan="4">Ainda não existem setores cadastrados</td>
-                    @endempty
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-center mt-5">
-            {{ $setores->links('pagination::bootstrap-4') }}
-        </div>
-    </div>
-    @if (isset($setor_pai))
-        <div class="row mt-4">
-            <div class="col-3">
-                <button class="btn btn-secondary w-100" onclick="window.history.go(-1); return false;">Voltar</button>
+                </thead>
+                <tbody>
+                    @foreach ($setores as $setor)
+                        <tr class="text-md-center">
+                            <td class="py-4">{{ $setor->id }}</td>
+                            <td class="py-4">{{ $setor->nome }}</td>
+                            <td class="py-4">{{ $setor->codigo }}</td>
+                            <td class="py-4">
+                                <div class="text-center d-flex justify-content-center">
+                                    <a onclick="openEditModal('{{ $setor->id }}')"
+                                        style="cursor: pointer; text-decoration: none;">
+                                        <img src="{{ asset('/images/pencil.png') }}" width="24px" alt="Icon de edição">
+                                    </a>
+                                    <form id="deleteForm{{ $setor->id }}"
+                                        action="{{ route('setor.delete', ['setor_id' => $setor->id]) }}" method="POST"
+                                        onsubmit="return confirmDelete(event, {{ $setor->id }})">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            style="background: none; border: none; padding: 0;">
+                                            <img src="{{ asset('/images/delete.png') }}" width="24px"
+                                                alt="Icon de remoção">
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center mt-5">
+                {{ $setores->links('pagination::bootstrap-4') }}
             </div>
         </div>
-    @endif
-
-    <div class="col-3">
-        @if (isset($setor_pai))
-            <a class="w-100 btn btn-primary" style="max-width: 200px"
-                href="{{ route('setor.create', ['setor_pai_id' => $setor_pai->id]) }}">Cadastrar</a>
-        @else
-            <a class="w-100 btn btn-primary" style="max-width: 200px" href="{{ route('setor.create') }}">Cadastrar</a>
-        @endif
     </div>
 
+    @include('layouts.components.modais.ModalCreate', [
+        'modalId' => 'cadastrarSetorModal',
+        'modalTitle' => 'Cadastrar Setor',
+        'formAction' => route('setor.store'),
+        'fields' => [
+            ['name' => 'nome', 'id' => 'nome', 'type' => 'text'],
+            ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text'],
+        ]
+    ])
+    
+    @include('layouts.components.modais.ModalEdit', [
+        'modalId' => 'editarSetorModal',
+        'modalTitle' => 'Editar Setor',
+        'formAction' => route('setor.update', ['id' => '']),
+    ])
+
+
     <script>
-        $(document).ready(function() {
-            $('#setor_table').DataTable({
-                searching: true,
-                "language": {
-                    "search": "Pesquisar: ",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Nenhum registro disponível",
-                    "zeroRecords": "Nenhum registro disponível",
-                    "paginate": {
-                        "previous": "Anterior",
-                        "next": "Próximo"
-                    }
-                },
-                "columnDefs": [{
-                    "targets": [3],
-                    "orderable": false
-                }]
+        const setorUpdateRoute = "http://127.0.0.1:8000/setor/id/update";
+        var setorId = false;
+
+        $(document).ready(function () {
+            $('#editarSetorModal').on('show.bs.modal', function(event) {
+                var formAction = setorUpdateRoute.replace('id', setorId);
+                $(this).find('form').attr('action', formAction);
             });
         });
+
+        function openEditModal(id) {
+            setorId = id;
+            $('#editarSetorModal').modal('show');
+        }
+
+        function confirmDelete(event, setorId) {
+            event.preventDefault();
+            if (confirm("Tem certeza que deseja excluir este setor?")) {
+                document.getElementById("deleteForm" + setorId).submit();
+            }
+        }
     </script>
 @endsection

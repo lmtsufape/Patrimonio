@@ -29,7 +29,7 @@
                         <tr class="text-md-center">
                             <td class="py-4">{{ $predio->id }}</td>
                             <td class="py-4">{{ $predio->nome }}</td>
-                            <td class="py-4">{{ $predio->created_at }}</td>
+                            <td class="py-4">{{ \Carbon\Carbon::parse($predio->created_at)->format('d-m-Y') }}</td>
                             <td class="py-4">
                                 <div class="d-flex align-items-center">
                                     <a onclick="openEditModal('{{ $predio->id }}')"

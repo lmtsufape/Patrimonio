@@ -42,14 +42,6 @@ class PatrimonioController extends Controller
         return view('patrimonio.create', compact('setores', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
     }
 
-    public function gerarRelatorio()
-    {
-        $patrimonio = Patrimonio::all();
-        $pdf = PDF::loadView('pdf.patrimonio', ['patrimonio' => $patrimonio]);
-        return $pdf->stream('relatorio_patrimonio.pdf');
-    }
-
-
     public function store(StorePatrimonioRequest $request)
     {
         $this->authorize('create', Patrimonio::class);
@@ -95,6 +87,40 @@ class PatrimonioController extends Controller
         $predio_id = json_decode($request->predio_id);
         $salas = Sala::where('predio_id', $predio_id)->get();
         return response()->json($salas);
+    }
+
+    
+    public function relatorio(Request $request)
+    {
+        $query = Patrimonio::query();
+
+        if ($request->filled('setor_id')) {
+            $query->where('setor_id', $request->setor_id);
+        }
+        if ($request->filled('situacao_id')) {
+            $query->where('situacao_id', $request->situacao_id);
+        }
+        if ($request->filled('ano')) {
+            $ano = $request->ano;
+            $query->whereYear('data_compra', $ano);
+        }
+
+        $patrimonios = $query->paginate(5);
+
+        $setores = Setor::all();
+        $situacoes = Situacao::all();
+
+        return view('patrimonio.relatorio.index', compact('patrimonios', 'setores', 'situacoes'));
+    }
+    public function gerarRelatorioPatrimonio($patrimonio_id)
+    {
+        $patrimonio = Patrimonio::findOrFail($patrimonio_id);
+
+        $movimentos = MovimentoPatrimonio::where('patrimonio_id', $patrimonio->id)->get();
+
+        $pdf = PDF::loadView('pdf.patrimonio_individual', compact('patrimonio', 'movimentos'));
+
+        return $pdf->stream('relatorio_patrimonio_'.$patrimonio->id.'.pdf');
     }
 
     public function codigosPatrimonio($patrimonio_id)

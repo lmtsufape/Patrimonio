@@ -43,7 +43,7 @@
                                 <td>{{ $sala->id }}</td>
                                 <td>{{ $sala->nome }}</td>
                                 <td>{{ $sala->telefone }}</td>
-                                <td>{{ $sala->created_at }}</td>
+                                <td >{{ \Carbon\Carbon::parse($sala->created_at)->format('d-m-Y') }}</td>
                                 <td class="text-center d-flex justify-content-center">
                                     <a onclick="openEditSalaModal('{{ $sala->id }}', '{{ $sala->predio_id }}')"
                                         style="cursor: pointer;">
