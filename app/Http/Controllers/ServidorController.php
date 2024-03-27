@@ -15,7 +15,7 @@ class ServidorController extends Controller
 {
     public function index()
     {
-        $servidores = Servidor::withTrashed()->paginate(5);
+        $servidores = Servidor::paginate(5);
         $cargos = Cargo::all();
         $roles = Role::all();
 

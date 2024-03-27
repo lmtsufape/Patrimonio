@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('cpf')->unique()->nullable();
             $table->string('matricula')->unique();
+            $table->boolean('ativo')->default(false);
 
             $table->foreignId('user_id')->constrained();
             $table->foreignId('cargo_id')->constrained();

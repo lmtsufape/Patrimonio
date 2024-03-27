@@ -21,7 +21,7 @@
                 $servidores->pluck('matricula'),
                 $servidores->pluck('cargo.nome'),
                 $servidores->map(function ($item, $index) {
-                    return $item->trashed() ? 'Desativado' : 'Ativado';
+                    return $item->ativo ? 'Ativo' : 'Inativo';
                 }),
             ],
             'acoes' => [
