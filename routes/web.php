@@ -99,14 +99,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{patrimonio_id}/editar', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
+        Route::put('/update/{id}', 'update')->name('update');
         Route::get('/{patrimonio_id}/delete', 'delete')->name('delete');
         Route::get('/{patrimonio_id}/restore', 'restore')->name('restore');
         Route::get('/{patrimonio_id}/codigos', 'codigosPatrimonio')->name('codigo.index');
         Route::get('/codigos/{codigo_id}/delete', 'codigoDelete')->name('codigo.delete');
         Route::post('/codigo/store', 'codigoStore')->name('codigo.store');
         Route::get('/busca', 'busca')->name('busca.get');
-    
         Route::get('/getSalas', 'getSalas')->name('getSalas');
         Route::get('/relatorio-pdf/{id}', 'gerarRelatorioPatrimonio')->name('relatorio.pdf');
         Route::get('/relatorio', 'relatorio')->name('relatorio.index');

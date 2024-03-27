@@ -56,19 +56,23 @@ class PatrimonioController extends Controller
     {
         $patrimonio = Patrimonio::find($patrimonio_id);
         $setores = Setor::all();
-        $origens = Origem::all();
-        $predios = Predio::all();
-        $situacoes = Situacao::all();
-        $classificacoes = Classificacao::all();
-        $servidores = Servidor::all();
-        return view('patrimonio.edit', compact('patrimonio', 'setores', 'origens', 'predios', 'situacoes', 'servidores', 'classificacoes'));
+        $origens = Origem::orderBy('nome')->get();
+        $predios = Predio::with('salas')->orderBy('nome')->get();
+        $situacoes = Situacao::orderBy('nome')->get();
+        $subgrupos = Subgrupo::orderBy('nome')->get();
+        $servidores = Servidor::with(['user' => function ($query) {
+            $query->orderBy('name');
+        }])->get();
+        return view('patrimonio.edit', compact('patrimonio', 'setores', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
     }
 
-    public function update(UpdatePatrimonioRequest $request)
+    public function update(UpdatePatrimonioRequest $request, $id)
     {
-        Patrimonio::find($request->patrimonio_id)->update($request->all());
-        return redirect(route('patrimonio.index'))->with('success', 'Patrimonio Editado com Sucesso!');
+        $patrimonio = Patrimonio::findOrFail($id);
+        $patrimonio->update($request->all()); 
+        return redirect(route('patrimonio.index'))->with('success', 'Patrimônio Editado com Sucesso!');
     }
+
 
     public function delete($patrimonio_id)
     {
