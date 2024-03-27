@@ -9,7 +9,7 @@
 
     @include('layouts.components.searchbar', [
         'title' => 'Setores',
-        'addButtonModal' => ['modal' => 'cadastrarSetorModal'],
+        'addButtonModal' => ('cadastrarSetorModal'),
         'searchForm' => route('setor.buscar'),
     ])
 
@@ -59,30 +59,37 @@
         </div>
     </div>
 
-    @include('layouts.components.modais.ModalCreate', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarSetorModal',
         'modalTitle' => 'Cadastrar Setor',
         'formAction' => route('setor.store'),
+        'type'=> ('create'),
         'fields' => [
-            ['name' => 'nome', 'id' => 'nome', 'type' => 'text'],
-            ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text'],
+            ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
+            ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text', 'label' => 'Codigo:'],
         ]
     ])
     
-    @include('layouts.components.modais.ModalEdit', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'editarSetorModal',
         'modalTitle' => 'Editar Setor',
-        'formAction' => route('setor.update', ['id' => '']),
+        'formAction' => route('setor.update', ['id' => 'id']),
+        'type'=> ('edit'),
+        'fields' => [
+            ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
+            ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text', 'label' => 'Codigo:'],
+        ]
     ])
 
 
     <script>
-        const setorUpdateRoute = "http://127.0.0.1:8000/setor/id/update";
-        var setorId = false;
+         
+        const setorUpdateRoute = "{{ route('setor.update', ['id' => ':id']) }}"; 
+        var setorId = 0;
 
         $(document).ready(function () {
             $('#editarSetorModal').on('show.bs.modal', function(event) {
-                var formAction = setorUpdateRoute.replace('id', setorId);
+                var formAction = setorUpdateRoute.replace(':id', setorId); 
                 $(this).find('form').attr('action', formAction);
             });
         });

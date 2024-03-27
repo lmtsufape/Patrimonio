@@ -52,9 +52,9 @@ class SetorController extends Controller
         return view('setor.edit', compact('setor'));
     }
 
-    public function update(UpdateSetorRequest $request)
+    public function update(UpdateSetorRequest $request, $id)
     {
-        Setor::find($request->setor_id)->update($request->all());
+        Setor::find($id)->update($request->all());
         return redirect(route('setor.index'))->with('success', 'Setor Editado com Sucesso!');
     }
 

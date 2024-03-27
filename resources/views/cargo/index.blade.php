@@ -49,7 +49,7 @@
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarCargoModal',
         'modalTitle' => 'Editar Cargo',
-        'formAction' => route('cargo.update', ['cargo_id' => 'cargo_id']),
+        'formAction' => route('cargo.update', ['cargo_id' => 'id']),
         'type' => ('edit'),
         'fields' => [
             ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
@@ -59,14 +59,13 @@
 
 @push('scripts')
     <script>
-
     const editModal = $('#editarCargoModal');
-    const updateRoute = "{{ route('cargo.update', ['cargo_id' => ':cargo_id']) }}";
+    const updateRoute = "{{ route('cargo.update', ['cargo_id' => 'cargo_id']) }}";
     var cargoId = 0;
 
     $(document).ready(function() {
         editModal.on('show.bs.modal', function(event) {
-            var formAction = updateRoute.replace(':cargo_id', cargoId);
+            var formAction = updateRoute.replace('cargo_id', cargoId);
             editModal.find('form').attr('action', formAction);
         });
     });
@@ -75,7 +74,6 @@
         cargoId = id;
         editModal.modal('show');
     }
-
 
     </script>
 @endpush

@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/cadastrar/{setor_pai_id?}', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{setor_id}/editar', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
+        Route::put('/update/{id}', 'update')->name('update');
         Route::delete('/{setor_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
         // Route::get('/{setor_id}/restore', [SetorController::class, 'restore'])->name('restore');
