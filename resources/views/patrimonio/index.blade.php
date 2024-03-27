@@ -17,8 +17,8 @@
             'header' => ['ID', 'Nome', 'Prédio', 'Sala', 'Ações'],
             'content' => [$patrimonios->pluck('id'), $patrimonios->pluck('nome'), $patrimonios->pluck('sala.predio.nome'), $patrimonios->pluck('sala.nome')],
             'acoes' => [
-                ['link' => 'patrimonio.edit', 'param' => 'patrimonio_id', 'img' => asset('/images/pencil.png')],
-                ['link' => 'patrimonio.delete', 'param' => 'patrimonio_id', 'img' => asset('/images/delete.png')]
+                ['link' => 'patrimonio.edit', 'param' => 'patrimonio_id', 'img' => asset('/images/pencil.png') , 'type' =>'editLink' ],
+                ['link' => 'patrimonio.delete', 'param' => 'patrimonio_id', 'img' => asset('/images/delete.png'), 'type' =>'delete']
             ]
         ])
 
