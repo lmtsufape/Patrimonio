@@ -1,86 +1,101 @@
 @extends('layouts.app')
-@section('content')
-    <div class="row">
-        <div class="">
-            @include('layouts.components.header', ['page_title' => 'Servidores', 'back' => false])
 
+@push('styles')
+    <link rel="stylesheet" href="/css/layouts/searchbar.css">
+    <link rel="stylesheet" href="/css/layouts/table.css">
+@endpush
+
+@section('content')
+    @include('layouts.components.searchbar', [
+        'title' => 'Servidores',
+        'addButtonModal' => 'create-servidor-modal',
+        'searchForm' => route('patrimonio.busca.get'),
+    ])
+
+    <div class="col-md-10 mx-auto">
+        @include('layouts.components.table', [
+            'header' => ['ID', 'Nome', 'Matrícula', 'Cargo', 'Status', 'Ações'],
+            'content' => [
+                $servidores->pluck('id'),
+                $servidores->pluck('user.name'),
+                $servidores->pluck('matricula'),
+                $servidores->pluck('cargo.nome'),
+                $servidores->map(function ($item, $index) {
+                    return $item->trashed() ? 'Desativado' : 'Ativado';
+                }),
+            ],
+            'acoes' => [
+                [
+                    'link' => 'patrimonio.edit',
+                    'param' => 'patrimonio_id',
+                    'img' => asset('/images/pencil.png'),
+                    'type' => 'edit',
+                ],
+                [
+                    'link' => 'servidor.delete',
+                    'param' => 'servidor_id',
+                    'img' => asset('/images/delete.png'),
+                    'type' => 'delete',
+                ],
+            ],
+        ])
+
+        <div class="d-flex justify-content-center">
+            {{ $servidores->links('pagination::bootstrap-5') }}
         </div>
     </div>
 
-    <table class="table table-hover table-responsive mt-4" id="servidor_table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Matrícula</th>
-                <th scope="col">Cargo</th>
-                <th scope="col">Status</th>
-                <th scope="col">Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($servidors as $servidor)
-                <tr>
-                    <td>{{ \App\Models\User::withTrashed()->find($servidor->user_id)->id }}</td>
-                    <td>{{ \App\Models\User::withTrashed()->find($servidor->user_id)->name }}</td>
-                    <td>{{ $servidor->matricula }}</td>
-                    <td>{{ $servidor->cargo->nome }}</td>
-                    <td>
-                        @if ($servidor->deleted_at == null)
-                            <span>Ativo</span>
-                        @else
-                            <span>Desativado</span>
-                        @endif
-                    </td>
-                    <td class="d-flex justify-content-around align-items-center">
-                        @if (Auth::user()->hasAnyRoles(['Administrador', 'Servidor']))
-                            <a class="btn btn-primary rounded-circle action-button"
-                                href="{{ route('servidor.edit', ['servidor_id' => $servidor->id]) }}">
-                                <img src="{{ URL::asset('/assets/edit_icon.svg') }}" width="15px" alt="Icon de edição">
-                            </a>
-                        @endif
-                        
-                        @if ($servidor->user->hasAnyRoles(['Servidor']) && $servidor->deleted_at == null)
-                            <form action="{{ route('servidor.delete', ['servidor_id' => $servidor->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit">DESATIVAR</button>
-                            </form>
-                            
-                            <a class="btn btn-success"
-                                href="{{ route('servidor.restore', ['servidor_id' => $servidor->id]) }}">ATIVAR</a>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    @include('layouts.components.modais.modal', [
+        'modalId' => 'create-servidor-modal',
+        'modalTitle' => 'Criar servidor',
+        'type' => 'create',
+        'formAction' => route('servidor.store'),
+        'fields' => [
+            ['type' => 'text', 'name' => 'name', 'id' => 'name', 'label' => 'Nome:'],
+            ['type' => 'email', 'name' => 'email', 'id' => 'email', 'label' => 'E-mail:'],
+            ['type' => 'text', 'name' => 'cpf', 'id' => 'cpf', 'label' => 'CPF:'],
+            ['type' => 'text', 'name' => 'matricula', 'id' => 'matricula', 'label' => 'Matrícula:'],
+            ['type' => 'select', 'name' => 'cargo_id', 'id' => 'cargo_id', 'label' => 'Cargo:', 'options' => $cargos->pluck('nome', 'id'), 'placeholder' => 'Selecione um cargo'],
+            ['type' => 'select', 'name' => 'role_id', 'id' => 'role', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
+            ['type' => 'password', 'name' => 'password', 'id' => 'password', 'label' => 'Senha:'],
+            ['type' => 'password', 'name' => 'confirm_password', 'id' => 'confirm_password', 'label' => 'Confirmar senha:'],
+        ],
+    ])
 
-    <div class="d-flex" style="max-width: 300px">
-        <a class="w-100 btn btn-primary" style="margin-right: 10px" href="{{ route('servidor.create') }}">Cadastrar</a>
-        <a class="w-100 btn btn-outline-primary" href="{{ route('cargo.index') }}">Cargos</a>
-    </div>
+    @include('layouts.components.modais.modal', [
+        'modalId' => 'edit-servidor-modal',
+        'modalTitle' => 'Editar servidor',
+        'type' => 'edit',
+        'formAction' => route('servidor.update', ['servidor_id' => '0']),
+        'fields' => [
+            ['type' => 'text', 'name' => 'name', 'id' => 'name', 'label' => 'Nome:'],
+            ['type' => 'email', 'name' => 'email', 'id' => 'email', 'label' => 'E-mail:'],
+            ['type' => 'text', 'name' => 'cpf', 'id' => 'cpf', 'label' => 'CPF:'],
+            ['type' => 'text', 'name' => 'matricula', 'id' => 'matricula', 'label' => 'Matrícula:'],
+            ['type' => 'select', 'name' => 'cargo_id', 'id' => 'cargo_id', 'label' => 'Cargo:', 'options' => $cargos->pluck('nome', 'id'), 'placeholder' => 'Selecione um cargo'],
+            ['type' => 'select', 'name' => 'role_id', 'id' => 'role', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
+            ['type' => 'password', 'name' => 'password', 'id' => 'password', 'label' => 'Senha:'],
+            ['type' => 'password', 'name' => 'confirm_password', 'id' => 'confirm_password', 'label' => 'Confirmar senha:'],
+        ]
+    ])
+@endsection
 
+@push('scripts')
     <script>
+        const editModal = $('#edit-servidor-modal');
+        const updateRoute = "{{ route('servidor.update', ['servidor_id' => 'id']) }}";
+        var servidorId = 0;
+
         $(document).ready(function() {
-            $('#servidor_table').DataTable({
-                searching: true,
-                "language": {
-                    "search": "Pesquisar: ",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Nenhum registro disponível",
-                    "zeroRecords": "Nenhum registro disponível",
-                    "paginate": {
-                        "previous": "Anterior",
-                        "next": "Próximo"
-                    }
-                },
-                "columnDefs": [{
-                    "targets": [5],
-                    "orderable": false
-                }]
+            editModal.on('show.bs.modal', function(event) {
+                var formAction = updateRoute.replace('/id/', '/' + servidorId + '/');
+                editModal.find('form').attr('action', formAction);
             });
         });
+
+        function openEditModal(id) {
+            servidorId = id;
+            editModal.modal('show');
+        }
     </script>
-@endsection
+@endpush
