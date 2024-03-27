@@ -26,7 +26,7 @@ use App\Http\Controllers\MovimentoController;
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'valid'])->group(function () {
     Route::name('home')->controller(HomeController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/home', 'index');
