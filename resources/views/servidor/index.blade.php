@@ -37,6 +37,12 @@
                     'img' => asset('/images/delete.png'),
                     'type' => 'delete',
                 ],
+                [
+                    'link' => 'servidor.validar',
+                    'param' => 'id',
+                    'img' => asset('/images/delete.png'),
+                    'type' => 'post',
+                ],
             ],
         ])
 
