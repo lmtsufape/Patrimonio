@@ -11,7 +11,7 @@
         @include('layouts.components.searchbar', [
             'title' => 'Prédios > Salas',
             'titleLink' => Route('predio.index', ['predio_id' => $predio->id]),
-            'addButtonModal' => ['modal' => 'cadastrarSalaModal'],
+            'addButtonModal' => 'cadastrarSalaModal',
             'searchForm' => route('sala.buscar'),
         ]);
     @else
@@ -69,22 +69,30 @@
         </div>
     </div>
 
-    @include('layouts.components.modais.ModalCreate', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarSalaModal',
         'modalTitle' => 'Cadastrar Sala',
         'formAction' => route('sala.store'),
+        'type' => ('create'),
         'fields' => [
-            ['name' => 'predio_id', 'id' => 'predio_id', 'type' => 'hidden', 'value' => $predio->id],
-            ['name' => 'nome', 'id' => 'nome', 'type' => 'text'],
-            ['name' => 'telefone', 'id' => 'telefone', 'type' => 'text'],
+            ['type' => 'hidden', 'name' => 'predio_id', 'id' => 'predio_id', 'value' => $predio->id],
+            ['type' => 'text', 'name' => 'nome', 'id' => 'nome', 'label' => 'Nome:'],
+            ['name' => 'telefone', 'id' => 'telefone', 'type' => 'text' , 'label' => 'Telefone:'],
         ]
     ])
 
-    @include('layouts.components.modais.ModalEdit', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'editarSalaModal',
         'modalTitle' => 'Editar Sala',
         'formAction' => route('sala.update', ['sala_id' => '']),
+        'type' => ('edit'),
+        'fields' => [
+            ['type' => 'hidden', 'name' => 'predio_id', 'id' => 'predio_id', 'value' => $predio->id],
+            ['type' => 'text', 'name' => 'nome', 'id' => 'nome', 'label' => 'Nome:'],
+            ['name' => 'telefone', 'id' => 'telefone', 'type' => 'text' , 'label' => 'Telefone:'],
+        ]
     ])
+    
 @endsection
 
 @push('scripts')
