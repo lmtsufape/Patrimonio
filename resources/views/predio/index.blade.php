@@ -1,15 +1,15 @@
 @extends('layouts.app')
-
-@section('content')
-    @push('styles')
+@push('styles')
         <link rel="stylesheet" href="/css/modal.css">
         <link rel="stylesheet" href="/css/layouts/searchbar.css">
         <link rel="stylesheet" href="/css/layouts/table.css">
     @endpush
 
+@section('content')
+    
     @include('layouts.components.searchbar', [
         'title' => 'Prédios',
-        'addButtonModal' => ['modal' => 'cadastrarPredioModal'],
+        'addButtonModal' => 'cadastrarPredioModal',
         'searchForm' => route('predio.busca.get'),
     ])
 
@@ -63,20 +63,26 @@
         </div>
     </div>
 
-    @include('layouts.components.modais.ModalCreate', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarPredioModal',
         'modalTitle' => 'Cadastrar Prédio',
+        'type' => 'create',
         'formAction' => route('predio.store'),
         'fields' => [
-            ['name' => 'nome', 'id' => 'nome', 'type' => 'text']
+            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
         ]
     ])
 
-    @include('layouts.components.modais.ModalEdit', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'editarPredioModal',
         'modalTitle' => 'Editar Prédio',
+        'type' => 'edit',
         'formAction' => route('predio.update', ['id' => '0']),
+        'fields' => [
+            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
+        ]
     ])
+    
 @endsection
 
 @push('scripts')
