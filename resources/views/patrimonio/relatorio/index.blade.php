@@ -51,7 +51,7 @@
             'header' => ['ID', 'Nome', 'Prédio', 'Sala', 'Ações'],
             'content' => [$patrimonios->pluck('id'), $patrimonios->pluck('nome'), $patrimonios->pluck('sala.predio.nome'), $patrimonios->pluck('sala.nome')],
             'acoes' => [
-                ['link' => 'patrimonio.relatorio.pdf', 'param' => 'id', 'img' => asset('/assets/relatorio.svg')],
+                ['type'=> 'editLink' ,'link' => 'patrimonio.relatorio.pdf', 'param' => 'id', 'img' => asset('/assets/relatorio.svg')],
             ]
         ])
 

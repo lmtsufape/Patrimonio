@@ -9,7 +9,7 @@
 
     @include('layouts.components.searchbar', [
         'title' => 'Classificação Contábil',
-        'addButton' => route ('classificacao.create'),
+        'addButton' => route('classificacao.create'),
         'searchForm' => route ('classificacao.buscar'),
     ])
 
@@ -25,8 +25,8 @@
                 })
             ],
             'acoes' => [
-                ['link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],
-                ['link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
+                ['type' => 'editLink' , 'link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],
+                ['type' => 'delete' , 'link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
             ],
         ])
         <div class="d-flex justify-content-center mt-5">

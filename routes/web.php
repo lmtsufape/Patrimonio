@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{classificacao_id}/editar', 'edit')->name('edit');
         Route::post('/update', 'update')->name('update');
-        Route::get('/{classificacao_id}/delete', 'delete')->name('delete');
+        Route::delete('/{classificacao_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
     
