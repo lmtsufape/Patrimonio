@@ -15,7 +15,7 @@ class ServidorController extends Controller
 {
     public function index()
     {
-        $servidores = Servidor::withTrashed()->paginate(5);
+        $servidores = Servidor::OrderBy('id')->paginate(5);
         $cargos = Cargo::all();
         $roles = Role::all();
 
@@ -97,12 +97,11 @@ class ServidorController extends Controller
         return redirect(route('servidor.index'))->with('success', 'Servidor Desativado com Sucesso!');
     }
 
-    public function restore($servidor_id)
+    public function validar($id)
     {
-        $servidor = Servidor::withTrashed()->find($servidor_id);
-        $user = User::withTrashed()->find($servidor->user_id);
-        $user->restore();
-        $servidor->restore();
-        return redirect(route('servidor.index'))->with('success', 'Servidor Reativado com Sucesso!');
+        $servidor = Servidor::findOrFail($id);
+        $servidor->update(['ativo' => !$servidor->ativo]);
+
+        return redirect()->back()->with(['success' => 'Servidor alterado']);
     }
 }

@@ -20,6 +20,7 @@ class ServidorFactory extends Factory
             'cpf' => (random_int(000, 999) . '.' . random_int(000,999) . '.' . random_int(000, 999) . '-' . random_int(00, 99)),
             'matricula' => \Illuminate\Support\Str::random(9),
             'cargo_id' => 1,
+            'ativo' => true
         ];
     }
 }
