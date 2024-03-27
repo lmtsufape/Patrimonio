@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory()->create(['email' => 'admin@admin.com'])->roles()->attach(1);
-        Servidor::factory(1)->create(['user_id' => 1]);
-
+        
         User::factory()->create(['email' => 'servidor@servidor.com'])->roles()->attach(2);
-        Servidor::factory(1)->create(['user_id' => 2]);
-
+        Servidor::factory()->create(['user_id' => 2]);
+        
         User::factory()->create(['email' => 'diretor@diretor.com'])->roles()->attach(3);
+        Servidor::factory()->create(['user_id' => 3]);
     }
 }

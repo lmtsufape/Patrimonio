@@ -26,7 +26,7 @@ use App\Http\Controllers\MovimentoController;
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'valid'])->group(function () {
     Route::name('home')->controller(HomeController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/home', 'index');
@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{servidor_id}/editar', 'edit')->name('edit');
         Route::put('/{servidor_id}/update', 'update')->name('update');
         Route::delete('/{servidor_id}/delete', 'delete')->name('delete');
-        Route::get('/{servidor_id}/restore', 'restore')->name('restore');
+        Route::get('/{id}/validar', 'validar')->name('validar');
     });
     
     Route::prefix('setor')->name('setor.')->controller(SetorController::class)->group(function () {

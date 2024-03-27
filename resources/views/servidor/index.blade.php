@@ -21,7 +21,7 @@
                 $servidores->pluck('matricula'),
                 $servidores->pluck('cargo.nome'),
                 $servidores->map(function ($item, $index) {
-                    return $item->trashed() ? 'Desativado' : 'Ativado';
+                    return $item->ativo ? 'Ativo' : 'Inativo';
                 }),
             ],
             'acoes' => [
@@ -36,6 +36,12 @@
                     'param' => 'servidor_id',
                     'img' => asset('/images/delete.png'),
                     'type' => 'delete',
+                ],
+                [
+                    'link' => 'servidor.validar',
+                    'param' => 'id',
+                    'img' => asset('/images/delete.png'),
+                    'type' => 'post',
                 ],
             ],
         ])
