@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{cargo_id}/editar', 'edit')->name('edit');
-        Route::put('/update', 'update')->name('update');
+        Route::put('/update/{cargo_id}', 'update')->name('update');
         Route::delete('/{cargo_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });

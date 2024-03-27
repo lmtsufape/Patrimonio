@@ -10,7 +10,7 @@
 
     @include('layouts.components.searchbar', [
         'title' => 'Cargos',
-        'addButtonModal' => ['modal' => 'cadastrarCargoModal'],
+        'addButtonModal' => 'cadastrarCargoModal',
         'searchForm' => route('cargo.buscar'),
     ])
 
@@ -26,36 +26,56 @@
             ],
             'acoes' => [
                 [
-                    'modal' => 'editarCargoModal',
-                    'id_param' => 'cargo_id',
-                    'name_param' => 'nome',
+                    'link' => 'cargo.edit',
+                    'param' => 'cargo_id',
                     'img' => asset('/images/pencil.png'),
+                    'type' => 'edit',
                 ],
-                ['link' => 'cargo.delete', 'param' => 'cargo_id', 'img' => asset('/images/delete.png')],
+                ['link' => 'cargo.delete', 'param' => 'cargo_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
             ],
         ])
     </div>
 
-    @include('layouts.components.modais.ModalCreate', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarCargoModal',
         'modalTitle' => 'Cadastrar Cargo',
         'formAction' => route('cargo.store'),
-        'fields' => [['name' => 'nome', 'id' => 'nome', 'type' => 'text']],
+        'type' => ('create'),
+        'fields' => [
+            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
+        ]
     ])
 
-    @include('layouts.components.modais.ModalEdit', [
+    @include('layouts.components.modais.modal', [
         'modalId' => 'editarCargoModal',
         'modalTitle' => 'Editar Cargo',
-        'formAction' => route('cargo.update', ['cargo_id' => '']),
+        'formAction' => route('cargo.update', ['cargo_id' => 'cargo_id']),
+        'type' => ('edit'),
+        'fields' => [
+            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
+        ]
     ])
 @endsection
 
 @push('scripts')
     <script>
-        function openEditarCargoModal(cargoId, cargoNome) {
-            $('#editarCargoModal').modal('show');
-            $('#cargo_id').val(cargoId);
-            $('#nome').val(cargoNome);
-        }
+
+    const editModal = $('#editarCargoModal');
+    const updateRoute = "{{ route('cargo.update', ['cargo_id' => ':cargo_id']) }}";
+    var cargoId = 0;
+
+    $(document).ready(function() {
+        editModal.on('show.bs.modal', function(event) {
+            var formAction = updateRoute.replace(':cargo_id', cargoId);
+            editModal.find('form').attr('action', formAction);
+        });
+    });
+
+    function openEditModal(id) {
+        cargoId = id;
+        editModal.modal('show');
+    }
+
+
     </script>
 @endpush
