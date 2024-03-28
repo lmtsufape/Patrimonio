@@ -26,8 +26,8 @@
             ],
             'acoes' => [
                 [
-                    'link' => 'patrimonio.edit',
-                    'param' => 'patrimonio_id',
+                    'link' => 'servidor.update',
+                    'param' => 'servidor_id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
@@ -40,7 +40,7 @@
                 [
                     'link' => 'servidor.validar',
                     'param' => 'id',
-                    'img' => asset('/images/delete.png'),
+                    'img' => asset('/assets/person-fill-check.svg'),
                     'type' => 'post',
                 ],
             ],

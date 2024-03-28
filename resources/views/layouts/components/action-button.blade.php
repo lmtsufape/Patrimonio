@@ -8,8 +8,8 @@
     <button class="btn me-1 p-0" onclick="openEditModal({{ $id }})">
         <img src="{{ $acao['img'] }}" alt="Ícone de Ação">
     </button>
-@elseif ($type == 'editLink')
+@else
     <a class="btn me-1 p-0" href="{{ $link }}">
-        <img src="{{ $acao['img'] }}" alt="Ícone de Ação">
+        <img src="{{ $acao['img'] }}" alt="Ícone de Ação" style="height: 25px; color: grey">
     </a>
 @endif
