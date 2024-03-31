@@ -17,7 +17,7 @@ class ServidorController extends Controller
     {
         $servidores = Servidor::OrderBy('id')->paginate(5);
         $cargos = Cargo::all();
-        $roles = Role::all();
+        $roles = Role::where('nome', '<>', 'Administrador')->get();
 
         return view('servidor.index', compact('servidores', 'cargos', 'roles'));
     }

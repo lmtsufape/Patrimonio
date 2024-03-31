@@ -15,8 +15,9 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::factory(1)->create(['nome' => 'Administrador']);
-        Role::factory(1)->create(['nome' => 'Servidor']);
-        Role::factory(1)->create(['nome' => 'Diretor']);
+        Role::factory()->create(['nome' => 'Administrador']);
+        Role::factory()->create(['nome' => 'Diretor']);
+        Role::factory()->create(['nome' => 'Coordenador']);
+        Role::factory()->create(['nome' => 'Servidor']);
     }
 }
