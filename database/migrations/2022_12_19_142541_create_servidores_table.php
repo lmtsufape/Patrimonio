@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('cargo_id')->constrained();
+            $table->foreignId('sala_id')->nullable()->constrained();
 
             $table->timestamps();
         });

@@ -20,4 +20,9 @@ class Sala extends Model
     {
         return $this->hasMany(Patrimonio::class);
     }
+
+    public function servidores()
+    {
+        return $this->hasMany(Servidor::class);
+    }
 }

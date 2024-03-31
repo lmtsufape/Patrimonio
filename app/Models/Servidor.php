@@ -13,11 +13,18 @@ class Servidor extends Model
 
     protected $fillable = ['cpf', 'matricula', 'user_id', 'cargo_id', 'ativo'];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function cargo(){
+    public function cargo()
+    {
         return $this->belongsTo(Cargo::class);
+    }
+
+    public function sala()
+    {
+        return $this->belongsTo(Sala::class);
     }
 }
