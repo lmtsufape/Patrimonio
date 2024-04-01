@@ -1,8 +1,31 @@
 @extends('layouts.app')
-
 @push('styles')
     <style>
-        
+        .labels {
+            color: #1A2876;
+            font-weight: 600;
+            font-size: 21px;
+        }
+
+        .selects {
+            color: grey;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .inputs {
+            height: 57px;
+        }
+
+        .red-asterisk {
+            color: #AA2E2E;
+        }
+
+        .radio-label {
+            font-size: 22px;
+            border-radius: 8px;
+            width: 120px
+        }
     </style>
 @endpush
 
@@ -28,12 +51,12 @@
                 <div class="col">
                     <label for="nome" class="form-label labels">Nome do
                         item: <span class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control inputs" name="nome" id="nome" value="{{ old('nome', $patrimonio->nome) }}" required>
+                    <input type="text" class="form-control inputs" name="nome" id="nome" value="{{ old('nome', $patrimonio->nome) }}" required></textarea>
                 </div>
                 <div class="col">
                     <label for="descricao" class="form-label labels">Descrição: <span
                             class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control inputs" name="descricao" id="descricao" value="{{ old('descricao', $patrimonio->descricao) }}"required>
+                    <textarea type="text" class="form-control inputs" name="descricao" id="descricao" value="{{ old('descricao', $patrimonio->descricao) }}"required>
                 </div>
                 <div class="col">
                     <label for="setor" class="form-label labels">Setor: <span class="red-asterisk">*</span></label>
@@ -153,24 +176,6 @@
                 </div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col-3">
-                    <label for="#" class="mb-2 labels">Bem privado? <span
-                            class="red-asterisk">*</span></label>
-                    <div class="form-check d-flex justify-content-between px-0 me-4">
-                        <input class="btn-check" type="radio" name="bemPrivado" id="privadoSim"
-                            value="1">
-                        <label class="btn btn-primary col-5 py-2 radio-label" for="privadoSim"
-                            style="background-color: #1A2876;">
-                            SIM
-                        </label>
-                        <input class="btn-check" type="radio" name="bemPrivado" id="privadoNao"
-                            value="0" checked>
-                        <label class="btn btn-secondary col-5 py-2 radio-label" for="privadoNao">
-                            NÃO
-                        </label>
-                    </div>
-                </div>
                 <div class="col">
                     <label for="observacao" class="form-label labels">Observações pertinentes a este
                         patrimônio:</label>
@@ -181,7 +186,7 @@
             <div class="row justify-content-center mb-5">
                 <div class="col-auto">
                     <button class="btn btn-primary submit radio-label p-2"
-                        style="background-color: #3252C1; height: 120%; width: 140%; font-weight: 500; font-size: 27px">Cadastrar</button>
+                        style="background-color: #3252C1; height: 120%; width: 140%; font-weight: 500; font-size: 27px">Editar</button>
                 </div>
             </div>
             </form>

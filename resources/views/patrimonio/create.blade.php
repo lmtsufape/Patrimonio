@@ -56,7 +56,7 @@
                     <div class="col">
                         <label for="descricao" class="form-label labels">Descrição: <span
                                 class="red-asterisk">*</span></label>
-                        <input type="text" class="form-control inputs" name="descricao" id="descricao" required>
+                        <textarea type="text" class="form-control inputs" name="descricao" id="descricao" ></textarea>
                     </div>
                     <div class="col">
                         <label for="setor" class="form-label labels">Setor: <span class="red-asterisk">*</span></label>
@@ -175,25 +175,6 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="row mb-4">
-                    <div class="col-3">
-                        <label for="#" class="mb-2 labels">Bem privado? <span
-                                class="red-asterisk">*</span></label>
-                        <div class="form-check d-flex justify-content-between px-0 me-4">
-                            <input class="btn-check" type="radio" name="bemPrivado" id="privadoSim"
-                                value="1">
-                            <label class="btn btn-primary col-5 py-2 radio-label" for="privadoSim"
-                                style="background-color: #1A2876;">
-                                SIM
-                            </label>
-                            <input class="btn-check" type="radio" name="bemPrivado" id="privadoNao"
-                                value="0" checked>
-                            <label class="btn btn-secondary col-5 py-2 radio-label" for="privadoNao">
-                                NÃO
-                            </label>
-                        </div>
-                    </div>
                     <div class="col">
                         <label for="observacao" class="form-label labels">Observações pertinentes a este
                             patrimônio:</label>
@@ -201,7 +182,7 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center mb-5">
+                <div class="row justify-content-center mb-5 mt-2">
                     <div class="col-auto">
                         <button class="btn btn-primary submit radio-label p-2"
                             style="background-color: #3252C1; height: 120%; width: 140%; font-weight: 500; font-size: 27px">Cadastrar</button>

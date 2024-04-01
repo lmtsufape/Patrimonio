@@ -13,46 +13,26 @@
         'searchForm' => route('setor.buscar'),
     ])
 
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <table class="table table-hover">
-                <thead class="text-md-center">
-                    <tr>
-                        <th class="col-2">ID</th>
-                        <th class="col-3">Nome</th>
-                        <th class="col-3">Codigo</th>
-                        <th class="col-2">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($setores as $setor)
-                        <tr class="text-md-center">
-                            <td class="py-4">{{ $setor->id }}</td>
-                            <td class="py-4">{{ $setor->nome }}</td>
-                            <td class="py-4">{{ $setor->codigo }}</td>
-                            <td class="py-4">
-                                <div class="text-center d-flex justify-content-center">
-                                    <a onclick="openEditModal('{{ $setor->id }}')"
-                                        style="cursor: pointer; text-decoration: none;">
-                                        <img src="{{ asset('/images/pencil.png') }}" width="24px" alt="Icon de edição">
-                                    </a>
-                                    <form id="deleteForm{{ $setor->id }}"
-                                        action="{{ route('setor.delete', ['setor_id' => $setor->id]) }}" method="POST"
-                                        onsubmit="return confirmDelete(event, {{ $setor->id }})">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            style="background: none; border: none; padding: 0;">
-                                            <img src="{{ asset('/images/delete.png') }}" width="24px"
-                                                alt="Icon de remoção">
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    
+    <div class="col-md-10 mx-auto">
+        @include('layouts.components.table', [
+            'header' => ['ID', 'Nome', 'Codigo', 'Ações'],
+            'content' => [
+                $setores->pluck('id'),
+                $setores->pluck('nome'),
+                $setores->pluck('codigo'),
+            ],
+            'acoes' => [
+                [
+                    'link' => 'setor.edit',
+                    'param' => 'setor_id',
+                    'img' => asset('/images/pencil.png'),
+                    'type' => 'edit',
+                ],
+                ['link' => 'setor.delete', 'param' => 'setor_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
+            ],
+        ])
+    </div>
             <div class="d-flex justify-content-center mt-5">
                 {{ $setores->links('pagination::bootstrap-4') }}
             </div>
@@ -81,7 +61,9 @@
         ]
     ])
 
+@endsection
 
+@push('scripts')
     <script>
          
         const setorUpdateRoute = "{{ route('setor.update', ['id' => ':id']) }}"; 
@@ -106,4 +88,4 @@
             }
         }
     </script>
-@endsection
+@endpush
