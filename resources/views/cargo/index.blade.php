@@ -49,7 +49,7 @@
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarCargoModal',
         'modalTitle' => 'Editar Cargo',
-        'formAction' => route('cargo.update', ['cargo_id' => 'id']),
+        'formAction' => route('cargo.update', ['cargo_id' => 'cargo_id']),
         'type' => ('edit'),
         'fields' => [
             ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
