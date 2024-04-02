@@ -1,17 +1,87 @@
-<nav class="bg-white">
-    <ul class="navbar-nav px-6" style="width: 240px;">
-        @auth
+<button class="btn position-fixed top-0 start-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
+  <img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar">
+</button>
 
-            @if(Auth::user()->hasAnyRoles(['Administrador']))
-                @include('layouts.components.navitem', ['route' => __('Prédios'), 'route_link' => route('predio.index'), 'route_route_name' => 'predio', 'icon_name' => 'predio.svg'])
-                @include('layouts.components.navitem', ['route' => __('Cargos'), 'route_link' => route('cargo.index'), 'route_route_name' => 'cargo', 'icon_name' => 'cargos.svg'])
-                @include('layouts.components.navitem', ['route' => __('Classificação Contábil'), 'route_link' => route('classificacao.index'), 'route_route_name' => 'classificacao', 'icon_name' => 'classificacao.svg'])
-                @include('layouts.components.navitem', ['route' => __('Servidores'), 'route_link' => route('servidor.index'), 'route_route_name' => 'servidor', 'icon_name' => 'servidor.svg'])
-                @include('layouts.components.navitem', ['route' => __('Setores'), 'route_link' => route('setor.index'), 'route_route_name' => 'setor', 'icon_name' => 'setores.svg'])
-                @include('layouts.components.navitem', ['route' => __('Patrimônios'), 'route_link' => route('patrimonio.index'), 'route_route_name' => 'patrimonio', 'icon_name' => 'patrimonio.svg'])
-                @include('layouts.components.navitem', ['route' => __('Movimentações'), 'route_link' => route('movimento.index'), 'route_route_name' => 'movimento', 'icon_name' => 'movimentacao.svg'])
-            @endif
-        @endauth
+<nav class="sidebar offcanvas offcanvas-start show" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="width: 300px">
+  <div class="offcanvas-header justify-content-between p-4">
+    <h3 class="mb-0">Logo</h3>
+    <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close"><img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar"></button>
+  </div>
+
+  <div class="d-flex flex-column offcanvas-body p-4 pb-3 border-bottom border-top">
+    <ul class="list-unstyled ps-0 m-0 d-flex flex-column">
+      <li class="mb-1">
+        <img src="{{ asset('assets/sidebar-icons/patrimonio.svg') }}" alt="patrimonio-icon">
+
+        <button class="btn d-inline-flex align-items-center rounded border-0">
+          Patrimônio
+        </button>
+      </li>
+
+      <li class="my-1">
+        <img src="{{ asset('assets/sidebar-icons/cadastro.svg') }}" alt="cadastro-icon">
+
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
+          Cadastros
+        </button>
+
+        <div class="collapse" id="cadastros-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
+            <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="my-1">
+        <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="cadastro-icon">
+
+        <button class="btn d-inline-flex align-items-center rounded border-0">
+          Movimentações
+        </button>
+      </li>
+
+      <li class="mt-1">
+        <img src="{{ asset('assets/sidebar-icons/relatorio.svg') }}" alt="cadastro-icon">
+
+        <button class="btn d-inline-flex align-items-center rounded border-0">
+          Relatórios
+        </button>
+      </li>
     </ul>
 
+    <div class="mt-auto border-top pt-3">
+      <ul class="list-unstyled m-0 d-flex flex-column">
+        <li class="mb-1">
+        <img src="{{ asset('assets/sidebar-icons/configuracoes.svg') }}" alt="cadastro-icon">
+
+          <button class="btn d-inline-flex align-items-center rounded border-0">
+            Configurações
+          </button>
+        </li>
+
+        <li class="mt-1">
+        <img src="{{ asset('assets/sidebar-icons/sair.svg') }}" alt="cadastro-icon">
+
+          <button class="btn d-inline-flex align-items-center rounded border-0">
+            Sair
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center p-4 py-2">
+    <a href="#" class="d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
+      <img src="https://github.com/mdo.png" alt="mdo" width="50" height="50" class="rounded-circle">
+    </a>
+    <div class="d-flex flex-column w-100 ps-3">
+      <span>{{ auth()->user()->name }}</span>
+      <span>{{ auth()->user()->email }}</span>
+    </div>
+  </div>
 </nav>
+

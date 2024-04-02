@@ -1,4 +1,4 @@
-<footer class="mt-auto p-3">
+<footer class="mt-auto p-3 z-3">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <div class="text-center">
