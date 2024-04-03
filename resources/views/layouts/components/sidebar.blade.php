@@ -2,7 +2,7 @@
   <img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar">
 </button>
 
-<nav class="sidebar offcanvas offcanvas-start show" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="width: 300px">
+<nav class="sidebar offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="width: 300px">
   <div class="offcanvas-header justify-content-between p-4">
     <h3 class="mb-0">Logo</h3>
     <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close"><img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar"></button>
