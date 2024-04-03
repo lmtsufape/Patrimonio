@@ -26,7 +26,7 @@
         </button>
 
         <div class="collapse" id="cadastros-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
             <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
@@ -53,7 +53,7 @@
       </li>
     </ul>
 
-    <div class="mt-auto border-top pt-3">
+    <div class="mt-auto border-top border-2 pt-3">
       <ul class="list-unstyled m-0 d-flex flex-column">
         <li class="mb-1">
         <img src="{{ asset('assets/sidebar-icons/configuracoes.svg') }}" alt="cadastro-icon">

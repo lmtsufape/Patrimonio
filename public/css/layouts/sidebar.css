@@ -1,11 +1,11 @@
 .sidebar .dropdown-toggle { outline: 0; }
 
 .sidebar .btn-toggle {
-  padding: .25rem .5rem;
   font-weight: 600;
   color: var(--bs-emphasis-color);
   background-color: transparent;
 }
+
 .sidebar .btn-toggle:hover,
 .sidebar .btn-toggle:focus {
   color: rgba(var(--bs-emphasis-color-rgb), .85);
@@ -37,7 +37,7 @@
 .sidebar .btn-toggle-nav a {
   padding: .1875rem .5rem;
   margin-top: .2rem;
-  margin-left: 3rem;
+  margin-left: .7rem;
   font-size: medium;
 }
 .sidebar .btn-toggle-nav a:hover,
@@ -53,4 +53,8 @@
   font-size: large;
   font-weight: bold;
   color: #404040 !important;
+}
+
+.vertical-bar {
+  border-left: 2px solid #cccccc; /* borda à esquerda */
 }
