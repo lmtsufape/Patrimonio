@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
 
     <head>
         <meta charset="utf-8">
@@ -16,15 +16,16 @@
         <link rel="stylesheet" href="/css/layouts/footer.css">
         <link rel="stylesheet" href="/css/layouts/navbar.css">
         <link rel="stylesheet" href="/css/layouts/app.css">
-
+        <link rel="stylesheet" href="/css/layouts/sidebar.css">
         @stack('styles')
     </head>
 
     <body class="d-flex flex-column min-vh-100 bg-light">
-        @include('layouts.components.navbar')
-
+        
         @include('layouts.components.messages')
 
+        @includeUnless(in_array(Route::currentRouteName(), ['login', 'register', 'password.request']), 'layouts.components.sidebar')
+    
         <main class="container">
             @yield('content')
         </main>
@@ -35,7 +36,7 @@
             crossorigin="anonymous"></script>
             
         @stack('scripts')
-
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
