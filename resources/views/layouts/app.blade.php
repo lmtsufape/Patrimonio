@@ -24,7 +24,7 @@
         
         @include('layouts.components.messages')
 
-        @include('layouts.components.sidebar')
+        @includeUnless(in_array(Route::currentRouteName(), ['login', 'register', 'password.request']), 'layouts.components.sidebar')
     
         <main class="container">
             @yield('content')
