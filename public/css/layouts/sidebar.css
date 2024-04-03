@@ -51,10 +51,14 @@
 
 .sidebar .offcanvas-body * {
   font-size: large;
-  font-weight: bold;
+  font-weight: 600;
   color: #404040 !important;
 }
 
 .vertical-bar {
   border-left: 2px solid #cccccc; /* borda à esquerda */
+}
+
+.sidebar .active {
+  color: #3252C1 !important;
 }
