@@ -5,7 +5,7 @@
 <nav class="sidebar offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="width: 300px">
   <div class="offcanvas-header justify-content-between p-4">
     <h3 class="mb-0">Logo</h3>
-    <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close"><img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar"></button>
+    <button type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close"><img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar"></button>
   </div>
 
   <div class="d-flex flex-column offcanvas-body p-4 pb-3 border-bottom border-top">
@@ -82,8 +82,8 @@
       <img src="https://github.com/mdo.png" alt="mdo" width="50" height="50" class="rounded-circle">
     </a>
     <div class="d-flex flex-column w-100 ps-3">
-      <span>{{ auth()->user()->name }}</span>
-      <span>{{ auth()->user()->email }}</span>
+      <span id="username">{{ auth()->user()->name }}</span>
+      <span id="useremail">{{ auth()->user()->email }}</span>
     </div>
   </div>
 </nav>
