@@ -109,6 +109,8 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/getSalas', 'getSalas')->name('getSalas');
         Route::get('/relatorio-pdf/{id}', 'gerarRelatorioPatrimonio')->name('relatorio.pdf');
         Route::get('/relatorio', 'relatorio')->name('relatorio.index');
+        Route::get('/patrimonio/{patrimonio_id}', 'show')->name('patrimonio');
+
     });
     
     Route::prefix('movimento')->name('movimento.')->controller(MovimentoController::class)->group(function () {

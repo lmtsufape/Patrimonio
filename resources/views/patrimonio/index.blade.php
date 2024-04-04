@@ -17,8 +17,9 @@
             'header' => ['ID', 'Nome', 'Prédio', 'Sala', 'Ações'],
             'content' => [$patrimonios->pluck('id'), $patrimonios->pluck('nome'), $patrimonios->pluck('sala.predio.nome'), $patrimonios->pluck('sala.nome')],
             'acoes' => [
-                ['link' => 'patrimonio.edit', 'param' => 'patrimonio_id', 'img' => asset('/images/pencil.png') , 'type' =>'editLink' ],
-                ['link' => 'patrimonio.delete', 'param' => 'patrimonio_id', 'img' => asset('/images/delete.png'), 'type' =>'delete']
+                ['link' => 'patrimonio.edit', 'param' => 'patrimonio_id', 'img' => asset('/images/pencil.png') , 'type' =>'editLink'],
+                ['link' => 'patrimonio.delete', 'param' => 'patrimonio_id', 'img' => asset('/images/delete.png'), 'type' =>'delete'],
+                ['link' => 'patrimonio.patrimonio', 'param' => 'patrimonio_id', 'img' => asset('/images/info.png'), 'type' =>''],
             ]
         ])
 
@@ -52,76 +53,5 @@
 @endsection
 
 @push('scripts')
-    <script>
-        function exibirModal() {
-            $('#myModal').modal('show');
-        }
 
-        $(document).ready(function() {
-            $('#myModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget)
-                var patrimonio = button.data('param1')
-                var classificacao = button.data('param2')
-
-                var modal = $(this)
-
-                var depreciacaoMensal = ((patrimonio.valor - classificacao.residual) / classificacao
-                    .vida_util).toFixed(2);
-
-                console.log(classificacao)
-
-                var data = new Date(patrimonio.data_compra);
-                var dataAtual = new Date();
-
-                var anoData = data.getFullYear();
-                var mesData = data.getMonth();
-                var anoAtual = dataAtual.getFullYear();
-                var mesAtual = dataAtual.getMonth();
-
-                var diferencaMeses = (anoAtual - anoData) * 12 + (mesAtual - mesData);
-
-                var depreciacaoAtual = (diferencaMeses * depreciacaoMensal).toFixed(2)
-                var valorAtual = (patrimonio.valor - (diferencaMeses * depreciacaoMensal)).toFixed(2)
-
-
-                modal.find('#myModalLabel').text(`Depreciação: ${patrimonio.nome}`)
-
-                modal.find('#classificacao').text(`${classificacao.nome}`)
-                modal.find('#vida_util').text(`${classificacao.vida_util} meses`)
-                modal.find('#valor_residual').text(`R$ ${classificacao.residual}`)
-
-                modal.find('#meses').text(`${diferencaMeses} meses`)
-                modal.find('#valor_inicial').text(`R$ ${Number(patrimonio.valor).toFixed(2)}`)
-                modal.find('#depreciacao_atual').text(`R$ ${depreciacaoAtual}`)
-
-                Number(valorAtual) > Number(classificacao.residual) ?
-                    modal.find('#valor_atual').text(`R$ ${valorAtual}`) :
-                    modal.find('#valor_atual').text(`R$ ${classificacao.residual} (Valor residual)`)
-
-            })
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $('#patrimonio_table').DataTable({
-                searching: true,
-                "language": {
-                    "search": "Pesquisar: ",
-                    "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "info": "Exibindo página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Nenhum registro disponível",
-                    "zeroRecords": "Nenhum registro disponível",
-                    "paginate": {
-                        "previous": "Anterior",
-                        "next": "Próximo"
-                    }
-                },
-                "columnDefs": [{
-                    "targets": [4],
-                    "orderable": false
-                }]
-            });
-        });
-    </script>
 @endpush

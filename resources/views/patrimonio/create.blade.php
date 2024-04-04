@@ -1,5 +1,4 @@
 @extends('layouts.app')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/inputmask.min.js"></script>
 
 @push('styles')
     <style>
@@ -198,11 +197,6 @@
     <script>
         // Convertendo os dados PHP para JavaScript
         var predios = {!! json_encode($predios) !!};
-
-        $(document).ready(function(){
-            // Aplicar máscara ao campo Valor do item
-            $('#valor').mask('000.000.000,00', {reverse: true});
-        });
 
         function filtrarSalas() {
             // Obter o valor selecionado do prédio

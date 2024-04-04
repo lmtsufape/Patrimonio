@@ -127,6 +127,14 @@ class PatrimonioController extends Controller
         return $pdf->stream('relatorio_patrimonio_'.$patrimonio->id.'.pdf');
     }
 
+    public function show($id)
+    {
+        $patrimonio = Patrimonio::findOrFail($id);
+        $classificacao = Classificacao::findOrFail($patrimonio->subgrupo->classificacao_id);
+        return view('patrimonio.Info', compact('patrimonio', 'classificacao'));
+    }
+
+
     public function codigosPatrimonio($patrimonio_id)
     {
         $patrimonio = Patrimonio::find($patrimonio_id);

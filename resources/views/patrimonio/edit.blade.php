@@ -56,7 +56,7 @@
                 <div class="col">
                     <label for="descricao" class="form-label labels">Descrição: <span
                             class="red-asterisk">*</span></label>
-                    <textarea type="text" class="form-control inputs" name="descricao" id="descricao" value="{{ old('descricao', $patrimonio->descricao) }}"required>
+                    <textarea type="text" class="form-control inputs" name="descricao" id="descricao" value="{{ old('descricao', $patrimonio->descricao) }}"required></textarea>
                 </div>
                 <div class="col">
                     <label for="setor" class="form-label labels">Setor: <span class="red-asterisk">*</span></label>
