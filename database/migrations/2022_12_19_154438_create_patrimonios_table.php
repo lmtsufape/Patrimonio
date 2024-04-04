@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('aprovado')->default(true);
             $table->text('observacao')->nullable();
             $table->date('data_compra')->nullable();
+            $table->date('data_incorporação')->nullable();
             $table->double('valor');
 
             $table->foreignId('servidor_id')->constrained('servidores');

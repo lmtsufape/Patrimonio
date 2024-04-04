@@ -15,6 +15,7 @@ class StorePatrimonioRequest extends FormRequest
             'descricao' => 'required|string|max:255',
             'observacao' => 'nullable|string|max:255',
             'data_compra' => 'nullable|date',
+            'data_incorporação' => 'nullable|date',
             'valor' => 'required|numeric',
             'servidor_id' => 'required|integer|exists:servidores,id',
             'setor_id' => 'required|integer|exists:setores,id',

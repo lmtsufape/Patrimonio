@@ -1,11 +1,20 @@
 @extends('layouts.app')
-@section('content')
-    <div class="row">
-        <div class="">
-            @include('layouts.components.header', ['page_title' => 'Movimentações de Patrimônios', 'back' => false])
-        </div>
 
-    </div>
+@section('content')
+
+@push('styles')
+    <link rel="stylesheet" href="/css/layouts/searchbar.css">
+    <link rel="stylesheet" href="/css/layouts/table.css">
+@endpush
+
+@section('content')
+
+    @include('layouts.components.searchbar', [
+        'title' => 'Movimentações de Patrimonios',
+        'addButton' => route('movimento.create'),
+      
+    ])
+
 
     <div class="container">
         <table class="table table-hover shadow-lg" style="border-radius: 10px; overflow:hidden; ">
@@ -22,11 +31,11 @@
             <tbody>
             @foreach($movimentos as $movimento)
                 <tr class="text-md-center">
-                    <td class="py-4">{{$movimento->id}}</td>
-                    <td class="py-4">{{$movimento->servidor_origem->user->name}}</td>
-                    <td class="py-4">{{$movimento->servidor_destino->user->name}}</td>
-                    <td class="py-4">{{$movimento->tipo_movimento->nome}}</td>
-                    <td class="py-4">
+                <td class="py-3">{{$movimento->id}}</td>
+                        <td class="py-3">{{$movimento->servidor_origem->user->name}}</td>
+                        <td class="py-3">{{$movimento->servidor_destino->user->name}}</td>
+                        <td class="py-3">{{$movimento->tipo_movimento->nome}}</td>
+                        <td class="py-3">
                         @foreach($movimento->itens_movimento->take(3) as $index => $item)
                             {{Str::limit($item->nome, 15)}}@if($index < 2)
                                 ,

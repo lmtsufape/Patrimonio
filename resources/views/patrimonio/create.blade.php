@@ -140,9 +140,14 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="data_compra" class="form-label labels">Data de compra: <span
+                        <label for="data_compra" class="form-label labels">Data da Nota Fiscal: <span
                                 class="red-asterisk">*</span></label>
                         <input type="date" class="form-control selects inputs" name="data_compra" id="data_compra">
+                    </div>
+                    <div class="col">
+                        <label for="data_incorporação" class="form-label labels">Data de Incorporação: <span
+                                class="red-asterisk">*</span></label>
+                        <input type="date" class="form-control selects inputs" name="data_incorporação" id="data_incorporação">
                     </div>
                     <div class="col">
                         <label for="valor" class="form-label labels">Valor do item:</label>
