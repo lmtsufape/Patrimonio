@@ -15,7 +15,6 @@ class CargoSeeder extends Seeder
      */
     public function run()
     {
-        Cargo::factory(1)->create(['nome' => 'Professor']);
-        Cargo::factory(1)->create(['nome' => 'Coordenador']);
+        Cargo::factory()->createMany([['nome' => 'Professor'], ['nome' => 'Coordenador'],  ['nome' => 'Diretor']]);
     }
 }

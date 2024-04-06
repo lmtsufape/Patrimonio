@@ -18,9 +18,9 @@ class Servidor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function cargo()
+    public function cargos()
     {
-        return $this->belongsTo(Cargo::class);
+        return $this->belongsToMany(Cargo::class);
     }
 
     public function sala()

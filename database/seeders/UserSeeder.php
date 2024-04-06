@@ -19,12 +19,12 @@ class UserSeeder extends Seeder
         User::factory()->create(['email' => 'admin@admin.com'])->roles()->attach(1);
         
         User::factory()->create(['email' => 'diretor@diretor.com'])->roles()->attach(2);
-        Servidor::factory()->create(['user_id' => 2]);
+        Servidor::factory()->create(['user_id' => 2])->cargos()->attach(3);
 
         User::factory()->create(['email' => 'coordenador@coordenador.com'])->roles()->attach(3);
-        Servidor::factory()->create(['user_id' => 3]);
+        Servidor::factory()->create(['user_id' => 3])->cargos()->attach(2);
         
         User::factory()->create(['email' => 'servidor@servidor.com'])->roles()->attach(4);
-        Servidor::factory()->create(['user_id' => 4]);
+        Servidor::factory()->create(['user_id' => 4])->cargos()->attach(1);
     }
 }
