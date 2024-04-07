@@ -28,8 +28,8 @@ Auth::routes();
 
 Route::middleware(['auth', 'valid'])->group(function () {
     Route::name('home')->controller(HomeController::class)->group(function () {
-        Route::get('/', 'index');
-        Route::get('/home', 'index');
+        Route::get('/', 'index')->middleware('check-role:Administrador');
+        Route::get('/home', 'indexServidor')->middleware('check-role:Servidor');
     });
     
     Route::prefix('predio')->name('predio.')->controller(PredioController::class)->group(function () {

@@ -12,30 +12,35 @@
     <ul class="list-unstyled ps-0 m-0 d-flex flex-column">
       <li class="mb-1">
         <img src="{{ asset('assets/sidebar-icons/patrimonio.svg') }}" alt="patrimonio-icon">
-
-        <a href="{{ route('patrimonio.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'patrimonio')) active @endif">
-          Patrimônio
-        </a>
+        @if(Auth::user()->hasAnyRoles(['Administrador']))
+          <a href="{{ route('patrimonio.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'patrimonio')) active @endif">
+            Patrimônio
+          </a>
+        @elseif(Auth::user()->hasAnyRoles(['Servidor']))
+          <a href="{{ route('home') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'patrimonio')) active @endif">
+            Patrimônio
+          </a>
+        @endif
       </li>
+      @if(Auth::user()->hasAnyRoles(['Administrador']))
+        <li class="my-1">
+          <img src="{{ asset('assets/sidebar-icons/cadastro.svg') }}" alt="cadastro-icon">
 
-      <li class="my-1">
-        <img src="{{ asset('assets/sidebar-icons/cadastro.svg') }}" alt="cadastro-icon">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
+            Cadastros
+          </button>
 
-        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
-          Cadastros
-        </button>
-
-        <div class="collapse" id="cadastros-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
-            <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
-            <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
-            <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
-            <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
-            <li><a href="{{ route('setor.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>
-          </ul>
-        </div>
-      </li>
-
+          <div class="collapse" id="cadastros-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
+              <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
+              <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
+              <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
+              <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
+              <li><a href="{{ route('setor.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>
+            </ul>
+          </div>
+        </li>
+      @endif
       <li class="my-1">
         <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="cadastro-icon">
 

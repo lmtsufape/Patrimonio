@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Patrimonio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         $patrimonios = Patrimonio::paginate(2);
+
+        return view('patrimonio.index', compact('patrimonios'));
+    }
+
+    public function indexServidor(){
+        $patrimonios = Patrimonio::where('servidor_id', Auth::user()->servidor->id)->paginate(2);
+
         return view('patrimonio.index', compact('patrimonios'));
     }
 }
