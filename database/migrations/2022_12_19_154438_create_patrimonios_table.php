@@ -25,7 +25,7 @@ return new class extends Migration
             $table->double('valor');
 
             $table->foreignId('servidor_id')->constrained('servidores');
-            $table->foreignId('setor_id')->constrained('setores')->nullable();
+            $table->foreignId('unidade_admin_id')->constrained('unidades_administrativas')->nullable();
             $table->foreignId('subgrupo_id')->constrained('subgrupos');
             $table->foreignId('origem_id')->constrained('origens');
             $table->foreignId('sala_id')->constrained();

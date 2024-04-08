@@ -59,11 +59,11 @@
                     <textarea type="text" class="form-control inputs" name="descricao" id="descricao" value="{{ old('descricao', $patrimonio->descricao) }}"required></textarea>
                 </div>
                 <div class="col">
-                    <label for="setor" class="form-label labels">Setor: <span class="red-asterisk">*</span></label>
-                    <select class="form-select selects inputs" aria-label="Selecione um setor" id="setor_id" name="setor_id">
-                        <option selected value="">Selecione um setor</option>
-                        @foreach ($setores as $setor)
-                            <option value="{{ $setor->id }}" {{ old('setor_id', $patrimonio->setor_id) == $setor->id ? 'selected' : '' }}>{{ $setor->nome }}</option>
+                    <label for="unidade" class="form-label labels">Unidade Administrativa: <span class="red-asterisk">*</span></label>
+                    <select class="form-select selects inputs" aria-label="Selecione um Unidade Administrativa" id="unidade_admin_id" name="unidade_admin_id">
+                        <option selected value="">Selecione um Unidade Administrativa</option>
+                        @foreach ($unidades as $unidade)
+                            <option value="{{ $unidade->id }}" {{ old('unidade_admin_id', $patrimonio->unidade_admin_id) == $unidade->id ? 'selected' : '' }}>{{ $unidade->nome }}</option>
                         @endforeach
                     </select>
                 </div>

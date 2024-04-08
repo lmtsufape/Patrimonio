@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Setor;
+use App\Models\UnidadeAdministrativa;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SetorSeeder extends Seeder
+class UnidadeAdministrativaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,16 +15,16 @@ class SetorSeeder extends Seeder
      */
     public function run()
     {
-        $arquivo_csv = database_path('seeders/Setores.csv'); // caminho do arquivo CSV
+        $arquivo_csv = database_path('seeders/UnidadesAdministrativas.csv'); // caminho do arquivo CSV
         $dados_csv = array_map(function($linha) {
             return explode('#', $linha);
         }, file($arquivo_csv)); // lê o arquivo CSV
 
         foreach ($dados_csv as $linha) {
-            $setor = new Setor();
-            $setor->nome = $linha[0];
-            $setor->codigo = $linha[1];   
-            $setor->save();
+            $unid_adm = new UnidadeAdministrativa();
+            $unid_adm->nome = $linha[0];
+            $unid_adm->codigo = $linha[1];   
+            $unid_adm->save();
         }
     }
 }
