@@ -9,6 +9,10 @@ class Subgrupo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nome', 'marca', 'modelo', 'classificacao_id', 
+    ];
+
     public function classificacao()
     {
         return $this->belongsTo(Classificacao::class);

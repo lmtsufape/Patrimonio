@@ -29,6 +29,7 @@
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
             <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
             <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
+            <li><a href="{{ route('subgrupo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Subgrupos</a></li>
             <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
             <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
             <li><a href="{{ route('setor.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>

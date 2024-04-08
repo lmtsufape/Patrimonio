@@ -71,11 +71,11 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="classificacao" class="form-label labels">Classificação: <span
+                        <label for="classificacao" class="form-label labels">Subgrupo: <span
                                 class="red-asterisk">*</span></label>
                         <select class="form-select selects inputs" aria-label="Selecione uma classificação"
                             id="subgrupo_id" name="subgrupo_id">
-                            <option selected value="">Selecione uma classificação</option>
+                            <option selected value="">Selecione um subgrupo</option>
                             @foreach ($subgrupos as $subgrupo)
                                 <option value="{{ $subgrupo->id }}">{{ $subgrupo->nome }}</option>
                             @endforeach

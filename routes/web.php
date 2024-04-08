@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SubgrupoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,6 +33,16 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/home', 'index');
     });
     
+    Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {
+        Route::get('/listar', 'index')->name('index');
+        Route::get('/cadastrar', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{subgrupo_id}/editar', 'edit')->name('edit');
+        Route::put('/{id}/update', 'update')->name('update');
+        Route::delete('/{subgrupo_id}/delete', 'delete')->name('delete');
+        Route::get('/search', 'search')->name('buscar');
+    });
+
     Route::prefix('predio')->name('predio.')->controller(PredioController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
