@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Patrimonio\FilterPatrimonioRequest;
 use App\Http\Requests\Patrimonio\StoreCodigoPatrimonioRequest;
 use App\Http\Requests\Patrimonio\StorePatrimonioRequest;
 use App\Http\Requests\Patrimonio\UpdatePatrimonioRequest;
@@ -21,11 +22,52 @@ use PDF;
 
 class PatrimonioController extends Controller
 {
-    public function index()
+    public function index(FilterPatrimonioRequest $request)
     {
-        $patrimonios = Patrimonio::paginate(5);
+        $predios = Predio::all();
+        $servidores = Servidor::all();
+        $situacoes = Situacao::all();
+        $origens = Origem::all();
+        $setores = Setor::all();
+        $classificacoes = Classificacao::all();
 
-        return view('patrimonio.index', compact('patrimonios'));
+        $query = Patrimonio::query();
+
+        if ($request->has('busca') && $request->busca != '') {
+            $query->where('nome', 'ilike', "%$request->busca%");
+        }
+
+        if ($request->has('predio_id')) {
+            $query->whereHas('sala', function ($sala) use ($request) {
+                $sala->where('predio_id', $request->predio_id);
+            });
+        }
+
+        if ($request->has('servidor_id')) {
+            $query->where('servidor_id', $request->servidor_id);
+        }
+
+        if ($request->has('situacao_id')) {
+            $query->where('situacao_id', $request->situacao_id);
+        }
+
+        if ($request->has('origem_id')) {
+            $query->where('origem_id', $request->origem_id);
+        }
+
+        if ($request->has('setor_id')) {
+            $query->where('setor_id', $request->setor_id);
+        }
+
+        if ($request->has('classificacao_id')) {
+            $query->whereHas('subgrupo', function ($subgrupo) use ($request) {
+                $subgrupo->where('classificacao_id', $request->classificacao_id);
+            });
+        }
+
+        $patrimonios = $query->paginate(5);
+
+        return view('patrimonio.index', compact('patrimonios', 'predios', 'servidores', 'situacoes', 'origens', 'setores', 'classificacoes'));
     }
 
     public function create()
@@ -154,12 +196,5 @@ class PatrimonioController extends Controller
         $patrimonio = Patrimonio::find($codigo->patrimonio_id);
         $codigo->delete();
         return view('patrimonio.codigo.index_create', compact('patrimonio'));
-    }
-
-    public function busca(Request $request){
-        $item = $request->input('busca');
-        $patrimonios = Patrimonio::where('nome', 'ilike',  '%' . $item . '%')->paginate(10);
-
-        return view('patrimonio.index', compact('patrimonios'));
     }
 }

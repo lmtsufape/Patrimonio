@@ -24,7 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $patrimonios = Patrimonio::paginate(2);
-        return view('patrimonio.index', compact('patrimonios'));
+        return redirect()->route('patrimonio.index');
     }
 }

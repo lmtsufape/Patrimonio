@@ -105,7 +105,6 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/{patrimonio_id}/codigos', 'codigosPatrimonio')->name('codigo.index');
         Route::get('/codigos/{codigo_id}/delete', 'codigoDelete')->name('codigo.delete');
         Route::post('/codigo/store', 'codigoStore')->name('codigo.store');
-        Route::get('/busca', 'busca')->name('busca.get');
         Route::get('/getSalas', 'getSalas')->name('getSalas');
         Route::get('/relatorio-pdf/{id}', 'gerarRelatorioPatrimonio')->name('relatorio.pdf');
         Route::get('/relatorio', 'relatorio')->name('relatorio.index');
