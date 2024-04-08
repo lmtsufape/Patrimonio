@@ -30,7 +30,8 @@ class HomeController extends Controller
         return view('patrimonio.index', compact('patrimonios'));
     }
 
-    public function indexServidor(){
+    public function indexServidor()
+    {
         $patrimonios = Patrimonio::where('servidor_id', Auth::user()->servidor->id)->paginate(2);
 
         return view('patrimonio.index', compact('patrimonios'));

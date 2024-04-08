@@ -36,7 +36,7 @@
               <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
               <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
               <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
-              <li><a href="{{ route('setor.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>
+              <li><a href="{{ route('unidade.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Unidades Administrativas</a></li>
             </ul>
           </div>
         </li>
