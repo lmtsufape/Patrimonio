@@ -15,11 +15,11 @@
         <form method="GET" action="{{ route('patrimonio.relatorio.index') }}" class="mb-3">
             <div class="row">
                 <div class="col">
-                    <label for="setor_id" class="form-label">Setor:</label>
-                    <select name="setor_id" id="setor_id" class="form-select">
+                    <label for="unidade_admin_id" class="form-label">Unidade Administrativa:</label>
+                    <select name="unidade_admin_id" id="unidade_admin_id" class="form-select">
                         <option value="">Todos</option>
-                        @foreach($setores as $setor)
-                            <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
+                        @foreach($unidades as $unidade)
+                            <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
                         @endforeach
                     </select>
                 </div>

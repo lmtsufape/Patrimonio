@@ -26,7 +26,7 @@ class PatrimonioFactory extends Factory
             'situacao_id' => 1,
             'origem_id' => 1,
             'sala_id' => 1,
-            'setor_id' => 1
+            'unidade_admin_id' => 1
         ];
     }
 }

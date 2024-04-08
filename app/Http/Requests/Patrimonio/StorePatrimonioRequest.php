@@ -18,7 +18,7 @@ class StorePatrimonioRequest extends FormRequest
             'data_incorporação' => 'nullable|date',
             'valor' => 'required|numeric',
             'servidor_id' => 'required|integer|exists:servidores,id',
-            'setor_id' => 'required|integer|exists:setores,id',
+            'unidade_admin_id' => 'required|integer|exists:unidades_administrativas,id',
             'subgrupo_id' => 'required|integer|exists:subgrupos,id',
             'origem_id' => 'required|integer|exists:origens,id',
             'sala_id' => 'required|integer|exists:salas,id',
