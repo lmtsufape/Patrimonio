@@ -21,6 +21,8 @@ class PatrimonioFactory extends Factory
             'descricao' => $this->faker->sentence,
             'data_compra' => $this->faker->date,
             'valor' => $this->faker->numberBetween($min = 100, $max = 5000),
+            'empenho' => $this->faker->sentence,
+            'conta_contabil' => $this->faker->sentence,
             'servidor_id' => 2,
             'subgrupo_id' => 1,
             'situacao_id' => 1,

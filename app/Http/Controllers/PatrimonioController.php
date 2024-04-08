@@ -91,7 +91,7 @@ class PatrimonioController extends Controller
 
         $patrimonio = Patrimonio::create($validatedData);
 
-        return redirect()->route('patrimonio.codigo.index', ['patrimonio_id' => $patrimonio->id])->with('success', 'Patrimônio Cadastrado com Sucesso, Adicione os Códigos ao Patrimônio.');
+        return redirect()->route('patrimonio.codigo.index', ['patrimonio_id' => $patrimonio->id], 201)->with('success', 'Patrimônio Cadastrado com Sucesso, Adicione os Códigos ao Patrimônio.');
     }
 
     public function edit($patrimonio_id)

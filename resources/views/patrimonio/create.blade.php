@@ -154,9 +154,9 @@
                         <input type="number" class="form-control inputs" name="valor" id="valor" required>
                     </div>
                     <div class="col">
-                        <label for="contaContabil" class="form-label labels">Conta contábil: <span
+                        <label for="conta_contabil" class="form-label labels">Conta contábil: <span
                                 class="red-asterisk">*</span></label>
-                        <input type="text" class="form-control inputs" name="contaContabil" id="contaContabil"
+                        <input type="text" class="form-control inputs" name="conta_contabil" id="conta_contabil"
                             required>
                     </div>
                 </div>
