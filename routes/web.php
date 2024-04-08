@@ -92,6 +92,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::put('/{servidor_id}/update', 'update')->name('update');
         Route::delete('/{servidor_id}/delete', 'delete')->name('delete');
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
+        Route::get('/search', 'search')->name('buscar');
     });
     
     Route::prefix('setor')->name('setor.')->controller(SetorController::class)->group(function () {

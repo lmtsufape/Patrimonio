@@ -55,7 +55,7 @@
         <div class="modal-dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custom-modal bg-light">
-                    <div class="modal-header-predio">
+                    <div class="modal-header">
                         <a href="#" data-bs-dismiss="modal" aria-label="Fechar">
                             <img src="{{ asset('assets/back.svg') }}" alt="Voltar">
                         </a>
