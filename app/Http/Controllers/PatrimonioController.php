@@ -32,7 +32,7 @@ class PatrimonioController extends Controller
         $classificacoes = Classificacao::all();
 
         $query = Patrimonio::query();
-
+        
         if ($request->has('busca') && $request->busca != '') {
             $query->where('nome', 'ilike', "%$request->busca%");
         }
