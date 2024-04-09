@@ -10,3 +10,7 @@ footer {
 .logo-lmts {
     width: 110px;
 }
+
+footer * {
+    text-decoration: none;
+}

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->date('data_compra')->nullable();
             $table->date('data_incorporação')->nullable();
             $table->double('valor');
+            $table->string('empenho');
+            $table->string('conta_contabil');
 
             $table->foreignId('servidor_id')->constrained('servidores');
             $table->foreignId('unidade_admin_id')->constrained('unidades_administrativas')->nullable();

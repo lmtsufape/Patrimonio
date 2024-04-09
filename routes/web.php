@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SubgrupoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,6 +34,16 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/home', 'indexServidor')->middleware('check-role:Servidor');
     });
     
+    Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {
+        Route::get('/listar', 'index')->name('index');
+        Route::get('/cadastrar', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::get('/{subgrupo_id}/editar', 'edit')->name('edit');
+        Route::put('/{id}/update', 'update')->name('update');
+        Route::delete('/{subgrupo_id}/delete', 'delete')->name('delete');
+        Route::get('/search', 'search')->name('buscar');
+    });
+
     Route::prefix('predio')->name('predio.')->controller(PredioController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
@@ -82,6 +93,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::put('/{servidor_id}/update', 'update')->name('update');
         Route::delete('/{servidor_id}/delete', 'delete')->name('delete');
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
+        Route::get('/search', 'search')->name('buscar');
     });
     
     Route::prefix('unidade')->name('unidade.')->controller(UnidadeAdministrativaController::class)->group(function () {
@@ -106,7 +118,6 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/{patrimonio_id}/codigos', 'codigosPatrimonio')->name('codigo.index');
         Route::get('/codigos/{codigo_id}/delete', 'codigoDelete')->name('codigo.delete');
         Route::post('/codigo/store', 'codigoStore')->name('codigo.store');
-        Route::get('/busca', 'busca')->name('busca.get');
         Route::get('/getSalas', 'getSalas')->name('getSalas');
         Route::get('/relatorio-pdf/{id}', 'gerarRelatorioPatrimonio')->name('relatorio.pdf');
         Route::get('/relatorio', 'relatorio')->name('relatorio.index');

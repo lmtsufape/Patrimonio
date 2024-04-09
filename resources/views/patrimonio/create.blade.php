@@ -71,11 +71,11 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="classificacao" class="form-label labels">Classificação: <span
+                        <label for="classificacao" class="form-label labels">Subgrupo: <span
                                 class="red-asterisk">*</span></label>
                         <select class="form-select selects inputs" aria-label="Selecione uma classificação"
                             id="subgrupo_id" name="subgrupo_id">
-                            <option selected value="">Selecione uma classificação</option>
+                            <option selected value="">Selecione um subgrupo</option>
                             @foreach ($subgrupos as $subgrupo)
                                 <option value="{{ $subgrupo->id }}">{{ $subgrupo->nome }}</option>
                             @endforeach
@@ -154,9 +154,9 @@
                         <input type="number" class="form-control inputs" name="valor" id="valor" required>
                     </div>
                     <div class="col">
-                        <label for="contaContabil" class="form-label labels">Conta contábil: <span
+                        <label for="conta_contabil" class="form-label labels">Conta contábil: <span
                                 class="red-asterisk">*</span></label>
-                        <input type="text" class="form-control inputs" name="contaContabil" id="contaContabil"
+                        <input type="text" class="form-control inputs" name="conta_contabil" id="conta_contabil"
                             required>
                     </div>
                 </div>

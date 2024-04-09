@@ -24,9 +24,9 @@
     @if (isset($searchForm))
         <div class="d-flex justify-content-center align-items-center">
             <div class="flex-fill">
-                <form class="mb-0" action="{{ $searchForm }}" method="get">
+                <form class="mb-0" id="search-form" action="{{ $searchForm }}" method="GET">
                     <div class="input-group">
-                        <input class="form-control" type="text" name="busca" id="busca"
+                        <input class="form-control" type="text" name="busca" id="busca" value="{{ request()->query('busca') }}"
                             placeholder="Pesquisar por nome">
                         <button class="btn" type="submit" id="searchButton">
                             <img src="{{ asset('images/busca.png') }}" alt="Buscar">
@@ -35,7 +35,7 @@
                 </form>
             </div>
             <div class="ms-3">
-                <button class="px-0" id="filterButton">
+                <button class="px-0" id="filterButton" data-bs-toggle="modal" data-bs-target="#filter-modal">
                     <img src="{{ asset('assets/Vector.svg') }}" alt="Ícone de filtro" class="me-1">
                     <span>Filtrar</span>
                 </button>

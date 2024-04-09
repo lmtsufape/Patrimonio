@@ -104,4 +104,16 @@ class ServidorController extends Controller
 
         return redirect()->back()->with(['success' => 'Servidor alterado']);
     }
+
+    public function search(Request $request)
+    {
+        $servidores = Servidor::whereHas('user', function ($query) use ($request) {
+            $query->where('name', 'ilike', "%$request->busca%");
+        })->paginate(10);
+        $cargos = Cargo::all();
+        $roles = Role::where('nome', '<>', 'Administrador')->get();
+
+
+        return view('servidor.index', compact('servidores', 'cargos', 'roles'));
+    }
 }

@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('servidores', function (Blueprint $table) {
+        Schema::create('cargo_servidor', function (Blueprint $table) {
             $table->id();
-            $table->string('cpf')->unique()->nullable();
-            $table->string('matricula')->unique();
-            $table->boolean('ativo')->default(false);
-
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('sala_id')->nullable()->constrained();
-
+            
+            $table->foreignId('cargo_id')->constrained();
+            $table->foreignId('servidor_id')->constrained('servidores');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servidores');
+        Schema::dropIfExists('cargo_servidor');
     }
 };

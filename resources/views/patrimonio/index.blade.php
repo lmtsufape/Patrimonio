@@ -9,27 +9,59 @@
     @include('layouts.components.searchbar', [
         'title' => 'Patrimônio',
         'addButton' => route('patrimonio.create'),
-        'searchForm' => route('patrimonio.busca.get'),
+        'searchForm' => route('patrimonio.index'),
     ])
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
             'header' => ['ID', 'Nome', 'Prédio', 'Sala', 'Ações'],
-            'content' => [$patrimonios->pluck('id'), $patrimonios->pluck('nome'), $patrimonios->pluck('sala.predio.nome'), $patrimonios->pluck('sala.nome')],
+            'content' => [
+                $patrimonios->pluck('id'),
+                $patrimonios->pluck('nome'),
+                $patrimonios->pluck('sala.predio.nome'),
+                $patrimonios->pluck('sala.nome'),
+            ],
             'acoes' => [
-                ['link' => 'patrimonio.edit', 'param' => 'patrimonio_id', 'img' => asset('/images/pencil.png') , 'type' =>'editLink'],
-                ['link' => 'patrimonio.delete', 'param' => 'patrimonio_id', 'img' => asset('/images/delete.png'), 'type' =>'delete'],
-                ['link' => 'patrimonio.patrimonio', 'param' => 'patrimonio_id', 'img' => asset('/images/info.png'), 'type' =>''],
-            ]
-        ])
+                [
+                    'link' => 'patrimonio.edit',
+                    'param' => 'patrimonio_id',
+                    'img' => asset('/images/pencil.png'),
+                    'type' => 'editLink',
+                ],
+                [
+                    'link' => 'patrimonio.delete',
+                    'param' => 'patrimonio_id',
+                    'img' => asset('/images/delete.png'),
+                    'type' => 'delete',
+                ],
+                [
+                    'link' => 'patrimonio.patrimonio',
+                    'param' => 'patrimonio_id',
+                    'img' => asset('/images/info.png'),
+                    'type' => '',
+                ],
+            ],
+       ])
 
         <div class="d-flex justify-content-center">
             {{ $patrimonios->links('pagination::bootstrap-5') }}
         </div>
-    </div>
-    
+    </div> 
+
+    @include('layouts.components.modais.filter-modal', [
+        'modalTitle' => 'Filtrar patrimônio',
+        'filterRoute' => route('patrimonio.index'),
+        'modalContent' => [
+            ['id' => 'predio_id', 'label' => 'Prédio', 'placeholder' => 'Selecione um prédio', 'options' => $predios->pluck('nome', 'id')],
+            ['id' => 'servidor_id', 'label' => 'Servidor', 'placeholder' => 'Selecione um servidor', 'options' => $servidores->pluck('user.name', 'id')],
+            ['id' => 'situacao_id', 'label' => 'Situacao', 'placeholder' => 'Selecione uma situação', 'options' => $situacoes->pluck('nome', 'id')],
+            ['id' => 'origem_id', 'label' => 'Origem', 'placeholder' => 'Selecione uma origem' , 'options' => $origens->pluck('nome', 'id')],
+            ['id' => 'setor_id', 'label' => 'Setor', 'placeholder' => 'Selecione um setor', 'options' => $setores->pluck('nome', 'id')],
+            ['id' => 'classificacao_id', 'label' => 'Classificação', 'placeholder' => 'Selecione uma classificação', 'options' => $classificacoes->pluck('nome', 'id')]
+        ]
+    ])
 @endsection
 
 @push('scripts')
-
+    <script src="{{ asset('js/filter.js') }}"></script>
 @endpush

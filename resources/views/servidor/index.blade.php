@@ -9,7 +9,7 @@
     @include('layouts.components.searchbar', [
         'title' => 'Servidores',
         'addButtonModal' => 'create-servidor-modal',
-        'searchForm' => route('patrimonio.busca.get'),
+        'searchForm' => route('servidor.buscar'),
     ])
 
     <div class="col-md-10 mx-auto">
