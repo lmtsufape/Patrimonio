@@ -173,7 +173,8 @@ class PatrimonioController extends Controller
     {
         $patrimonio = Patrimonio::findOrFail($id);
         $classificacao = Classificacao::findOrFail($patrimonio->subgrupo->classificacao_id);
-        return view('patrimonio.Info', compact('patrimonio', 'classificacao'));
+        $setores = Setor::all();
+        return view('patrimonio.Info', compact('patrimonio', 'classificacao', 'setores'));
     }
 
 
