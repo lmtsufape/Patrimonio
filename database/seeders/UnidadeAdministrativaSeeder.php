@@ -21,10 +21,23 @@ class UnidadeAdministrativaSeeder extends Seeder
         }, file($arquivo_csv)); // lê o arquivo CSV
 
         foreach ($dados_csv as $linha) {
-            $unid_adm = new UnidadeAdministrativa();
-            $unid_adm->nome = $linha[0];
-            $unid_adm->codigo = $linha[1];   
-            $unid_adm->save();
+            
+            if(trim($linha[2]) == 'null'){
+                UnidadeAdministrativa::create([
+                    'nome' => $linha[0],
+                    'codigo' => $linha[1],
+                    'unidade_admin_folha' => false,
+
+                ]);
+            }else{
+                UnidadeAdministrativa::create([
+                    'nome' => $linha[0],
+                    'codigo' => $linha[1],
+                    'unidade_admin_pai_id' => intval(trim($linha[2])),
+
+                ]);
+            }
+            
         }
     }
 }

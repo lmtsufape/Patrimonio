@@ -1,248 +1,249 @@
-Reitoria # REIT
-Gabinete da Reitoria#GAB.REIT
-Secretaria da Reitoria # SEC.REIT
-Assessoria de Gestão# ASG.REIT
-Assessoria de Projetos# ASP.REIT
-Assessoria de Relações Públicas# ASRP. REIT
-Vice-Reitoria # VREIT.REIT
-Secretaria da Vice-Reitoria# SEC.VREIT
-Secretaria Geral dos Conselhos#SECGC.REIT
-Secretaria de Acessibilidade# SECAC.REIT
-Secretaria de Cerimonial# SECC.REIT
-Diretoria de Comunicação# DCOMU.REIT
-Secretaria da Diretoria de Comunicação# SEC.DCOMU
-Seção de Comunicação Institucional# SCOMUINS.DCOMU
-Seção de Comunicação Interinstitucional # SCOMUINT.DCOMU
-Diretoria de Relações Internacionais#DRI.REIT
-Secretaria da Diretoria de Relações Internacionais# SEC.DRI
-Coordenadoria de Mobilidade e Administração# CMA.DRI
-Seção de Línguas Estrangeiras # SLE.DRI
-Diretoria de Relações Interinstitucionais# DRINT.REIT
-Secretaria da Diretoria de Relações Interinstitucionais#SEC.DRINT
-Coordenadoria de Celebração de Parcerias# CCP.DRINT
-Procuradoria Jurídica# PJ.REIT
-Seção de Apoio Jurídico# SAJ.PJ
-Ouvidoria# OUV.REIT
-Secretaria da Ouvidoria# SEC.OUV
-Auditoria Interna# AUDIN. REIT
-Secretaria da Auditoria Interna# SEC.AUDIN
-Pró-Reitoria de Administração# PROAD.REIT
-Secretaria da Pró-Reitoria de Administração# SEC.PROAD
-Seção de Apoio Jurídico# SAJ.PROAD
-Seção de Concessão de Diárias e Passagens# SCDP.PROAD
-Secretaria de Protocolo, Comunicação e Distribuição# SPCD.PROAD
-Departamento de Patrimônio e Almoxarifado# DPA.PROAD
-Coordenadoria de Patrimônio# CPAT.DPA
-Coordenadoria de Almoxarifado# CALM.DPA
-Departamento de Contabilidade e Finanças# DCF.PROAD
-Seção de Contabilidade# SCO.DCF
-Seção de Execução Financeira# SEF.DCF
-Departamento de Compras# DCOM.PROAD
-Coordenadoria de Planejamento e Aquisição# CPLA.DCOM
-Coordenadoria de Licitação# CLI.DCOM
-Departamento de Gestão Orçamentária# DGO.PROAD
-Seção de Acompanhamento e Controle Orçamentário# SACO.DGO
-Seção de Planejamento e Análise Orçamentária# SPLO.DGO
-Prefeitura# PREF.PROAD
-Secretaria da Prefeitura# SEC. PREF
-Secretaria de Meio Ambiente e Sustentabilidade#SMAS.PREF
-Coordenadoria de Contratos# CC. PREF
-Seção de Fiscalização e Gestão de Contratos# SFGC.CC
-Seção de Acompanhamento de Contratos# SAC.CC
-Departamento de Transporte# DTRAN.PREF
-Departamento de Engenharia e Arquitetura# DEA.PREF
-Secretaria de Assuntos Específicos# SAE.DEA
-Coordenadoria de Manutenção# CM.DEA
-Seção de Manutenção Predial# SMP.CM
-Seção de Manutenção de Máquinas e Equipamentos# SMME.CM
-Coordenadoria de Projetos# CP.DEA
-Seção de Projetos# SPRO.CP
-Seção de Compatibilização de Projetos# SCPRO.CP
-Coordenadoria de Perícias e Orçamentos # CPO.DEA
-Seção de Perícias e Avaliações# SPA.CPO
-Seção de Orçamentos# SO.CPO
-Pró-Reitoria de Planejamento# PROPLAN.REIT
-Secretaria da Pró-Reitoria de Planejamento# SEC.PROPLAN
-Departamento de Planejamento, Informações Institucionais e Captação de Recursos#DPLIC.PROPLAN
-Coordenadoria de Informações e Avaliações Institucionais#CIAI.DPLIC
-Seção de Documentação e Gerenciamento de Informações# SDGIN.CIAI
-Seção de Monitoramento e Avaliação Institucional# SMAIN.CIAI
-Coordenadoria de Planejamento# CPLA.DPLIC
-Seção de Planejamento#SPLA.CPLA
-Coordenadoria de Captação de Recursos# CCAR.DPLIC
-Departamento de Governança, Processos e Estruturas Organizacionais# DGPEO.PROPLAN
-Coordenadoria de Governança e Gestão de Riscos#CGGR.DGPEO
-Seção de Gestão de Riscos# SGR.CGGR
-Coordenadoria de Processos e Estruturas Organizacionais# CPEO.DGPEO
-Seção de Processos Organizacionais# SPORG.CPEO
-Pró-Reitoria de Gestão de Pessoas# PROGEPE
-Secretaria da Pró-Reitoria de Gestão de Pessoas# SEC.PROGEPE
-Assessoria de Legislação de Pessoal#ALP.PROGEPE
-Departamento de Administração de Pessoas#DAP.PROGEPE
-Coordenadoria de Acompanhamento e Movimentação de Pessoas#CAMP.DAP
-Seção de Acompanhamento e Movimentação de Pessoas#SAMP.CAMP
-Seção de Aposentadorias e Pensões# SAP.CAMP
-Coordenadoria de Cadastro e Pagamento# CCP.DAP
-Seção de Controle de Cadastro e Pagamento#SCCP.CCP
-Seção de Registro Funcional# SRF.CCP
-Departamento de Desempenho e Desenvolvimento de Pessoas# DDP.PROGEPE
-Coordenadoria de Concursos e Desenvolvimento de Pessoas#CCDP.DDP
-Seção de Avaliação de Desempenho# SAD.CCDP
-Seção de Capacitação e Desenvolvimento#SCD.CCDP
-Departamento de Qualidade de Vida#DQV.PROGEPE
-Seção de Apoio Administrativo# SAAD.DQV
-Seção Médica e Assistência à Saúde# SMAS.DQV
-Seção de Segurança do Trabalho e Saúde Ocupacional# STSO.DQV
-Seção de Qualidade de Vida e Responsabilidade Social# SQRS.DQV
-Seção de Assistência Psicossocial# SAPS.DQV
-Pró-Reitoria de Assistência Estudantil# PRAE
-Secretaria da Pró-Reitoria de Assistência Estudantil# SEC.PRAE
-Departamento de Gestão de Finanças e Infraestrutura# DGFI.PRAE
-Coordenadoria de Apoio Administrativo e Financeiro# CAAF.DGFI
-Seção de Pagamentos #SPA.CAAF
-Seção de Logística e Infraestrutura# SLI.CAAF
-Coordenadoria de Gestão Alimentar e Restaurante Universitário# CGAR.DGFI
-Departamento de Políticas Estudantis e Ações Afirmativas# DPEA.PRAE
-Coordenadoria de Atenção e Permanência Estudantil# CAPE.DPEA
-Seção de Ingresso e Acompanhamento# SIA.CAPE
-Seção de Monitoramento e Avaliação# SMA.CAPE
-Seção de Promoção de Saúde, Esporte, Lazer e Cultura# SPSELC.CAPE
-Coordenadoria de Gestão de Residência Universitária# CGRU.DPEA
-Pró-Reitoria de Ensino e Graduação#PREG
-Secretaria da Pró-Reitoria de Ensino e Graduação# SEC.PREG
-Departamento de Práticas de Formação Inicial e Continuada# DPFIC.PREG
-Coordenadoria de Estágio# CES.DFIC
-Coordenadoria de Programas Acadêmicos# CPAC.DPFIC
-Seção de Apoio Administrativo# SAA.CPAC
-Coordenadoria de Aperfeiçoamento Docente# CAD.DPFIC
-Departamento de Acompanhamento Educacional# DAE.PREG
-Coordenadoria de Orientação Pedagógica# COP.DAE
-Seção de Apoio Administrativo# SAA.COP
-Coordenadoria de Monitoramento de Egressos# CME.DAE
-Departamento de Ensino# DENS.PREG
-Coordenadoria de Regulação dos Cursos# CRC.DENS
-Seção de Apoio Administrativo# SAA.CRC
-Coordenadoria de Planejamento de Ensino# CPLE.DENS
-Seção de Apoio Administrativo# SAA.CPLE
-Pró-Reitoria de Pesquisa , Pós-Graduação e Inovação#PRPPGI
-Secretaria da Pró-Reitoria de Pesquisa , Pós-Graduação e Inovação# SEC.PRPPGI
-Departamento de Pesquisa# DPESQ-PRPPGI
-Coordenadoria de Iniciação Científica#CIC.DPESQ
-Seção de Divulgação Científica#SDC.CIC
-Coordenadoria de Coleções, Herbário e Biotério# CCHB.DPESQ
-Seção de Biotério# SB.CCHB
-Coordenadoria de Ética na Pesquisa#CEPESQ.DPESQ
-Departamento de Pós-Graduação# DPG.PRPPGI
-Coordenadoria de Programas Stricto Sensu# CPSS.DPG
-Coordenadoria de Programas Lato Sensu e Ensino à Distância# CPLSE-DPG
-Seção de Residência# SRES.CPLSE
-Coordenação do Programa de Mestrado Profissional em Letras #CPROFLETRAS.DPG
-Seção de Apoio Administrativo e Acadêmico # SAAA.CPROFLETRAS
-Coordenação do Programa de Pós-Graduação em Ciência Animal e Pastagens # CPPGCAP.DPG
-Coordenação do Programa de Pós-Graduação em Ciências Ambientais # CPPCIAM.DPG
-Seção de Apoio Administrativo e Acadêmico # SAAA.CPPCIAM
-Coordenação do Programa de Pós-Graduação em Produção Agrícola  # CPPGPA.DPG
-Coordenação do Programa de Pós-Graduação em Sanidade e Reprodução de Animais de Produção # CPPGSRAP.DPG
-Seção de Apoio Administrativo e Acadêmico # SAAA.CPPGSRAP
-Departamento de Inovação Tecnológica e Empreendedorismo# DITE.PRPPGI
-Seção de Propriedade Intelectual# SPI.DITE
-Seção de Capacitação, Difusão e Transferência de Tecnologias#SCDT.DITE
-Seção de Programas de Empreendedorismo e Inovação# SPEI.DITE
-Seção de Startups e Incubação# SSI.DITE
-Pró-Reitoria de Extensão e Cultura#PREC
-Secretaria da Pró-Reitoria de Extensão e Cultura# SEC.PREC
-Departamento de Planejamento, Captação e Gerenciamento de Recursos# DPCGR.PREC
-Coordenadoria de Planejamento e Captação de Recursos# CPCR.DPCGR
-Seção de Integração Público-Privado# SIP. CPCR
-Seção de Editais e Apoio à Projetos e Programas#SEAP.CPCR
-Coordenadoria de Gerenciamento de Recursos# CGR.DPCGR
-Seção de Prestação de Contas, Estatística e Arquivo# SPCEA.CGR
-Departamento de Difusão Científica, Tecnológica e Inovação# DDCTI.PREC
-Seção de Eventos# SEVEN.DDCTI
-Seção de Educação Continuada# SECON.DDCTI
-Seção de Certificação# SCER.DDCTI
-Departamento de Arte, Cultura e Assuntos Comunitários# DACA.PREC
-Coordenadoria de Arte e Cultura# CAC.DACA
-Seção de Memória e Patrimônio da Universidade#SMPU.CAC
-Seção de Produção Artística e Cultural# SPAC-CAC
-Coordenadoria de Assuntos Comunitários# CASC.DACA
-Seção de Incubadora de Organizações Sociais e Coletivas# SIOC.CASC
-Departamento de Laboratórios Multiusuários# DLM.REIT
-Coordenadoria de Apoio Administrativo# CAA.DLM
-Seção de Laboratórios de Apoio à Pesquisa# SLAP.CAA
-Seção de Laboratórios de Ensino# SLE.CAA
-Seção de Laboratório de Anatomia e Patologia Animal# SLAPA.CAA
-Seção de Laboratório de Ciência e Tecnologia de Alimentos# SLCTAL.CAA
-Seção de Laboratórios de Pós-Graduação# SLP.CAA
-Departamento de Registro e Controle Acadêmico#DRCA.REIT
-Secretaria do Departamento de Registro e Controle Acadêmico# SEC.DRCA
-Coordenadoria de Registro e Expedição de Documentos# CRED.DRCA
-Seção de Controle e Documentação# SCD.CRED
-Seção de Registro e Expedição de Diploma# SRED.CRED
-Coordenadoria de Graduação# CGRAD.DRCA
-Seção de Admissão e Cadastro de Graduação#SACG.CGRAD
-Seção de Movimentação e Controle Acadêmica de Graduação#SMCAG.CGRAD
-Coordenadoria de Pós-Graduação#CPGRAD.DRCA
-Seção de Admissão e Cadastro de Pós-Graduação# SACPG.CPGRAD
-Seção de Controle de Pós- Graduação# SCPG.CPGRAD
-Coordenadoria de Educação à Distância# CED.DRCA
-Seção de Admissão e Cadastro de Educação à Distância# SACED.CED
-Seção de Movimentação e Controle de Ensino à Distância#SMCED.CED
-Departamento de Tecnologia da Informação #DTI.REIT
-Secretaria do Departamento de Tecnologia da Informação # SEC. DTI
-Coordenadoria de Governança de Tecnologia da Informação# CGTI.DTI
-Coordenadoria de Redes e Comunicação# CRC.DTI
-Coordenadoria de Serviços Computacionais# CSC.DTI
-Coordenadoria de Sistemas da Informação# CSI.DTI
-Seção Multidisciplinar de Tecnologias Sociais#SMTS. CSI
-Seção Multidisciplinar de Tecnologias Institucionais# SMTI. CSI
-Arquivo Geral # ARG.REIT
-Seção de Gestão de Arquivos Setoriais# SGAS.ARG
-Seção de Processamento Técnico e Pesquisas# SPTP.ARG
-Campus Universitário Sede # CAMUS.REIT
-Secretaria do Campus Universitário Sede# SEC.CAMUS
-Coordenadoria de Apoio Administrativo# CAAD.CAMUS
-Coordenadoria de Apoio Acadêmico# CAAC.CAMUS
-Coordenação do Curso de Bacharelado em Agronomia# CCBAG.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCBAG
-Coordenação do Curso de Bacharelado em Ciência da Computação# CCBCC.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCBCC
-Coordenação do Curso de Bacharelado em Engenharia de Alimentos# CCBEL.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCBEL
-Coordenação do Curso de Bacharelado em Medicina Veterinária# CCBMV.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCBMV
-Coordenação do Curso de Bacharelado em Zootecnia# CCBZO.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCBZO
-Coordenação do Curso de Licenciatura em Pedagogia# CCLPE.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCLPE
-Coordenação do Curso de Licenciatura em Letras# CCLLE.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCLLE
-Coordenação dos Cursos de Educação à Distância# CCEAD.CAMUS
-Seção de Apoio Administrativo e Acadêmico# SAAA.CCEAD
-Campi Universitário Externo A # CAMUEA.REIT
-Secretaria do Campi Universitário Externo A # SEC.CAMUEA
-Campi Universitário Externo B # CAMUEB.REIT
-Secretaria do Campi Universitário Externo B # SEC.CAMUEB
-Sistema Integrado de Bibliotecas#SIB
-Coordenadoria de Serviço de Referência#CSR.SIB
-Seção de Atendimento ao Usuário e Ação Cultural# SAUAC.CSR
-Seção de Acessibilidade Informacional# SAI.CSR
-Coordenadoria de Serviços Digitais# CSD.SIB
-Seção de Tecnologias Digitais#STD.CSD
-Seção de Memória Institucional# SMI.CSD
-Coordenadoria de Acervo e Representação da Informação# CARI.SIB
-Seção de Seleção e Aquisição# SSA.CARI
-Seção de Processamento Técnico# SPT.CARI
-Fazenda Universitária# FUNI.REIT
-Secretaria da Fazenda Universitária # SEC.FUNI
-Hospital Veterinário Universitário# HVU.REIT
-Secretaria do Hospital Veterinário Universitário#SEC.HVU
-Coordenadoria de Pequenos Animais# CPAN.HVU
-Seção de Clínica Médica de Pequenos Animais# SCMPAN.CPAN
-Seção de Cirurgia e Anestesiologia de Pequenos Animais#SCAPAN.CPAN
-Coordenadoria de Grandes Animais#CGAN.HVU
-Seção de Clínica Médica de Grandes Animais# SCMGAN.CGAN
-Seção de Cirurgia e Anestesiologia de Grandes Animais#SCAGAN.CGAN
-Seção de Farmácia# SFAR.HVU
-Seção de Diagnóstico por Imagem# SDI.HVU
-Seção de Laboratórios de Apoio# SLA.HVU
+Reitoria#REIT#null
+Gabinete da Reitoria#GAB.REIT#1
+Secretaria da Reitoria#SEC.REIT#1
+Assessoria de Gestão#ASG.REIT#1
+Assessoria de Projetos#ASP.REIT#1
+Assessoria de Relações Públicas#ASRP.REIT#1
+Vice-Reitoria#VREIT.REIT#1
+Secretaria da Vice-Reitoria#SEC.VREIT#7
+Secretaria Geral dos Conselhos#SECGC.REIT#1
+Secretaria de Acessibilidade#SECAC.REIT#1
+Secretaria de Cerimonial#SECC.REIT#1
+Diretoria de Comunicação#DCOMU.REIT#1
+Secretaria da Diretoria de Comunicação#SEC.DCOMU#2
+Seção de Comunicação Institucional#SCOMUINS.DCOMU#2
+Seção de Comunicação Interinstitucional#SCOMUINT.DCOMU#2
+Diretoria de Relações Internacionais#DRI.REIT#1
+Secretaria da Diretoria de Relações Internacionais#SEC.DRI#1
+Coordenadoria de Mobilidade e Administração#CMA.DRI#1
+Seção de Línguas Estrangeiras#SLE.DRI#1
+Diretoria de Relações Interinstitucionais#DRINT.REIT#1
+Secretaria da Diretoria de Relações Interinstitucionais#SEC.DRINT#1
+Coordenadoria de Celebração de Parcerias#CCP.DRINT#1
+Procuradoria Jurídica#PJ.REIT#1
+Seção de Apoio Jurídico#SAJ.PJ#1
+Ouvidoria#OUV.REIT#1
+Secretaria da Ouvidoria#SEC.OUV#1
+Auditoria Interna#AUDIN. REIT#1
+Secretaria da Auditoria Interna#SEC.AUDIN#1
+Pró-Reitoria de Administração#PROAD.REIT#1
+Secretaria da Pró-Reitoria de Administração#SEC.PROAD#29
+Departamento de Patrimônio e Almoxarifado#DPA.PROAD#29
+Departamento de Contabilidade e Finanças#DCF.PROAD#29
+Departamento de Compras#DCOM.PROAD#29
+Departamento de Gestão Orçamentária#DGO.PROAD#29
+Seção de Apoio Jurídico#SAJ.PROAD#1
+Seção de Concessão de Diárias e Passagens#SCDP.PROAD#1
+Secretaria de Protocolo, Comunicação e Distribuição#SPCD.PROAD#1
+Coordenadoria de Patrimônio#CPAT.DPA#1
+Coordenadoria de Almoxarifado#CALM.DPA#1
+Seção de Contabilidade#SCO.DCF#1
+Seção de Execução Financeira#SEF.DCF#1
+Coordenadoria de Planejamento e Aquisição#CPLA.DCOM#1
+Coordenadoria de Licitação#CLI.DCOM#1
+Seção de Acompanhamento e Controle Orçamentário#SACO.DGO#1
+Seção de Planejamento e Análise Orçamentária#SPLO.DGO#1
+Prefeitura#PREF.PROAD#1
+Secretaria da Prefeitura#SEC.PREF#1
+Secretaria de Meio Ambiente e Sustentabilidade#SMAS.PREF#1
+Coordenadoria de Contratos#CC.PREF#4
+Seção de Fiscalização e Gestão de Contratos#SFGC.CC#1
+Seção de Acompanhamento de Contratos#SAC.CC#1
+Departamento de Transporte#DTRAN.PREF#1
+Departamento de Engenharia e Arquitetura#DEA.PREF#1
+Secretaria de Assuntos Específicos#SAE.DEA#1
+Coordenadoria de Manutenção#CM.DEA#1
+Seção de Manutenção Predial#SMP.CM#1
+Seção de Manutenção de Máquinas e Equipamentos#SMME.CM#1
+Coordenadoria de Projetos#CP.DEA#1
+Seção de Projetos#SPRO.CP#1
+Seção de Compatibilização de Projetos#SCPRO.CP#1
+Coordenadoria de Perícias e Orçamentos#CPO.DEA#1
+Seção de Perícias e Avaliações#SPA.CPO#1
+Seção de Orçamentos#SO.CPO#1
+Pró-Reitoria de Planejamento#PROPLAN.REIT#1
+Secretaria da Pró-Reitoria de Planejamento#SEC.PROPLAN#64
+Departamento de Planejamento, Informações Institucionais e Captação de Recursos#DPLIC.PROPLAN#64
+Coordenadoria de Informações e Avaliações Institucionais#CIAI.DPLIC#66
+Seção de Documentação e Gerenciamento de Informações#SDGIN.CIAI#67
+Seção de Monitoramento e Avaliação Institucional#SMAIN.CIAI#67
+Coordenadoria de Planejamento#CPLA.DPLIC#66
+Seção de Planejamento#SPLA.CPLA#68
+Coordenadoria de Captação de Recursos#CCAR.DPLIC#66
+Departamento de Governança, Processos e Estruturas Organizacionais#DGPEO.PROPLAN#64
+Coordenadoria de Governança e Gestão de Riscos#CGGR.DGPEO#70
+Seção de Gestão de Riscos#SGR.CGGR#74
+Coordenadoria de Processos e Estruturas Organizacionais#CPEO.DGPEO#70
+Seção de Processos Organizacionais#SPORG.CPEO#76
+Pró-Reitoria de Gestão de Pessoas#PROGEPE#1
+Secretaria da Pró-Reitoria de Gestão de Pessoas#SEC.PROGEPE#1
+Assessoria de Legislação de Pessoal#ALP.PROGEPE#1
+Departamento de Administração de Pessoas#DAP.PROGEPE#1
+Coordenadoria de Acompanhamento e Movimentação de Pessoas#CAMP.DAP#1
+Seção de Acompanhamento e Movimentação de Pessoas#SAMP.CAMP#1
+Seção de Aposentadorias e Pensões#SAP.CAMP#1
+Coordenadoria de Cadastro e Pagamento#CCP.DAP#1
+Seção de Controle de Cadastro e Pagamento#SCCP.CCP#1
+Seção de Registro Funcional#SRF.CCP#1
+Departamento de Desempenho e Desenvolvimento de Pessoas#DDP.PROGEPE#1
+Coordenadoria de Concursos e Desenvolvimento de Pessoas#CCDP.DDP#1
+Seção de Avaliação de Desempenho#SAD.CCDP#1
+Seção de Capacitação e Desenvolvimento#SCD.CCDP#1
+Departamento de Qualidade de Vida#DQV.PROGEPE#1
+Seção de Apoio Administrativo#SAAD.DQV#1
+Seção Médica e Assistência à Saúde#SMAS.DQV#1
+Seção de Segurança do Trabalho e Saúde Ocupacional#STSO.DQV#1
+Seção de Qualidade de Vida e Responsabilidade Social#SQRS.DQV#1
+Seção de Assistência Psicossocial#SAPS.DQV#1
+Pró-Reitoria de Assistência Estudantil#PRAE#1
+Secretaria da Pró-Reitoria de Assistência Estudantil#SEC.PRAE#1
+Departamento de Gestão de Finanças e Infraestrutura#DGFI.PRAE#1
+Coordenadoria de Apoio Administrativo e Financeiro#CAAF.DGFI#1
+Seção de Pagamentos #SPA.CAAF#1
+Seção de Logística e Infraestrutura#SLI.CAAF#1
+Coordenadoria de Gestão Alimentar e Restaurante Universitário#CGAR.DGFI#1
+Departamento de Políticas Estudantis e Ações Afirmativas#DPEA.PRAE#1
+Coordenadoria de Atenção e Permanência Estudantil#CAPE.DPEA#1
+Seção de Ingresso e Acompanhamento#SIA.CAPE#1
+Seção de Monitoramento e Avaliação#SMA.CAPE#1
+Seção de Promoção de Saúde#1 Esporte#1 Lazer e Cultura#SPSELC.CAPE#1
+Coordenadoria de Gestão de Residência Universitária#CGRU.DPEA#1
+Pró-Reitoria de Ensino e Graduação#PREG#1
+Secretaria da Pró-Reitoria de Ensino e Graduação#SEC.PREG#1
+Departamento de Práticas de Formação Inicial e Continuada#DPFIC.PREG#1
+Coordenadoria de Estágio#CES.DFIC#1
+Coordenadoria de Programas Acadêmicos#CPAC.DPFIC#1
+Seção de Apoio Administrativo#SAA.CPAC#1
+Coordenadoria de Aperfeiçoamento Docente#CAD.DPFIC#1
+Departamento de Acompanhamento Educacional#DAE.PREG#1
+Coordenadoria de Orientação Pedagógica#COP.DAE#1
+Seção de Apoio Administrativo#SAA.COP#1
+Coordenadoria de Monitoramento de Egressos#CME.DAE#1
+Departamento de Ensino#DENS.PREG#1
+Coordenadoria de Regulação dos Cursos#CRC.DENS#1
+Seção de Apoio Administrativo#SAA.CRC#1
+Coordenadoria de Planejamento de Ensino#CPLE.DENS#1
+Seção de Apoio Administrativo#SAA.CPLE#1
+Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação#PRPPGI#1
+Secretaria da Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação#SEC.PRPPGI#1
+Departamento de Pesquisa#DPESQ-PRPPGI#1
+Coordenadoria de Iniciação Científica#CIC.DPESQ#1
+Seção de Divulgação Científica#SDC.CIC#1
+Coordenadoria de Coleções, Herbário e Biotério#CCHB.DPESQ#1
+Seção de Biotério#SB.CCHB#1
+Coordenadoria de Ética na Pesquisa#CEPESQ.DPESQ#1
+Departamento de Pós-Graduação#DPG.PRPPGI#1
+Coordenadoria de Programas Stricto Sensu#CPSS.DPG#1
+Coordenadoria de Programas Lato Sensu e Ensino à Distância#CPLSE-DPG#1
+Seção de Residência#SRES.CPLSE#1
+Coordenação do Programa de Mestrado Profissional em Letras #CPROFLETRAS.DPG#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CPROFLETRAS#1
+Coordenação do Programa de Pós-Graduação em Ciência Animal e Pastagens#CPPGCAP.DPG#1
+Coordenação do Programa de Pós-Graduação em Ciências Ambientais#CPPCIAM.DPG#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CPPCIAM#1
+Coordenação do Programa de Pós-Graduação em Produção Agrícola #CPPGPA.DPG#1
+Coordenação do Programa de Pós-Graduação em Sanidade e Reprodução de Animais de Produção#CPPGSRAP.DPG#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CPPGSRAP#1
+Departamento de Inovação Tecnológica e Empreendedorismo#DITE.PRPPGI#1
+Seção de Propriedade Intelectual#SPI.DITE#1
+Seção de Capacitação, Difusão e Transferência de Tecnologias#SCDT.DITE#1
+Seção de Programas de Empreendedorismo e Inovação#SPEI.DITE#1
+Seção de Startups e Incubação#SSI.DITE#1
+Pró-Reitoria de Extensão e Cultura#PREC#1
+Secretaria da Pró-Reitoria de Extensão e Cultura#SEC.PREC#152
+Departamento de Planejamento, Captação e Gerenciamento de Recursos#DPCGR.PREC#152
+Coordenadoria de Planejamento e Captação de Recursos#CPCR.DPCGR#154
+Seção de Integração Público-Privado#SIP. CPCR#155
+Seção de Editais e Apoio à Projetos e Programas#SEAP.CPCR#155
+Coordenadoria de Gerenciamento de Recursos#CGR.DPCGR#154
+Seção de Prestação de Contas, Estatística e Arquivo#SPCEA.CGR#158
+Seção de Articulação Multicampo#SAM.CGR#158
+Departamento de Difusão Científica, Tecnológica e Inovação#DDCTI.PREC#152
+Seção de Eventos#SEVEN.DDCTI#161
+Seção de Educação Continuada#SECON.DDCTI#161
+Seção de Certificação#SCER.DDCTI#161
+Departamento de Arte, Cultura e Assuntos Comunitários#DACA.PREC#152
+Coordenadoria de Arte e Cultura#CAC.DACA#165
+Seção de Memória e Patrimônio da Universidade#SMPU.CAC#166
+Seção de Produção Artística e Cultural#SPAC-CAC#166
+Coordenadoria de Assuntos Comunitários#CASC.DACA#165
+Seção de Incubadora de Organizações Sociais e Coletivas#SIOC.CASC#169
+Departamento de Laboratórios Multiusuários#DLM.REIT#1
+Coordenadoria de Apoio Administrativo#CAA.DLM#1
+Seção de Laboratórios de Apoio à Pesquisa#SLAP.CAA#1
+Seção de Laboratórios de Ensino#SLE.CAA#1
+Seção de Laboratório de Anatomia e Patologia Animal#SLAPA.CAA#1
+Seção de Laboratório de Ciência e Tecnologia de Alimentos#SLCTAL.CAA#1
+Seção de Laboratórios de Pós-Graduação#SLP.CAA#1
+Departamento de Registro e Controle Acadêmico#DRCA.REIT#1
+Secretaria do Departamento de Registro e Controle Acadêmico#SEC.DRCA#1
+Coordenadoria de Registro e Expedição de Documentos#CRED.DRCA#1
+Seção de Controle e Documentação#SCD.CRED#1
+Seção de Registro e Expedição de Diploma#SRED.CRED#1
+Coordenadoria de Graduação#CGRAD.DRCA#1
+Seção de Admissão e Cadastro de Graduação#SACG.CGRAD#1
+Seção de Movimentação e Controle Acadêmica de Graduação#SMCAG.CGRAD#1
+Coordenadoria de Pós-Graduação#CPGRAD.DRCA#1
+Seção de Admissão e Cadastro de Pós-Graduação#SACPG.CPGRAD#1
+Seção de Controle de Pós- Graduação#SCPG.CPGRAD#1
+Coordenadoria de Educação à Distância#CED.DRCA#1
+Seção de Admissão e Cadastro de Educação à Distância#SACED.CED#1
+Seção de Movimentação e Controle de Ensino à Distância#SMCED.CED#1
+Departamento de Tecnologia da Informação #DTI.REIT#1
+Secretaria do Departamento de Tecnologia da Informação#SEC. DTI#1
+Coordenadoria de Governança de Tecnologia da Informação#CGTI.DTI#1
+Coordenadoria de Redes e Comunicação#CRC.DTI#1
+Coordenadoria de Serviços Computacionais#CSC.DTI#1
+Coordenadoria de Sistemas da Informação#CSI.DTI#1
+Seção Multidisciplinar de Tecnologias Sociais#SMTS. CSI#1
+Seção Multidisciplinar de Tecnologias Institucionais#SMTI. CSI#1
+Arquivo Geral#ARG.REIT#1
+Seção de Gestão de Arquivos Setoriais#SGAS.ARG#1
+Seção de Processamento Técnico e Pesquisas#SPTP.ARG#1
+Campus Universitário Sede#CAMUS.REIT#1
+Secretaria do Campus Universitário Sede#SEC.CAMUS#1
+Coordenadoria de Apoio Administrativo#CAAD.CAMUS#1
+Coordenadoria de Apoio Acadêmico#CAAC.CAMUS#1
+Coordenação do Curso de Bacharelado em Agronomia#CCBAG.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCBAG#1
+Coordenação do Curso de Bacharelado em Ciência da Computação#CCBCC.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCBCC#1
+Coordenação do Curso de Bacharelado em Engenharia de Alimentos#CCBEL.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCBEL#1
+Coordenação do Curso de Bacharelado em Medicina Veterinária#CCBMV.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCBMV#1
+Coordenação do Curso de Bacharelado em Zootecnia#CCBZO.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCBZO#1
+Coordenação do Curso de Licenciatura em Pedagogia#CCLPE.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCLPE#1
+Coordenação do Curso de Licenciatura em Letras#CCLLE.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCLLE#1
+Coordenação dos Cursos de Educação à Distância#CCEAD.CAMUS#1
+Seção de Apoio Administrativo e Acadêmico#SAAA.CCEAD#1
+Campi Universitário Externo A#CAMUEA.REIT#1
+Secretaria do Campi Universitário Externo A#SEC.CAMUEA#1
+Campi Universitário Externo B#CAMUEB.REIT#1
+Secretaria do Campi Universitário Externo B#SEC.CAMUEB#1
+Sistema Integrado de Bibliotecas#SIB#1
+Coordenadoria de Serviço de Referência#CSR.SIB#1
+Seção de Atendimento ao Usuário e Ação Cultural#SAUAC.CSR#1
+Seção de Acessibilidade Informacional#SAI.CSR#1
+Coordenadoria de Serviços Digitais#CSD.SIB#1
+Seção de Tecnologias Digitais#STD.CSD#1
+Seção de Memória Institucional#SMI.CSD#1
+Coordenadoria de Acervo e Representação da Informação#CARI.SIB#1
+Seção de Seleção e Aquisição#SSA.CARI#1
+Seção de Processamento Técnico#SPT.CARI#1
+Fazenda Universitária#FUNI.REIT#1
+Secretaria da Fazenda Universitária#SEC.FUNI#1
+Hospital Veterinário Universitário#HVU.REIT#1
+Secretaria do Hospital Veterinário Universitário#SEC.HVU#1
+Coordenadoria de Pequenos Animais#CPAN.HVU#1
+Seção de Clínica Médica de Pequenos Animais#SCMPAN.CPAN#1
+Seção de Cirurgia e Anestesiologia de Pequenos Animais#SCAPAN.CPAN#1
+Coordenadoria de Grandes Animais#CGAN.HVU#1
+Seção de Clínica Médica de Grandes Animais#SCMGAN.CGAN#1
+Seção de Cirurgia e Anestesiologia de Grandes Animais#SCAGAN.CGAN#1
+Seção de Farmácia#SFAR.HVU#1
+Seção de Diagnóstico por Imagem#SDI.HVU#1
+Seção de Laboratórios de Apoio#SLA.HVU#1
