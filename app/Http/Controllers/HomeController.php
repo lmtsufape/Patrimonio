@@ -26,4 +26,9 @@ class HomeController extends Controller
     {
         return redirect()->route('patrimonio.index');
     }
+
+    public function invalid()
+    {
+        return view('auth.invalid-user');
+    }
 }

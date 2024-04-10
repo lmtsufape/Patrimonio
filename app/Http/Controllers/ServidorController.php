@@ -15,7 +15,7 @@ class ServidorController extends Controller
 {
     public function index()
     {
-        $servidores = Servidor::OrderBy('id')->paginate(5);
+        $servidores = User::OrderBy('id')->paginate(5);
         $cargos = Cargo::all();
         $roles = Role::where('nome', '<>', 'Administrador')->get();
 
@@ -43,10 +43,9 @@ class ServidorController extends Controller
             'user_id' => $user->id,
             'cpf' => $request->cpf,
             'matricula' => $request->matricula,
-            'cargo_id' => $request->cargo_id
         ]);
 
-        return redirect(route('servidor.index'))->with('success', 'Servidor Cadastrado com Sucesso!');
+        return redirect()->route('servidor.index')->with('success', 'Servidor Cadastrado com Sucesso!');
     }
 
     public function edit($servidor_id)
@@ -99,8 +98,8 @@ class ServidorController extends Controller
 
     public function validar($id)
     {
-        $servidor = Servidor::findOrFail($id);
-        $servidor->update(['ativo' => !$servidor->ativo]);
+        $user = User::findOrFail($id);
+        $user->update(['ativo' => !$user->ativo]);
 
         return redirect()->back()->with(['success' => 'Servidor alterado']);
     }
@@ -112,7 +111,6 @@ class ServidorController extends Controller
         })->paginate(10);
         $cargos = Cargo::all();
         $roles = Role::where('nome', '<>', 'Administrador')->get();
-
 
         return view('servidor.index', compact('servidores', 'cargos', 'roles'));
     }

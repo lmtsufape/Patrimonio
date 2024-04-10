@@ -16,10 +16,10 @@ class CheckServidorValido
      */
     public function handle(Request $request, Closure $next)
     {
-        if (isset($request->user()->servidor) && $request->user()->servidor->ativo || $request->user()->hasAnyRoles(['Administrador'])) {
+        if ($request->user()->ativo || $request->user()->hasAnyRoles(['Administrador'])) {
             return $next($request);
         }
 
-        return abort(403, 'Acesso Negado');
+        return redirect()->route('invalid');
     }
 }

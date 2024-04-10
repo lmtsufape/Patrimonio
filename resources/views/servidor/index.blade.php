@@ -17,9 +17,9 @@
             'header' => ['ID', 'Nome', 'Matrícula', 'Cargo', 'Status', 'Ações'],
             'content' => [
                 $servidores->pluck('id'),
-                $servidores->pluck('user.name'),
-                $servidores->pluck('matricula'),
-                $servidores->pluck('cargo.nome'),
+                $servidores->pluck('name'),
+                $servidores->pluck('servidor.matricula'),
+                $servidores->pluck('servidor.cargo.nome'),
                 $servidores->map(function ($item, $index) {
                     return $item->ativo ? 'Ativo' : 'Inativo';
                 }),
