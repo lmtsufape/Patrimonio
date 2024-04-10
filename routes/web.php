@@ -29,9 +29,8 @@ use App\Models\UnidadeAdministrativa;
 Auth::routes();
 
 Route::middleware(['auth', 'valid'])->group(function () {
-    Route::name('home')->controller(HomeController::class)->group(function () {
-        Route::get('/', 'index')->middleware('check-role:Administrador');
-        Route::get('/home', 'indexServidor')->middleware('check-role:Servidor');
+    Route::name('home')->controller(PatrimonioController::class)->group(function () {
+        Route::get('/', 'index');
     });
     
     Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {

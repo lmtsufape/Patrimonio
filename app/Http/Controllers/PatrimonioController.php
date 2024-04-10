@@ -18,6 +18,7 @@ use App\Models\Situacao;
 use Illuminate\Http\Request;
 use App\Models\Patrimonio;
 use App\Models\Subgrupo;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class PatrimonioController extends Controller
@@ -28,7 +29,7 @@ class PatrimonioController extends Controller
         $servidores = Servidor::all();
         $situacoes = Situacao::all();
         $origens = Origem::all();
-        $setores = Setor::all();
+        $unidades = UnidadeAdministrativa::all();
         $classificacoes = Classificacao::all();
 
         $query = Patrimonio::query();
@@ -43,8 +44,10 @@ class PatrimonioController extends Controller
             });
         }
 
-        if ($request->has('servidor_id')) {
+        if ($request->user()->hasAnyRoles(['Administrador', 'Diretor']) && $request->has('servidor_id')) {
             $query->where('servidor_id', $request->servidor_id);
+        } else if ($request->user()->hasAnyRoles(['Servidor'])) {
+            $query->where('servidor_id', Auth::user()->servidor->id);
         }
 
         if ($request->has('situacao_id')) {
@@ -55,8 +58,8 @@ class PatrimonioController extends Controller
             $query->where('origem_id', $request->origem_id);
         }
 
-        if ($request->has('setor_id')) {
-            $query->where('setor_id', $request->setor_id);
+        if ($request->has('unidade_admin_id')) {
+            $query->where('unidade_admin_id', $request->unid_admin_id);
         }
 
         if ($request->has('classificacao_id')) {
@@ -67,7 +70,7 @@ class PatrimonioController extends Controller
 
         $patrimonios = $query->paginate(5);
 
-        return view('patrimonio.index', compact('patrimonios', 'predios', 'servidores', 'situacoes', 'origens', 'setores', 'classificacoes'));
+        return view('patrimonio.index', compact('patrimonios', 'predios', 'servidores', 'situacoes', 'origens', 'unidades', 'classificacoes'));
     }
 
     public function create()

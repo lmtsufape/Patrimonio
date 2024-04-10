@@ -13,13 +13,8 @@ class UnidadeAdministrativaController extends Controller
 {
     public function index($unidade_admin_pai_id = null)
     {
-        $unidades = UnidadeAdministrativa::where('unidade_admin_pai_id', null)->paginate(5);
-        if ($unidade_admin_pai_id != null) {
-            $unidade_admin_pai = UnidadeAdministrativa::find($unidade_admin_pai_id);
-            $unidades = $unidade_admin_pai->unidade_admin;
-            return view('unidade_admin.index', compact('unidades', 'unidade_admin_pai'));
-
-        }
+        $unidades = UnidadeAdministrativa::paginate(10);
+        
         return view('unidade_admin.index', compact('unidades'));
     }
 

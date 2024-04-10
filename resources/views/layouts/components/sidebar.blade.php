@@ -57,13 +57,14 @@
         </a>
       </li>
 
-      <li class="mt-1">
-        <img src="{{ asset('assets/sidebar-icons/people.svg') }}" alt="servidor-icon">
-
-        <a href="{{ route('servidor.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'servidor')) active @endif">
-          Servidores
-        </a>
-      </li>
+      @if(Auth::user()->hasAnyRoles(['Administrador']))
+        <li class="mt-1">
+          <img src="{{ asset('assets/sidebar-icons/people.svg') }}" alt="servidor-icon">
+          <a href="{{ route('servidor.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'servidor')) active @endif">
+            Servidores
+          </a>
+        </li>
+      @endif
     </ul>
 
     <div class="mt-auto border-top border-2 pt-3">

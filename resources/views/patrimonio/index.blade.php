@@ -56,7 +56,7 @@
             ['id' => 'servidor_id', 'label' => 'Servidor', 'placeholder' => 'Selecione um servidor', 'options' => $servidores->pluck('user.name', 'id')],
             ['id' => 'situacao_id', 'label' => 'Situacao', 'placeholder' => 'Selecione uma situação', 'options' => $situacoes->pluck('nome', 'id')],
             ['id' => 'origem_id', 'label' => 'Origem', 'placeholder' => 'Selecione uma origem' , 'options' => $origens->pluck('nome', 'id')],
-            ['id' => 'setor_id', 'label' => 'Setor', 'placeholder' => 'Selecione um setor', 'options' => $setores->pluck('nome', 'id')],
+            ['id' => 'unidade_admin_id', 'label' => 'Unidades', 'placeholder' => 'Selecione uma unidade administrativa', 'options' => $unidades->pluck('nome', 'id')],
             ['id' => 'classificacao_id', 'label' => 'Classificação', 'placeholder' => 'Selecione uma classificação', 'options' => $classificacoes->pluck('nome', 'id')]
         ]
     ])
