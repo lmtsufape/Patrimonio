@@ -128,11 +128,11 @@
                     <div class="col">
                         <label for="servidor" class="form-label labels">Servidor: <span
                                 class="red-asterisk">*</span></label>
-                        <select class="form-select selects inputs" aria-label="Selecione um servidor" id="servidor_id"
-                            name="servidor_id">
+                        <select class="form-select selects inputs" aria-label="Selecione um servidor" id="user_id"
+                            name="user_id">
                             <option selected value="">Selecione um servidor</option>
                             @foreach ($servidores as $servidor)
-                                <option value="{{ $servidor->id }}">{{ $servidor->user->name }}</option>
+                                <option value="{{ $servidor->id }}">{{ $servidor->name }}</option>
                             @endforeach
                         </select>
                     </div>

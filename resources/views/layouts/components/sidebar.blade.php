@@ -33,11 +33,11 @@
             <li><a href="{{ route('subgrupo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Subgrupos</a></li>
             <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
             <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
-            <li><a href="{{ route('setor.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>
+            <li><a href="{{ route('unidade.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Unidades Administrativas</a></li>
           </ul>
         </div>
       </li>
-
+      @endif
       <li class="my-1">
         <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="movimentacao-icon">
 

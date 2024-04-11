@@ -13,7 +13,7 @@
             'titleLink' => Route('predio.index', ['predio_id' => $predio->id]),
             'addButtonModal' => 'cadastrarSalaModal',
             'searchForm' => route('sala.buscar'),
-        ]);
+        ])
     @else
         @include('layouts.components.searchbar', [
             'title' => 'Salas',

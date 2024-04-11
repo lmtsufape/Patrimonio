@@ -80,9 +80,7 @@ class PatrimonioController extends Controller
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
         $subgrupos = Subgrupo::orderBy('nome')->get();
-        $servidores = User::with(['user' => function ($query) {
-            $query->orderBy('name');
-        }])->get();
+        $servidores = User::orderBy('name')->get();
 
         return view('patrimonio.create', compact('unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
     }
@@ -105,9 +103,7 @@ class PatrimonioController extends Controller
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
         $subgrupos = Subgrupo::orderBy('nome')->get();
-        $servidores = User::with(['user' => function ($query) {
-            $query->orderBy('name');
-        }])->get();
+        $servidores = User::orderBy('name')->get();
         return view('patrimonio.edit', compact('patrimonio', 'unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
     }
 
