@@ -29,6 +29,9 @@
           <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
             Cadastros
           </button>
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
+            Cadastros
+          </button>
 
           <div class="collapse" id="cadastros-collapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
@@ -44,18 +47,18 @@
       <li class="my-1">
         <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="movimentacao-icon">
 
-        <a href="{{ route('movimento.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'movimento')) active @endif">
-          Movimentações
-        </a>
-      </li>
+          <a href="{{ route('movimento.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'movimento')) active @endif">
+            Movimentações
+          </a>
+        </li>
 
-      <li class="mt-1">
-        <img src="{{ asset('assets/sidebar-icons/relatorio.svg') }}" alt="relatorio-icon">
+        <li class="mt-1">
+          <img src="{{ asset('assets/sidebar-icons/relatorio.svg') }}" alt="relatorio-icon">
 
-        <a href="{{ route('patrimonio.relatorio.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'relatorio')) active @endif">
-          Relatórios
-        </a>
-      </li>
+          <a href="{{ route('patrimonio.relatorio.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'relatorio')) active @endif">
+            Relatórios
+          </a>
+        </li>
 
       @if(Auth::user()->hasAnyRoles(['Administrador']))
         <li class="mt-1">
