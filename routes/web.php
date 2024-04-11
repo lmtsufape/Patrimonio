@@ -31,9 +31,8 @@ Auth::routes();
 Route::get('/validate', [HomeController::class, 'invalidUser'])->middleware('auth')->name('invalid');
 
 Route::middleware(['auth', 'valid'])->group(function () {
-    Route::controller(HomeController::class)->group(function () {
-        Route::get('/', 'home')->name('home');
-        Route::get('/home', 'home');
+    Route::controller(PatrimonioController::class)->group(function () {
+        Route::get('/', 'index')->name('home');
     });
     
     Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {

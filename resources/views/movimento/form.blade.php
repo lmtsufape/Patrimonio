@@ -19,7 +19,7 @@
             <option selected disabled>Selecione o Servidor de Origem</option>
             @foreach($servidores as $servidor)
                 <option value="{{$servidor->id}}"
-                        @if(isset($movimento) && $servidor->id == $movimento->servidor_origem_id)selected @endif>{{$servidor->user->name}}</option>
+                        @if(isset($movimento) && $servidor->id == $movimento->user_origem_id)selected @endif>{{$servidor->name}}</option>
             @endforeach
         </select>
     </div>
@@ -30,7 +30,7 @@
             <option selected disabled>Selecione o Servidor de Destino</option>
             @foreach($servidores as $servidor)
                 <option value="{{$servidor->id}}"
-                        @if(isset($movimento) && $servidor->id == $movimento->servidor_destino_id)selected @endif>{{$servidor->user->name}}</option>
+                        @if(isset($movimento) && $servidor->id == $movimento->servidor_destino_id)selected @endif>{{$servidor->name}}</option>
             @endforeach
         </select>
     </div>

@@ -132,7 +132,7 @@
                         name="servidor_id">
                         <option selected value="">Selecione um servidor</option>
                         @foreach ($servidores as $servidor)
-                        <option value="{{ $servidor->id }}" {{ old('servidor_id', $patrimonio->servidor_id) == $servidor->id ? 'selected' : '' }}>{{ $servidor->user->name }}</option>
+                        <option value="{{ $servidor->id }}" {{ old('servidor_id', $patrimonio->servidor_id) == $servidor->id ? 'selected' : '' }}>{{ $servidor->name }}</option>
                         @endforeach
                     </select>
                 </div>

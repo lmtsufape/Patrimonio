@@ -71,7 +71,7 @@
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarSubgrupoModal',
         'modalTitle' => 'Editar Subgrupo',
-        'formAction' => route('setor.update', ['id' => 'id']),
+        'formAction' => route('unidade.update', ['id' => 'id']),
         'type'=> 'edit',
         'fields' => [
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],

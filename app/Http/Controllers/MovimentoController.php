@@ -9,7 +9,7 @@ use App\Models\Movimento;
 use App\Models\MovimentoPatrimonio;
 use App\Models\Patrimonio;
 use App\Models\Predio;
-use App\Models\Servidor;
+use App\Models\User;
 use App\Models\TipoMovimento;
 use Illuminate\Http\Request;
 
@@ -25,7 +25,7 @@ class MovimentoController extends Controller
     public function create()
     {
         $tipo_movimentos = TipoMovimento::all();
-        $servidores = Servidor::all();
+        $servidores = User::all();
         return view('movimento.create', compact('tipo_movimentos', 'servidores'));
     }
 
@@ -43,10 +43,9 @@ class MovimentoController extends Controller
     {
         $movimento = Movimento::find($movimento_id);
         $tipo_movimentos = TipoMovimento::all();
-        $servidores = Servidor::all();
+        $servidores = User::all();
         $predios = Predio::all();
-        $patrimonios = Patrimonio::where('servidor_id', $movimento->servidor_origem->id)
-            ->get();
+        $patrimonios = Patrimonio::where('user_id', $movimento->user_origem_id)->get();
 
         return view('movimento.edit', compact('movimento', 'tipo_movimentos', 'servidores', 'patrimonios', 'predios'));
     }

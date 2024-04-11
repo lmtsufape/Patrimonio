@@ -50,7 +50,7 @@
     <p><strong>Origem:</strong> {{ $patrimonio->origem->nome }}</p>
     <p><strong>Prédio:</strong> {{ $patrimonio->sala->predio->nome }}</p>
     <p><strong>Sala:</strong> {{ $patrimonio->sala->nome }}</p>
-    <p><strong>Servidor:</strong> {{ $patrimonio->servidor->user->name }}</p>
+    <p><strong>Servidor:</strong> {{ $patrimonio->user->name }}</p>
     <p><strong>Valor do Item:</strong> R$ {{ number_format($patrimonio->valor, 2, ',', '.') }}</p>
     
     <h2>Historico de Movimentações:</h2>
@@ -67,8 +67,8 @@
                 <strong>Status:</strong> {{ $movimento->status }} <br>
                 <strong>Data do Movimento:</strong> {{ $movimento->data_movimento }} <br>
                 <strong>Data de Conclusão:</strong> {{ $movimento->data_conclusao ?: 'N/A' }} <br>
-                <strong>Servidor Destino:</strong> {{ $movimento->servidor_destino_id }} <br>
-                <strong>Servidor Origem:</strong> {{ $movimento->servidor_origem_id }} <br>
+                <strong>Servidor Destino:</strong> {{ $movimento->user_destino_id }} <br>
+                <strong>Servidor Origem:</strong> {{ $movimento->user_origem_id }} <br>
                 
             </li>
         @endforeach
