@@ -20,4 +20,8 @@ class UnidadeAdministrativa extends Model
     {
         return $this->hasMany(UnidadeAdministrativa::class, 'unidade_admin_pai_id');
     }
+    public function patrimonios()
+    {
+        return $this->hasMany(Patrimonio::class);
+    }
 }
