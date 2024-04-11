@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             OrigemSeeder::class,
             ClassificacaoSeeder::class,
             SituacaoSeeder::class,
-            SetorSeeder::class,
+            UnidadeAdministrativaSeeder::class,
             SubgrupoSeeder::class,
             PatrimonioSeeder::class,
             MovimentoSeeder::class,

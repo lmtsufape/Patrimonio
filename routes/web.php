@@ -10,9 +10,10 @@ use App\Http\Controllers\SalaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ClassificacaoController;
 use App\Http\Controllers\ServidorController;
-use App\Http\Controllers\SetorController;
+use App\Http\Controllers\UnidadeAdministrativaController;
 use App\Http\Controllers\PatrimonioController;
 use App\Http\Controllers\MovimentoController;
+use App\Models\UnidadeAdministrativa;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,8 @@ Auth::routes();
 Route::get('/validate', [HomeController::class, 'invalid'])->middleware('auth')->name('invalid');
 
 Route::middleware(['auth', 'valid'])->group(function () {
-    Route::name('home')->controller(HomeController::class)->group(function () {
+    Route::name('home')->controller(PatrimonioController::class)->group(function () {
         Route::get('/', 'index');
-        Route::get('/home', 'index');
     });
     
     Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {
@@ -97,13 +97,13 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/search', 'search')->name('buscar');
     });
     
-    Route::prefix('setor')->name('setor.')->controller(SetorController::class)->group(function () {
-        Route::get('/listar/{setor_pai_id?}', 'index')->name('index');
-        Route::get('/cadastrar/{setor_pai_id?}', 'create')->name('create');
+    Route::prefix('unidade')->name('unidade.')->controller(UnidadeAdministrativaController::class)->group(function () {
+        Route::get('/listar/{unidade_admin_pai_id?}', 'index')->name('index');
+        Route::get('/cadastrar/{unidade_admin_pai_id?}', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::get('/{setor_id}/editar', 'edit')->name('edit');
+        Route::get('/{unidade_admin_id}/editar', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/{setor_id}/delete', 'delete')->name('delete');
+        Route::delete('/{unidade_admin_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
         // Route::get('/{setor_id}/restore', [SetorController::class, 'restore'])->name('restore');
     });

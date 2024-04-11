@@ -65,11 +65,6 @@
         </table>
     </div>
 
-    <div class="d-flex" style="max-width:600px">
-        <a class="w-100 btn btn-primary" style="margin-right: 10px" href="{{route('movimento.create')}}">Cadastrar
-            item</a>
-    </div>
-
     <script>
         $(document).ready(function () {
             $('#movimento_table').DataTable({

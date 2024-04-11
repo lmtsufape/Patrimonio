@@ -59,11 +59,11 @@
                         <textarea type="text" class="form-control inputs" name="descricao" id="descricao" ></textarea>
                     </div>
                     <div class="col">
-                        <label for="setor" class="form-label labels">Setor: <span class="red-asterisk">*</span></label>
-                        <select class="form-select selects inputs" aria-label="Selecione um setor" id="setor_id" name="setor_id">
-                            <option selected value="">Selecione um setor</option>
-                            @foreach ($setores as $setor)
-                                <option value="{{ $setor->id }}">{{ $setor->nome }}</option>
+                        <label for="unidade" class="form-label labels">Unidade Administrativa: <span class="red-asterisk">*</span></label>
+                        <select class="form-select selects inputs" aria-label="Selecione uma unidade" id="unidade_admin_id" name="unidade_admin_id">
+                            <option selected value="">Selecione uma Unidade Administrativa</option>
+                            @foreach ($unidades as $unidade)
+                                <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
                             @endforeach
                         </select>
                     </div>

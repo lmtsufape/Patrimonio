@@ -13,11 +13,12 @@ use App\Models\Origem;
 use App\Models\Predio;
 use App\Models\Sala;
 use App\Models\Servidor;
-use App\Models\Setor;
+use App\Models\UnidadeAdministrativa;
 use App\Models\Situacao;
 use Illuminate\Http\Request;
 use App\Models\Patrimonio;
 use App\Models\Subgrupo;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class PatrimonioController extends Controller
@@ -28,7 +29,7 @@ class PatrimonioController extends Controller
         $servidores = Servidor::all();
         $situacoes = Situacao::all();
         $origens = Origem::all();
-        $setores = Setor::all();
+        $unidades = UnidadeAdministrativa::all();
         $classificacoes = Classificacao::all();
 
         $query = Patrimonio::query();
@@ -43,8 +44,10 @@ class PatrimonioController extends Controller
             });
         }
 
-        if ($request->has('servidor_id')) {
+        if ($request->user()->hasAnyRoles(['Administrador', 'Diretor']) && $request->has('servidor_id')) {
             $query->where('servidor_id', $request->servidor_id);
+        } else if ($request->user()->hasAnyRoles(['Servidor'])) {
+            $query->where('servidor_id', Auth::user()->servidor->id);
         }
 
         if ($request->has('situacao_id')) {
@@ -55,8 +58,8 @@ class PatrimonioController extends Controller
             $query->where('origem_id', $request->origem_id);
         }
 
-        if ($request->has('setor_id')) {
-            $query->where('setor_id', $request->setor_id);
+        if ($request->has('unidade_admin_id')) {
+            $query->where('unidade_admin_id', $request->unid_admin_id);
         }
 
         if ($request->has('classificacao_id')) {
@@ -67,12 +70,12 @@ class PatrimonioController extends Controller
 
         $patrimonios = $query->paginate(5);
 
-        return view('patrimonio.index', compact('patrimonios', 'predios', 'servidores', 'situacoes', 'origens', 'setores', 'classificacoes'));
+        return view('patrimonio.index', compact('patrimonios', 'predios', 'servidores', 'situacoes', 'origens', 'unidades', 'classificacoes'));
     }
 
     public function create()
     {
-        $setores = Setor::all();
+        $unidades = UnidadeAdministrativa::all();
         $origens = Origem::orderBy('nome')->get();
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
@@ -81,7 +84,7 @@ class PatrimonioController extends Controller
             $query->orderBy('name');
         }])->get();
 
-        return view('patrimonio.create', compact('setores', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
+        return view('patrimonio.create', compact('unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
     }
 
     public function store(StorePatrimonioRequest $request)
@@ -97,7 +100,7 @@ class PatrimonioController extends Controller
     public function edit($patrimonio_id)
     {
         $patrimonio = Patrimonio::find($patrimonio_id);
-        $setores = Setor::all();
+        $unidades = UnidadeAdministrativa::all();
         $origens = Origem::orderBy('nome')->get();
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
@@ -105,7 +108,7 @@ class PatrimonioController extends Controller
         $servidores = Servidor::with(['user' => function ($query) {
             $query->orderBy('name');
         }])->get();
-        return view('patrimonio.edit', compact('patrimonio', 'setores', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
+        return view('patrimonio.edit', compact('patrimonio', 'unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
     }
 
     public function update(UpdatePatrimonioRequest $request, $id)
@@ -140,8 +143,8 @@ class PatrimonioController extends Controller
     {
         $query = Patrimonio::query();
 
-        if ($request->filled('setor_id')) {
-            $query->where('setor_id', $request->setor_id);
+        if ($request->filled('unidade_admin_id')) {
+            $query->where('unidade_admin_id', $request->unidade_admin_id);
         }
         if ($request->filled('situacao_id')) {
             $query->where('situacao_id', $request->situacao_id);
@@ -153,10 +156,10 @@ class PatrimonioController extends Controller
 
         $patrimonios = $query->paginate(5);
 
-        $setores = Setor::all();
+        $unidades = UnidadeAdministrativa::all();
         $situacoes = Situacao::all();
 
-        return view('patrimonio.relatorio.index', compact('patrimonios', 'setores', 'situacoes'));
+        return view('patrimonio.relatorio.index', compact('patrimonios', 'unidades', 'situacoes'));
     }
     public function gerarRelatorioPatrimonio($patrimonio_id)
     {
@@ -173,8 +176,8 @@ class PatrimonioController extends Controller
     {
         $patrimonio = Patrimonio::findOrFail($id);
         $classificacao = Classificacao::findOrFail($patrimonio->subgrupo->classificacao_id);
-        $setores = Setor::all();
-        return view('patrimonio.Info', compact('patrimonio', 'classificacao', 'setores'));
+        $unidades = UnidadeAdministrativa::all();
+        return view('patrimonio.Info', compact('patrimonio', 'classificacao', 'unidades'));
     }
 
 
