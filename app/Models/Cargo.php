@@ -11,7 +11,7 @@ class Cargo extends Model
 
     protected $fillable = ['nome'];
 
-    public function servidores() {
-        return $this->belongsToMany(Servidor::class);
+    public function users() {
+        return $this->belongsToMany(User::class);
     }
 }

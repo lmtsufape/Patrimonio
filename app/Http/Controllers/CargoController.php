@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Cargo\StoreCargoRequest;
 use App\Http\Requests\Cargo\UpdateCargoRequest;
 use App\Models\Cargo;
-use App\Models\Servidor;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class CargoController extends Controller
@@ -46,11 +46,13 @@ class CargoController extends Controller
     public function delete($cargo_id)
     {
         $cargo = Cargo::find($cargo_id);
-        $servidor = Servidor::where('cargo_id', $cargo->id)->first();
-        if ($servidor == null) {
+
+        try {
             $cargo->delete();
+
             return redirect(route('cargo.index'))->with('success', 'Cargo Removido com Sucesso!');
-        } else {
+        } catch (QueryException $e) {
+
             return redirect(route('cargo.index'))->with('fail', 'Não é possivel remover este cargo, há servidores vinculados a ele!');
         }
     }
