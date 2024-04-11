@@ -9,7 +9,7 @@ use App\Http\Controllers\PredioController;
 use App\Http\Controllers\SalaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ClassificacaoController;
-use App\Http\Controllers\ServidorController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UnidadeAdministrativaController;
 use App\Http\Controllers\PatrimonioController;
 use App\Http\Controllers\MovimentoController;
@@ -87,7 +87,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/search', 'search')->name('buscar');
     });
     
-    Route::prefix('servidor')->name('servidor.')->controller(ServidorController::class)->group(function () {
+    Route::prefix('servidor')->name('servidor.')->controller(UserController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');

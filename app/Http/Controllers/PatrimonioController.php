@@ -12,12 +12,12 @@ use App\Models\MovimentoPatrimonio;
 use App\Models\Origem;
 use App\Models\Predio;
 use App\Models\Sala;
-use App\Models\Servidor;
 use App\Models\UnidadeAdministrativa;
 use App\Models\Situacao;
 use Illuminate\Http\Request;
 use App\Models\Patrimonio;
 use App\Models\Subgrupo;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 
@@ -26,7 +26,7 @@ class PatrimonioController extends Controller
     public function index(FilterPatrimonioRequest $request)
     {
         $predios = Predio::all();
-        $servidores = Servidor::all();
+        $servidores = User::all();
         $situacoes = Situacao::all();
         $origens = Origem::all();
         $unidades = UnidadeAdministrativa::all();
@@ -44,10 +44,10 @@ class PatrimonioController extends Controller
             });
         }
 
-        if ($request->user()->hasAnyRoles(['Administrador', 'Diretor']) && $request->has('servidor_id')) {
-            $query->where('servidor_id', $request->servidor_id);
+        if ($request->user()->hasAnyRoles(['Administrador', 'Diretor']) && $request->has('user_id')) {
+            $query->where('user_id', $request->user_id);
         } else if ($request->user()->hasAnyRoles(['Servidor'])) {
-            $query->where('servidor_id', Auth::user()->servidor->id);
+            $query->where('user_id', Auth::user()->id);
         }
 
         if ($request->has('situacao_id')) {
@@ -80,7 +80,7 @@ class PatrimonioController extends Controller
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
         $subgrupos = Subgrupo::orderBy('nome')->get();
-        $servidores = Servidor::with(['user' => function ($query) {
+        $servidores = User::with(['user' => function ($query) {
             $query->orderBy('name');
         }])->get();
 
@@ -105,7 +105,7 @@ class PatrimonioController extends Controller
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
         $subgrupos = Subgrupo::orderBy('nome')->get();
-        $servidores = Servidor::with(['user' => function ($query) {
+        $servidores = User::with(['user' => function ($query) {
             $query->orderBy('name');
         }])->get();
         return view('patrimonio.edit', compact('patrimonio', 'unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));

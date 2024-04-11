@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('empenho');
             $table->string('conta_contabil');
 
-            $table->foreignId('servidor_id')->constrained('servidores');
+            $table->foreignId('user_id')->constrained();
             $table->foreignId('unidade_admin_id')->constrained('unidades_administrativas')->nullable();
             $table->foreignId('subgrupo_id')->constrained('subgrupos');
             $table->foreignId('origem_id')->constrained('origens');

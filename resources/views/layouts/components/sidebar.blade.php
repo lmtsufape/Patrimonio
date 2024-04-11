@@ -26,19 +26,20 @@
               Cadastros
             </button>
 
-            <div class="collapse" id="cadastros-collapse">
-              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
-                <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
-                <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
-                <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
-                <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
-                <li><a href="{{ route('unidade.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Unidades Administrativas</a></li>
-              </ul>
-            </div>
-          </li>
-        @endif
-        <li class="my-1">
-          <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="movimentacao-icon">
+        <div class="collapse" id="cadastros-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
+            <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
+            <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
+            <li><a href="{{ route('subgrupo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Subgrupos</a></li>
+            <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
+            <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
+            <li><a href="{{ route('setor.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Setores</a></li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="my-1">
+        <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="movimentacao-icon">
 
           <a href="{{ route('movimento.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'movimento')) active @endif">
             Movimentações
