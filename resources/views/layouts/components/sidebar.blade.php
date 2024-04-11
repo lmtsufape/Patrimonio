@@ -9,43 +9,36 @@
   </div>
 
   <div class="d-flex flex-column offcanvas-body p-4 pb-3 border-bottom border-top">
-    <ul class="list-unstyled ps-0 m-0 d-flex flex-column">
-      <li class="mb-1">
-        <img src="{{ asset('assets/sidebar-icons/patrimonio.svg') }}" alt="patrimonio-icon">
-        @if(Auth::user()->hasAnyRoles(['Administrador']))
+    @if (auth()->user()->ativo || auth()->user()->hasAnyRoles(['Administrador']))
+      <ul class="list-unstyled ps-0 m-0 d-flex flex-column">
+        <li class="mb-1">
+          <img src="{{ asset('assets/sidebar-icons/patrimonio.svg') }}" alt="patrimonio-icon">
+
           <a href="{{ route('patrimonio.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'patrimonio')) active @endif">
             Patrimônio
           </a>
-        @elseif(Auth::user()->hasAnyRoles(['Servidor']))
-          <a href="{{ route('home') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'patrimonio')) active @endif">
-            Patrimônio
-          </a>
-        @endif
-      </li>
-      @if(Auth::user()->hasAnyRoles(['Administrador']))
-        <li class="my-1">
-          <img src="{{ asset('assets/sidebar-icons/cadastro.svg') }}" alt="cadastro-icon">
-
-          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
-            Cadastros
-          </button>
-          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
-            Cadastros
-          </button>
-
-          <div class="collapse" id="cadastros-collapse">
-            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
-              <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
-              <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
-              <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
-              <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
-              <li><a href="{{ route('unidade.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Unidades Administrativas</a></li>
-            </ul>
-          </div>
         </li>
-      @endif
-      <li class="my-1">
-        <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="movimentacao-icon">
+        @if (Auth::user()->hasAnyRoles(['Administrador']))
+          <li class="my-1">
+            <img src="{{ asset('assets/sidebar-icons/cadastro.svg') }}" alt="cadastro-icon">
+
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed @if (Str::contains(Route::currentRouteName(), 'create')) active @endif" data-bs-toggle="collapse" data-bs-target="#cadastros-collapse" aria-expanded="false">
+              Cadastros
+            </button>
+
+            <div class="collapse" id="cadastros-collapse">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
+                <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
+                <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
+                <li><a href="{{ route('predio.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Prédios</a></li>
+                <li><a href="{{ route('cargo.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cargos</a></li>
+                <li><a href="{{ route('unidade.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Unidades Administrativas</a></li>
+              </ul>
+            </div>
+          </li>
+        @endif
+        <li class="my-1">
+          <img src="{{ asset('assets/sidebar-icons/movimentacao.svg') }}" alt="movimentacao-icon">
 
           <a href="{{ route('movimento.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'movimento')) active @endif">
             Movimentações
@@ -60,15 +53,17 @@
           </a>
         </li>
 
-      @if(Auth::user()->hasAnyRoles(['Administrador']))
-        <li class="mt-1">
-          <img src="{{ asset('assets/sidebar-icons/people.svg') }}" alt="servidor-icon">
-          <a href="{{ route('servidor.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'servidor')) active @endif">
-            Servidores
-          </a>
-        </li>
-      @endif
-    </ul>
+        @if(Auth::user()->hasAnyRoles(['Administrador']))
+          <li class="mt-1">
+            <img src="{{ asset('assets/sidebar-icons/people.svg') }}" alt="servidor-icon">
+            
+            <a href="{{ route('servidor.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'servidor')) active @endif">
+              Servidores
+            </a>
+          </li>
+        @endif
+      </ul>
+    @endif
 
     <div class="mt-auto border-top border-2 pt-3">
       <ul class="list-unstyled m-0 d-flex flex-column">
