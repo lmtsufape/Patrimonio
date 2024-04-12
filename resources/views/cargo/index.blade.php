@@ -3,7 +3,6 @@
 @push('styles')
     <link rel="stylesheet" href="/css/layouts/searchbar.css">
     <link rel="stylesheet" href="/css/layouts/table.css">
-    <link rel="stylesheet" href="/css/modal.css">
 @endpush
 
 @section('content')
