@@ -12,8 +12,8 @@ class UpdateMovimentoRequest extends FormRequest
     {
         return [
             'observacao' => 'nullable|string|max:255',
-            'servidor_destino_id' => 'required|integer|exists:servidores,id',
-            'servidor_origem_id' => 'required|integer|exists:servidores,id',
+            'user_destino_id' => 'required|integer|exists:users,id',
+            'user_origem_id' => 'required|integer|exists:users,id',
             'tipo_movimento_id' => 'required|integer|exists:tipos_movimento,id',
             'data_movimento' => 'required|date'
         ];

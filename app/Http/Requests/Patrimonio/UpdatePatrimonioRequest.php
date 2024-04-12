@@ -14,7 +14,7 @@ class UpdatePatrimonioRequest extends FormRequest
             'nome' => 'required|string|max:255',
             'nota_fiscal' => 'nullable|string|max:255',
             'descricao' => 'required|string|max:255',
-            'servidor_id' => 'required|integer|exists:servidores,id',
+            'user_id' => 'required|integer|exists:users,id',
             'unidade_admin_id' => 'required|integer|exists:unidades_administrativas,id',
             'classificacao_id' => 'required|integer|exists:classificacoes,id',
             'origem_id' => 'required|integer|exists:origens,id',

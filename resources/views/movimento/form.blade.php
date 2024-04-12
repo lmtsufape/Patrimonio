@@ -15,7 +15,7 @@
 
     <div class="col-4">
         <label>Servidor de Origem:<strong style="color: red">*</strong></label>
-        <select class="form-control" name="servidor_origem_id" required>
+        <select class="form-control" name="user_origem_id" required>
             <option selected disabled>Selecione o Servidor de Origem</option>
             @foreach($servidores as $servidor)
                 <option value="{{$servidor->id}}"
@@ -26,11 +26,11 @@
 
     <div class="col-4">
         <label>Servidor de Destino:<strong style="color: red">*</strong></label>
-        <select class="form-control" name="servidor_destino_id" required>
+        <select class="form-control" name="user_destino_id" required>
             <option selected disabled>Selecione o Servidor de Destino</option>
             @foreach($servidores as $servidor)
                 <option value="{{$servidor->id}}"
-                        @if(isset($movimento) && $servidor->id == $movimento->servidor_destino_id)selected @endif>{{$servidor->name}}</option>
+                        @if(isset($movimento) && $servidor->id == $movimento->user_destino_id)selected @endif>{{$servidor->name}}</option>
             @endforeach
         </select>
     </div>

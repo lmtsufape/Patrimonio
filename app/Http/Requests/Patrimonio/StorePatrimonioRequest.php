@@ -19,7 +19,7 @@ class StorePatrimonioRequest extends FormRequest
             'valor' => 'required|numeric',
             'empenho' => 'required|string',
             'conta_contabil' => 'required|string',
-            'servidor_id' => 'required|integer|exists:servidores,id',
+            'user_id' => 'required|integer|exists:users,id',
             'unidade_admin_id' => 'required|integer|exists:unidades_administrativas,id',
             'subgrupo_id' => 'required|integer|exists:subgrupos,id',
             'origem_id' => 'required|integer|exists:origens,id',

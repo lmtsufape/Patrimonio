@@ -12,6 +12,7 @@ use App\Models\Predio;
 use App\Models\User;
 use App\Models\TipoMovimento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MovimentoController extends Controller
 {
@@ -25,7 +26,7 @@ class MovimentoController extends Controller
     public function create()
     {
         $tipo_movimentos = TipoMovimento::all();
-        $servidores = User::all();
+        $servidores = User::where('id', '!=', Auth::user()->id)->get();
         return view('movimento.create', compact('tipo_movimentos', 'servidores'));
     }
 
@@ -116,8 +117,8 @@ class MovimentoController extends Controller
 
     private function verificarServidores($data)
     {
-        $servidor_origem_id = $data['servidor_origem_id'];
-        $servidor_destino_id = $data['servidor_destino_id'];
+        $servidor_origem_id = $data['user_origem_id'];
+        $servidor_destino_id = $data['user_destino_id'];
 
         if($servidor_origem_id == $servidor_destino_id)
         {
@@ -130,9 +131,9 @@ class MovimentoController extends Controller
     private function verificarItensMovimento($data, $movimento)
     {
         if(count($movimento->itens_movimento) > 0) {
-            $servidor_origem_id = $data['servidor_origem_id'];
-            $servidor_destino_id = $data['servidor_destino_id'];
-            if($movimento->servidor_origem_id != $servidor_origem_id)
+            $user_origem_id = $data['user_origem_id'];
+            $user_destino_id = $data['user_destino_id'];
+            if($movimento->user_origem_id != $user_origem_id)
                 return false;
         }
         return true;

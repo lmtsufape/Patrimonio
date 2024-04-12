@@ -28,11 +28,11 @@ use App\Models\UnidadeAdministrativa;
 
 Auth::routes();
 
-Route::get('/validate', [HomeController::class, 'invalidUser'])->middleware('auth')->name('invalid');
+Route::get('/validate', [HomeController::class, 'invalid'])->middleware('auth')->name('invalid');
 
 Route::middleware(['auth', 'valid'])->group(function () {
-    Route::controller(PatrimonioController::class)->group(function () {
-        Route::get('/', 'index')->name('home');
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'home')->name('home');
     });
     
     Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {
