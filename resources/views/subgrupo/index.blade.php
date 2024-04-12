@@ -57,14 +57,14 @@
             ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
             ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
             [
-            'name' => 'classificacao_id',
-            'id' => 'classificacao_id',
-            'type' => 'select',
-            'label' => 'Classificação:',
-            'options' => $classificacoes->pluck('nome'), 
-            'placeholder' => 'Escolha uma Classificação'
+                'name' => 'classificacao_id',
+                'id' => 'classificacao_id',
+                'type' => 'select',
+                'label' => 'Classificação:',
+                'options' => $classificacoes->pluck('nome'), 
+                'placeholder' => 'Escolha uma Classificação'
             ],
-    ],
+        ],
     ])
 
     @include('layouts.components.modais.modal', [
@@ -77,14 +77,14 @@
             ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
             ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
             [
-            'name' => 'classificacao_id',
-            'id' => 'classificacao_id',
-            'type' => 'select',
-            'label' => 'Classificação:',
-            'options' => $classificacoes->pluck('nome'), 
-            'placeholder' => 'Escolha uma Classificação'
+                'name' => 'classificacao_id',
+                'id' => 'classificacao_id',
+                'type' => 'select',
+                'label' => 'Classificação:',
+                'options' => $classificacoes->pluck('nome'), 
+                'placeholder' => 'Escolha uma Classificação'
             ],
-    ],
+        ],
     ])
 
 @endsection
@@ -92,21 +92,20 @@
 @push('scripts')
 
     <script>
-            const subgrupoUpdateRoute = "{{ route('subgrupo.update', ['id' => ':id']) }}"; 
-            var subgrupoId = 0;
+        const subgrupoUpdateRoute = "{{ route('subgrupo.update', ['id' => ':id']) }}"; 
+        var subgrupoId = 0;
 
-            $(document).ready(function () {
-                $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
-                    var formAction = subgrupoUpdateRoute.replace(':id', subgrupoId); 
-                    $(this).find('form').attr('action', formAction);
-                });
+        $(document).ready(function () {
+            $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
+                var formAction = subgrupoUpdateRoute.replace(':id', subgrupoId); 
+                $(this).find('form').attr('action', formAction);
             });
+        });
 
-            function openEditModal(id) {
-                subgrupoId = id;
-                $('#editarSubgrupoModal').modal('show');
-            }
-
+        function openEditModal(id) {
+            subgrupoId = id;
+            $('#editarSubgrupoModal').modal('show');
+        }
     </script>
-
+    
 @endpush
