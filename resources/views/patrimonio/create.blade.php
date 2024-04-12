@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @push('styles')
+    <link rel="stylesheet" href="/css/layouts/searchbar.css">
+
     <style>
     
     label{
@@ -15,17 +17,12 @@
 
 @section('content')
     <div class="container mt-5 mx-auto">
-        <div class="mb-4">
-            <div class="row align-items-start">
-                <h1 class="display-6 text-nowrap" style="font-weight: 500; font-size: 34px; color: #676767;">
-                    <strong>
-                        <a href="{{ route('patrimonio.index') }}" class="text-decoration-none link-primary"><span
-                                style="color: #3252C1">Patrimônio</span></a>
-                        > Cadastrar Patrimônio
-                    </strong>
-                </h1>
-            </div>
-        </div>
+
+        @include('layouts.components.searchbar', [
+            'title' => 'Patrimônios > Cadastrar',
+            'titleLink' => Route('patrimonio.index'),
+        ])
+
         <div>
             <form action="{{ route('patrimonio.store') }}" method="post">
                 @csrf
@@ -180,7 +177,7 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center mb-5 mt-2">
+                <div class="row justify-content-center mb-5 mt-5">
                     <div class="col-auto">
                         <button class="btn btn-blue btn-lg" type="submit">Cadastrar</button>
                     </div>
