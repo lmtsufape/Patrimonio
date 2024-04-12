@@ -4,14 +4,13 @@
     <link rel="stylesheet" href="/css/layouts/searchbar.css">
 
     <style>
-    
-    label{
-        color: #1A2876;
-        
-    }
-    .red-asterisk {
-        color: #AA2E2E;
-    }
+        label{
+            color: #1A2876;
+            
+        }
+        .red-asterisk {
+            color: #AA2E2E;
+        }
     </style>
 @endpush
 

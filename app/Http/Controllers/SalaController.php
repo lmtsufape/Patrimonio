@@ -14,7 +14,8 @@ class SalaController extends Controller
     public function index($predio_id)
     {
         $predio = Predio::find($predio_id);
-        $salas = $predio->salas()->paginate(5);
+        $salas = $predio->salas()->orderBy('id')->paginate(5);
+        
         return view('sala.index', compact('salas', 'predio'));
     }
 
@@ -38,11 +39,11 @@ class SalaController extends Controller
         return view('sala.edit', compact('sala', 'predio'));
     }
 
-    public function update(UpdateSalaRequest $request)
+    public function update(UpdateSalaRequest $request, $id)
     {
-        Sala::find($request->sala_id)->update($request->all());
+        Sala::find($id)->update($request->all());
 
-        return redirect(route('sala.index', ['predio_id' => $request->predio_id]))->with('success', 'Predio Editado com Sucesso!');
+        return redirect()->route('sala.index', ['predio_id' => $request->predio_id])->with('success', 'Sala Editada com Sucesso!');
     }
 
     public function delete($sala_id)
