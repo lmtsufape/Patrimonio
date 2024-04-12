@@ -93,7 +93,7 @@
                         <a href="{{ url()->previous() }}" class="btn btn-light btn-outline btn-block w-100">Voltar</a>
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary btn-block w-100" style="background-color: #3252C1;">Cadastrar</button>
+                        <button type="submit" class="btn btn-blue btn-block">Cadastrar</button>
                     </div>
             </form>
         </div>
