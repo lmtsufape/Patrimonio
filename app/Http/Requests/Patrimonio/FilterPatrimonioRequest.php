@@ -26,7 +26,7 @@ class FilterPatrimonioRequest extends FormRequest
         return [
             'busca' => 'sometimes|required|string',
             'predio_id' => 'sometimes|required|integer|exists:predios,id',
-            'servidor_id' => 'sometimes|required|integer|exists:servidores,id',
+            'user_id' => 'sometimes|required|integer|exists:users,id',
             'situacao_id' => 'sometimes|required|integer|exists:situacoes,id',
             'origem_id' => 'sometimes|required|integer|exists:origens,id',
             'unidade_admin_id' => 'sometimes|required|integer|exists:unidades_administrativas,id',

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function invalidUser()
+    public function invalid()
     {
         return view('auth.invalid-user');
     }
