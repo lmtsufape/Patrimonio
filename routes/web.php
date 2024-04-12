@@ -28,10 +28,9 @@ use App\Models\UnidadeAdministrativa;
 
 Auth::routes();
 
+Route::get('/validate', [HomeController::class, 'invalid'])->middleware('valid:false')->name('invalid');
 
-Route::middleware(['auth', 'valid'])->group(function () {
-    Route::get('/validate', [HomeController::class, 'invalid'])->name('invalid');
-
+Route::middleware(['auth', 'valid:true'])->group(function () {
     Route::controller(HomeController::class)->group(function () {
         Route::get('/', 'home')->name('home');
     });
