@@ -36,17 +36,10 @@
                                         style="cursor: pointer; margin-right: 5px; text-decoration: none;  margin-left: 60px">
                                         <img src="{{ asset('/images/pencil.png') }}" width="24px" alt="Icon de edição">
                                     </a>
-                                    <form id="deleteForm{{ $predio->id }}"
-                                        action="{{ route('predio.delete', ['predio_id' => $predio->id]) }}" method="POST"
-                                        onsubmit="return confirmDelete(event, {{ $predio->id }})">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            style="background: none; border: none; padding: 0; margin-right: 5px;">
-                                            <img src="{{ asset('/images/delete.png') }}" width="24px"
-                                                alt="Icon de remoção">
-                                        </button>
-                                    </form>
+                                    <button class="btn me-1 p-0" onclick="openDeleteModal('{{ $predio->id }}')">
+                                        <img src="{{ asset('/images/delete.png') }}" alt="Ícone de Ação">
+                                    </button>
+                                    </a>
                                     <a href="{{ route('sala.index', ['predio_id' => $predio->id]) }}"
                                         style="text-decoration: none;">
                                         <img src="{{ asset('/images/Vector.png') }}" width="19px" alt="Icon de salas">
@@ -82,11 +75,19 @@
             ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
         ]
     ])
+
+    
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar este Predio?',
+        'route' => route('predio.delete', ['predio_id' => 'id']), 
+    ])
     
 @endsection
 
 @push('scripts')
     <script>
+        const predioDeleteRoute = "http://127.0.0.1:8000/predio/id/delete";
         const predioUpdateRoute = "http://127.0.0.1:8000/predio/id/update";
         var predioId = false;
 
@@ -102,11 +103,18 @@
             $('#editarPredioModal').modal('show');
         }
 
-        function confirmDelete(event, predioId) {
-            event.preventDefault();
-            if (confirm("Tem certeza que deseja excluir este prédio?")) {
-                document.getElementById("deleteForm" + predioId).submit();
-            }
+        function openDeleteModal(id) {
+            predioId = id;
+            $('#deleteConfirmationModal').modal('show');
         }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = predioDeleteRoute.replace('id', predioId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
+
+
     </script>
 @endpush

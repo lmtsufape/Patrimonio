@@ -88,6 +88,12 @@
     ],
     ])
 
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar este Subgrupo?',
+        'route' => route('subgrupo.delete', ['subgrupo_id' => 'id']), 
+    ])
+
 @endsection
 
 @push('scripts')
@@ -107,6 +113,20 @@
                 subgrupoId = id;
                 $('#editarSubgrupoModal').modal('show');
             }
+
+        const subgrupoDeleteRoute = "http://127.0.0.1:8000/subgrupo/id/delete";
+        
+        function openDeleteModal(id) {
+            subgrupoId = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = subgrupoDeleteRoute.replace('id', subgrupoId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
 
     </script>
 

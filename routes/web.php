@@ -39,7 +39,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{subgrupo_id}/editar', 'edit')->name('edit');
         Route::put('/{id}/update', 'update')->name('update');
-        Route::delete('/{subgrupo_id}/delete', 'delete')->name('delete');
+        Route::get('/{subgrupo_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
 
@@ -49,7 +49,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{predio_id}/editar', 'edit')->name('edit');
         Route::put('/{id}/update', 'update')->name('update');
-        Route::delete('/{predio_id}/delete', 'delete')->name('delete');
+        Route::get('/{predio_id}/delete', 'delete')->name('delete');
         Route::get('/predio/busca', 'busca')->name('busca.get');
     });
     
