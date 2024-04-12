@@ -61,6 +61,12 @@
         ]
     ])
 
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar este Setor?',
+        'route' => route('setor.delete', ['setor_id' => 'id']), 
+    ])
+
 @endsection
 
 @push('scripts')
@@ -68,6 +74,21 @@
          
         const setorUpdateRoute = "{{ route('setor.update', ['id' => ':id']) }}"; 
         var setorId = 0;
+        const setorDeleteRoute = "http://127.0.0.1:8000/setor/id/delete";
+            
+        function openDeleteModal(id) {
+            setorId = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = setorDeleteRoute.replace('id', setorId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
+    
+
 
         $(document).ready(function () {
             $('#editarSetorModal').on('show.bs.modal', function(event) {

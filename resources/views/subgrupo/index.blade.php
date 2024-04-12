@@ -99,20 +99,20 @@
 @push('scripts')
 
     <script>
-            const subgrupoUpdateRoute = "{{ route('subgrupo.update', ['id' => ':id']) }}"; 
-            var subgrupoId = 0;
+        const subgrupoUpdateRoute = "{{ route('subgrupo.update', ['id' => ':id']) }}"; 
+        var subgrupoId = 0;
 
-            $(document).ready(function () {
-                $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
-                    var formAction = subgrupoUpdateRoute.replace(':id', subgrupoId); 
-                    $(this).find('form').attr('action', formAction);
-                });
+        $(document).ready(function () {
+            $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
+                var formAction = subgrupoUpdateRoute.replace(':id', subgrupoId); 
+                $(this).find('form').attr('action', formAction);
             });
+        });
 
-            function openEditModal(id) {
-                subgrupoId = id;
-                $('#editarSubgrupoModal').modal('show');
-            }
+        function openEditModal(id) {
+            subgrupoId = id;
+            $('#editarSubgrupoModal').modal('show');
+        }
 
         const subgrupoDeleteRoute = "http://127.0.0.1:8000/subgrupo/id/delete";
         

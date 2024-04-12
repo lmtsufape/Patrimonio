@@ -60,8 +60,32 @@
             ['id' => 'classificacao_id', 'label' => 'Classificação', 'placeholder' => 'Selecione uma classificação', 'options' => $classificacoes->pluck('nome', 'id')]
         ]
     ])
+
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar este Patrimonio?',
+        'route' => route('patrimonio.delete', ['patrimonio_id' => 'id']), 
+    ])
+
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/filter.js') }}"></script>
+    <script>
+
+        var patrimonioId = 0;
+        const patrimonioDeleteRoute = "http://127.0.0.1:8000/patrimonio/id/delete";
+            
+        function openDeleteModal(id) {
+            patrimonioId = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = patrimonioDeleteRoute.replace('id', patrimonioId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
+
+    </script>
 @endpush

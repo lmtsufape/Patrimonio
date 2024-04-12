@@ -55,6 +55,13 @@
             ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
         ]
     ])
+
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar este Cargo?',
+        'route' => route('cargo.delete', ['cargo_id' => 'id']), 
+    ])
+
 @endsection
 
 @push('scripts')
@@ -74,6 +81,20 @@
         cargoId = id;
         editModal.modal('show');
     }
+
+    const cargoDeleteRoute = "http://127.0.0.1:8000/cargo/id/delete";
+        
+        function openDeleteModal(id) {
+            cargoId = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = cargoDeleteRoute.replace('id', cargoId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
 
     </script>
 @endpush

@@ -59,7 +59,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/sala/store', 'store')->name('store');
         Route::get('/sala/{sala_id}/editar', 'edit')->name('edit');
         Route::put('/sala/update', 'update')->name('update');
-        Route::delete('/sala/{sala_id}/delete', 'delete')->name('delete');
+        Route::get('/sala/{sala_id}/delete', 'delete')->name('delete');
     });
     
     Route::get('/salas/search', [SalaController::class, 'search'])->name('sala.buscar');
@@ -70,7 +70,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{cargo_id}/editar', 'edit')->name('edit');
         Route::put('/update/{cargo_id}', 'update')->name('update');
-        Route::delete('/{cargo_id}/delete', 'delete')->name('delete');
+        Route::get('/{cargo_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
     
@@ -80,7 +80,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{classificacao_id}/editar', 'edit')->name('edit');
         Route::post('/update', 'update')->name('update');
-        Route::delete('/{classificacao_id}/delete', 'delete')->name('delete');
+        Route::get('/{classificacao_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
     
@@ -90,7 +90,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{servidor_id}/editar', 'edit')->name('edit');
         Route::put('/{servidor_id}/update', 'update')->name('update');
-        Route::delete('/{servidor_id}/delete', 'delete')->name('delete');
+        Route::get('/{servidor_id}/delete', 'delete')->name('delete');
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
         Route::get('/search', 'search')->name('buscar');
     });
@@ -101,7 +101,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{setor_id}/editar', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/{setor_id}/delete', 'delete')->name('delete');
+        Route::get('/{setor_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
         // Route::get('/{setor_id}/restore', [SetorController::class, 'restore'])->name('restore');
     });
@@ -112,7 +112,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{patrimonio_id}/editar', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/{patrimonio_id}/delete', 'delete')->name('delete');
+        Route::get('/{patrimonio_id}/delete', 'delete')->name('delete');
         Route::get('/{patrimonio_id}/restore', 'restore')->name('restore');
         Route::get('/{patrimonio_id}/codigos', 'codigosPatrimonio')->name('codigo.index');
         Route::get('/codigos/{codigo_id}/delete', 'codigoDelete')->name('codigo.delete');
