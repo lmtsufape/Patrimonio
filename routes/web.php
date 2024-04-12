@@ -61,7 +61,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/{predio_id}/sala/cadastrar', 'create')->name('create');
         Route::post('/sala/store', 'store')->name('store');
         Route::get('/sala/{sala_id}/editar', 'edit')->name('edit');
-        Route::put('/sala/update', 'update')->name('update');
+        Route::put('/sala/{sala_id}/update', 'update')->name('update');
         Route::delete('/sala/{sala_id}/delete', 'delete')->name('delete');
     });
     
