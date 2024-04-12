@@ -17,7 +17,11 @@ class CheckServidorValido
     public function handle(Request $request, Closure $next)
     {
         if ($request->user()->ativo || $request->user()->hasAnyRoles(['Administrador'])) {
-            return $next($request);
+            if ($request->route()->getName() != 'invalid') {
+                return $next($request);
+            } else {
+                return redirect()->route('home');
+            }
         }
 
         return redirect()->route('invalid');
