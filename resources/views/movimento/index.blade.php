@@ -4,7 +4,6 @@
 
 @push('styles')
     <link rel="stylesheet" href="/css/layouts/searchbar.css">
-    <link rel="stylesheet" href="/css/layouts/table.css">
 @endpush
 
 @section('content')

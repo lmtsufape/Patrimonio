@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-@push('styles')
-        <link rel="stylesheet" href="/css/modal.css">
-@endpush
-
 <div class="card mx-auto my-5 p-4" style="max-width: 600px;">
     <div class="d-flex align-items-center mb-2 mt-3">
         @include('layouts.components.header', ['page_title' => 'Códigos do Patrimônio '. $patrimonio->nome, 'back' => route('patrimonio.index')])

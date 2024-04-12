@@ -16,21 +16,10 @@ class PredioController extends Controller
         return view('predio.index', compact('predios'));
     }
 
-    public function create()
-    {
-        return view('predio.create');
-    }
-
     public function store(StorePredioRequest $request)
     {
         Predio::create($request->all());
         return redirect(route('predio.index'))->with('success', 'Prédio Cadastrado com Sucesso!');
-    }
-
-    public function edit($predio_id)
-    {
-        $predio = Predio::find($predio_id);
-        return view('predio.edit', compact('predio'));
     }
 
     public function update(UpdatePredioRequest $request, $id)
