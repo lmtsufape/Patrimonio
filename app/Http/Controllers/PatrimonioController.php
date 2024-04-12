@@ -79,10 +79,11 @@ class PatrimonioController extends Controller
         $origens = Origem::orderBy('nome')->get();
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
+        $classificacoes = Classificacao::orderBy('nome')->get();
         $subgrupos = Subgrupo::orderBy('nome')->get();
         $servidores = User::orderBy('name')->get();
 
-        return view('patrimonio.create', compact('unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
+        return view('patrimonio.create', compact('unidades', 'origens', 'predios', 'situacoes', 'servidores', 'classificacoes', 'subgrupos'));
     }
 
     public function store(StorePatrimonioRequest $request)

@@ -2,3 +2,12 @@
     background-color: #1a2876;
     color: #ffffff;
 }
+.btn-blue{
+    background-color: #1A2876;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.btn-blue:hover {
+    background-color: #141f5e; 
+    color: white;
+}
