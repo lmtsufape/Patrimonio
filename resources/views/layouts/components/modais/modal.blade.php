@@ -45,7 +45,7 @@
                     @endforeach
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="submit" class="btn btn-blue">Salvar</button>
                     </div>
                 </form>
             </div>

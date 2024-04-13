@@ -9,17 +9,17 @@ class Movimento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['observacao', 'status' ,'servidor_destino_id', 'servidor_origem_id', 'tipo_movimento_id', 'data_movimento'];
+    protected $fillable = ['observacao', 'status' ,'user_destino_id', 'user_origem_id', 'tipo_movimento_id', 'data_movimento'];
 
-    public function servidor_destino()
+    public function userDestino()
 {
-    return $this->belongsTo('App\Models\Servidor', 'servidor_destino_id');
+    return $this->belongsTo(User::class, 'user_destino_id');
 }
 
 
-    public function servidor_origem()
+    public function userOrigem()
     {
-        return $this->belongsTo('App\Models\Servidor', 'servidor_origem_id');
+        return $this->belongsTo(User::class, 'user_origem_id');
     }
     
 

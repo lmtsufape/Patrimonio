@@ -4,7 +4,6 @@
 
 @push('styles')
     <link rel="stylesheet" href="/css/layouts/searchbar.css">
-    <link rel="stylesheet" href="/css/layouts/table.css">
 @endpush
 
 @section('content')
@@ -32,8 +31,8 @@
             @foreach($movimentos as $movimento)
                 <tr class="text-md-center">
                 <td class="py-3">{{$movimento->id}}</td>
-                        <td class="py-3">{{$movimento->servidor_origem->user->name}}</td>
-                        <td class="py-3">{{$movimento->servidor_destino->user->name}}</td>
+                        <td class="py-3">{{$movimento->userOrigem->name}}</td>
+                        <td class="py-3">{{$movimento->userDestino->name}}</td>
                         <td class="py-3">{{$movimento->tipo_movimento->nome}}</td>
                         <td class="py-3">
                         @foreach($movimento->itens_movimento->take(3) as $index => $item)
@@ -63,11 +62,6 @@
             @endforeach
             </tbody>
         </table>
-    </div>
-
-    <div class="d-flex" style="max-width:600px">
-        <a class="w-100 btn btn-primary" style="margin-right: 10px" href="{{route('movimento.create')}}">Cadastrar
-            item</a>
     </div>
 
     <script>

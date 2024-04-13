@@ -17,9 +17,9 @@
             'header' => ['ID', 'Nome', 'Matrícula', 'Cargo', 'Status', 'Ações'],
             'content' => [
                 $servidores->pluck('id'),
-                $servidores->pluck('user.name'),
-                $servidores->pluck('matricula'),
-                $servidores->pluck('cargo.nome'),
+                $servidores->pluck('name'),
+                $servidores->pluck('servidor.matricula'),
+                $servidores->pluck('servidor.cargo.nome'),
                 $servidores->map(function ($item, $index) {
                     return $item->ativo ? 'Ativo' : 'Inativo';
                 }),
@@ -84,12 +84,21 @@
             ['type' => 'password', 'name' => 'confirm_password', 'id' => 'confirm_password', 'label' => 'Confirmar senha:'],
         ]
     ])
+
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar esse servidor ?',
+        'route' => route('servidor.delete', ['servidor_id' => 'id']),
+    ])
+
+
 @endsection
 
 @push('scripts')
     <script>
         const editModal = $('#edit-servidor-modal');
         const updateRoute = "{{ route('servidor.update', ['servidor_id' => 'id']) }}";
+        const servidorDeleteRoute = "http://127.0.0.1:8000/servidor/servidor_id/delete";
         var servidorId = 0;
 
         $(document).ready(function() {
@@ -103,5 +112,18 @@
             servidorId = id;
             editModal.modal('show');
         }
+            
+        function openDeleteModal(id) {
+            servidorid = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = servidorDeleteRoute.replace('servidor_id', servidorId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
+
     </script>
 @endpush

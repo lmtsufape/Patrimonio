@@ -5,7 +5,6 @@
     @push('styles')
         <link rel="stylesheet" href="/css/layouts/searchbar.css">
         <link rel="stylesheet" href="/css/layouts/table.css">
-        <link rel="stylesheet" href="/css/modal.css">
     @endpush
 
     @include('layouts.components.searchbar', [
@@ -26,7 +25,7 @@
                 })
             ],
             'acoes' => [
-                ['type' => 'editLink' , 'link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],
+                ['type' => 'edit' , 'link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],
                 ['type' => 'delete' , 'link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
             ],
         ])
@@ -38,7 +37,7 @@
 
     @include('layouts.components.modais.modal', [
     'modalId' => 'cadastrarClassificacaoModal',
-    'modalTitle' => 'Cadastrar Classificacao',
+    'modalTitle' => 'Cadastrar Classificação',
     'type' => 'create',
     'formAction' => route('classificacao.store'),
     'fields' => [
@@ -46,8 +45,21 @@
         ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
         ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
         ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
-    ]   
+        ]
     ])
+
+    @include('layouts.components.modais.modal', [
+        'modalId' => 'editarClassificacaoModal',
+        'modalTitle' => 'Editar Classificação',
+        'type' => 'edit',
+        'formAction' => route('classificacao.update'),
+        'fields' => [
+            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:'],
+            ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
+            ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
+            ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
+            ]
+        ])
 
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
@@ -74,6 +86,20 @@
             });
         });
 
-    </script>
+        const editModal = $('#editarClassificacaoModal');
+        const updateRoute = "{{ route('servidor.update', ['servidor_id' => 'id']) }}";
+        var servidorId = 0;
 
+        $(document).ready(function() {
+            editModal.on('show.bs.modal', function(event) {
+                var formAction = updateRoute.replace('/id/', '/' + servidorId + '/');
+                editModal.find('form').attr('action', formAction);
+            });
+        });
+
+        function openEditModal(id) {
+            servidorId = id;
+            editModal.modal('show');
+        }
+    </script>
 @endpush

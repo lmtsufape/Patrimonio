@@ -23,12 +23,12 @@ class PatrimonioFactory extends Factory
             'valor' => $this->faker->numberBetween($min = 100, $max = 5000),
             'empenho' => $this->faker->sentence,
             'conta_contabil' => $this->faker->sentence,
-            'servidor_id' => 2,
+            'user_id' => 2,
             'subgrupo_id' => 1,
             'situacao_id' => 1,
             'origem_id' => 1,
             'sala_id' => 1,
-            'setor_id' => 1
+            'unidade_admin_id' => 1
         ];
     }
 }

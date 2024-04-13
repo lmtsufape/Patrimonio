@@ -14,12 +14,22 @@ class CheckServidorValido
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $validate)
     {
-        if (isset($request->user()->servidor) && $request->user()->servidor->ativo || $request->user()->hasAnyRoles(['Administrador'])) {
-            return $next($request);
+        if ($request->user()->hasAnyRoles(['Administrador'])) return $next($request);
+        
+        if ($validate == 'true') { // Se o usuário precisa ser válido
+            if ($request->user()->ativo) {
+                return $next($request);
+            }
+            
+            return redirect()->route('invalid');
+        } else { // Se o usuário precisa ser inválido
+            if (! $request->user()->ativo) {
+                return $next($request);
+            }
+            
+            return redirect()->route('home');
         }
-
-        return abort(403, 'Acesso Negado');
     }
 }

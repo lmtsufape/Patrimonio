@@ -20,8 +20,8 @@ return new class extends Migration
             $table->date('data_movimento');
             $table->date('data_conclusao')->nullable();
 
-            $table->foreignId('servidor_destino_id')->constrainedTo('servidores');
-            $table->foreignId('servidor_origem_id')->constrained('servidores');
+            $table->foreignId('user_destino_id')->constrainedTo('users');
+            $table->foreignId('user_origem_id')->constrained('users');
             $table->foreignId('tipo_movimento_id')->constrainedTo('tipos_movimento');
 
             $table->timestamps();

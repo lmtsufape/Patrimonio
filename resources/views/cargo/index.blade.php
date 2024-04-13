@@ -3,7 +3,6 @@
 @push('styles')
     <link rel="stylesheet" href="/css/layouts/searchbar.css">
     <link rel="stylesheet" href="/css/layouts/table.css">
-    <link rel="stylesheet" href="/css/modal.css">
 @endpush
 
 @section('content')
@@ -66,21 +65,21 @@
 
 @push('scripts')
     <script>
-    const editModal = $('#editarCargoModal');
-    const updateRoute = "{{ route('cargo.update', ['cargo_id' => 'cargo_id']) }}";
-    var cargoId = 0;
+        const editModal = $('#editarCargoModal');
+        const updateRoute = "{{ route('cargo.update', ['cargo_id' => 'cargo_id']) }}";
+        var cargoId = 0;
 
-    $(document).ready(function() {
-        editModal.on('show.bs.modal', function(event) {
-            var formAction = updateRoute.replace('cargo_id', cargoId);
-            editModal.find('form').attr('action', formAction);
+        $(document).ready(function() {
+            editModal.on('show.bs.modal', function(event) {
+                var formAction = updateRoute.replace('cargo_id', cargoId);
+                editModal.find('form').attr('action', formAction);
+            });
         });
-    });
-
-    function openEditModal(id) {
-        cargoId = id;
-        editModal.modal('show');
-    }
+  
+        function openEditModal(id) {
+            cargoId = id;
+            editModal.modal('show');
+        }
 
     const cargoDeleteRoute = "http://127.0.0.1:8000/cargo/id/delete";
         

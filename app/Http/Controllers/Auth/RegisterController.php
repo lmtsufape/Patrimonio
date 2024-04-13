@@ -74,17 +74,13 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'name' => $data['name'],
+            'matricula' => $data['matricula'],
+            'cpf' => $data['cpf'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->roles()->sync(2);
-
-        Servidor::create(['user_id' => $user->id,
-            'matricula' => $data['matricula'],
-            'cpf' => $data['cpf'],
-            'cargo_id' => $data['cargo_id'],
-        ]);
+        $user->roles()->sync($data['cargo_id']);
 
         return $user;
     }

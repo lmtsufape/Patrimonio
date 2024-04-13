@@ -8,14 +8,13 @@ use App\Models\Cargo;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Servidor;
 use Illuminate\Support\Facades\Hash;
 
-class ServidorController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        $servidores = Servidor::OrderBy('id')->paginate(5);
+        $servidores = User::OrderBy('id')->paginate(5);
         $cargos = Cargo::all();
         $roles = Role::where('nome', '<>', 'Administrador')->get();
 
@@ -39,19 +38,18 @@ class ServidorController extends Controller
         
         $user->roles()->sync($request->role_id);
 
-        Servidor::create([
+        User::create([
             'user_id' => $user->id,
             'cpf' => $request->cpf,
             'matricula' => $request->matricula,
-            'cargo_id' => $request->cargo_id
         ]);
 
-        return redirect(route('servidor.index'))->with('success', 'Servidor Cadastrado com Sucesso!');
+        return redirect()->route('servidor.index')->with('success', 'Servidor Cadastrado com Sucesso!');
     }
 
-    public function edit($servidor_id)
+    public function edit($user_id)
     {
-        $servidor = Servidor::withTrashed()->find($servidor_id);
+        $servidor = User::withTrashed()->find($user_id);
         $cargos = Cargo::all();
         $roles = Role::all();
         return view('servidor.edit', compact('servidor', 'cargos', 'roles'));
@@ -59,7 +57,7 @@ class ServidorController extends Controller
 
     public function update(UpdateServidorRequest $request)
     {
-        $servidor = Servidor::withTrashed()->find($request->servidor_id);
+        $servidor = User::withTrashed()->find($request->servidor_id);
         $user = $servidor->user;
 
         if ($request->password != null) {
@@ -88,31 +86,29 @@ class ServidorController extends Controller
         return redirect(route('servidor.index'))->with('success', 'Servidor Editado com Sucesso!');
     }
 
-    public function delete($servidor_id)
+    public function delete($user_id)
     {
-        $servidor = Servidor::find($servidor_id);
+        $servidor = User::find($user_id);
         $user = $servidor->user;
-        $servidor->delete();
         $user->delete();
         return redirect(route('servidor.index'))->with('success', 'Servidor Desativado com Sucesso!');
     }
 
     public function validar($id)
     {
-        $servidor = Servidor::findOrFail($id);
-        $servidor->update(['ativo' => !$servidor->ativo]);
+        $user = User::findOrFail($id);
+        $user->update(['ativo' => !$user->ativo]);
 
         return redirect()->back()->with(['success' => 'Servidor alterado']);
     }
 
     public function search(Request $request)
     {
-        $servidores = Servidor::whereHas('user', function ($query) use ($request) {
+        $servidores = User::whereHas('user', function ($query) use ($request) {
             $query->where('name', 'ilike', "%$request->busca%");
         })->paginate(10);
         $cargos = Cargo::all();
         $roles = Role::where('nome', '<>', 'Administrador')->get();
-
 
         return view('servidor.index', compact('servidores', 'cargos', 'roles'));
     }

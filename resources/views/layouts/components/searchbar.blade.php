@@ -9,7 +9,7 @@
             <h3 id="title">{{ $title[0] }}</h3>
         @endif
         @if (isset($addButton))
-            <a href="{{ $addButton }}" class="ms-2">
+            <a href="{{ $addButton }}" class="ms-2 mb-1">
                 <img src="{{ asset('assets/plus-circle-fill.svg') }}" alt="Ícone de Adição" id="addButton">
             </a>
         @endif

@@ -19,9 +19,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'cpf', 
+        'matricula', 
+        'cargo_id', 
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'ativo'
     ];
 
     /**
@@ -48,9 +52,19 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
 
-    public function servidor()
+    public function cargos()
     {
-        return $this->hasOne(Servidor::class);
+        return $this->belongsToMany(Cargo::class);
+    }
+
+    public function sala()
+    {
+        return $this->belongsTo(Sala::class);
+    }
+
+    public function patrimonio()
+    {
+        return $this->hasMany(Patrimonio::class);
     }
 
     public function hasAnyRoles($tipo)

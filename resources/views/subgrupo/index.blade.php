@@ -5,7 +5,6 @@
     @push('styles')
         <link rel="stylesheet" href="/css/layouts/searchbar.css">
         <link rel="stylesheet" href="/css/layouts/table.css">
-        <link rel="stylesheet" href="/css/modal.css">
     @endpush
 
     @include('layouts.components.searchbar', [
@@ -58,34 +57,34 @@
             ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
             ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
             [
-            'name' => 'classificacao_id',
-            'id' => 'classificacao_id',
-            'type' => 'select',
-            'label' => 'Classificação:',
-            'options' => $classificacoes->pluck('nome'), 
-            'placeholder' => 'Escolha uma Classificação'
+                'name' => 'classificacao_id',
+                'id' => 'classificacao_id',
+                'type' => 'select',
+                'label' => 'Classificação:',
+                'options' => $classificacoes->pluck('nome'), 
+                'placeholder' => 'Escolha uma Classificação'
             ],
-    ],
+        ],
     ])
 
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarSubgrupoModal',
         'modalTitle' => 'Editar Subgrupo',
-        'formAction' => route('setor.update', ['id' => 'id']),
+        'formAction' => route('unidade.update', ['id' => 'id']),
         'type'=> 'edit',
         'fields' => [
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
             ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
             ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
             [
-            'name' => 'classificacao_id',
-            'id' => 'classificacao_id',
-            'type' => 'select',
-            'label' => 'Classificação:',
-            'options' => $classificacoes->pluck('nome'), 
-            'placeholder' => 'Escolha uma Classificação'
+                'name' => 'classificacao_id',
+                'id' => 'classificacao_id',
+                'type' => 'select',
+                'label' => 'Classificação:',
+                'options' => $classificacoes->pluck('nome'), 
+                'placeholder' => 'Escolha uma Classificação'
             ],
-    ],
+        ],
     ])
 
     @include('layouts.components.modais.modal_delete', [
@@ -129,5 +128,5 @@
         });
 
     </script>
-
+    
 @endpush

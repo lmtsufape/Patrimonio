@@ -12,3 +12,9 @@ table.table {
     padding-bottom: 12px;
     box-shadow: none;
 }
+
+.table img {
+    height: 23px;
+    color: grey;
+    margin: 0 3px;
+}

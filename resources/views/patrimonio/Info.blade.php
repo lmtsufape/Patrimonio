@@ -10,7 +10,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-md-6">
                         <p><strong>Nome do Patrimônio:</strong> <span id="patrimonio_nome">{{ $patrimonio->nome }}</span></p>
-                        <p><strong>Servidor:</strong> <span id="servidor">{{ $patrimonio->servidor->user->name }}</span></p>
+                        <p><strong>Servidor:</strong> <span id="servidor">{{ $patrimonio->user->name }}</span></p>
                         <p><strong>Nota Fiscal:</strong> <span id="nota_fiscal">{{ $patrimonio->nota_fiscal }}</span></p>
                         <p><strong>Descrição:</strong> <span id="descricao">{{ $patrimonio->descricao }}</span></p>
                         <p><strong>Valor:</strong> <span id="valor">R$ {{ number_format($patrimonio->valor, 2, ',', '.') }}</span></p>
@@ -20,7 +20,7 @@
                     <div class="col-md-6">
                                 <p><strong>Localização:</strong></p>
                                 <p>
-                                    <strong>Setor:</strong> {{ $patrimonio->setor->nome ?? 'Não especificado' }}
+                                    <strong>Unidade Administrativa:</strong> {{ $patrimonio->unidAdmin->nome ?? 'Não especificado'}}
                                 </p>
                                 <p>
                                     <strong>Prédio:</strong> {{ $patrimonio->sala->predio->nome ?? 'Não especificado' }}

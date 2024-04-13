@@ -2,27 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patrimonio;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function invalid()
     {
-        $this->middleware('auth');
+        return view('auth.invalid-user');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function home()
     {
         return redirect()->route('patrimonio.index');
     }

@@ -9,10 +9,11 @@ use App\Http\Controllers\PredioController;
 use App\Http\Controllers\SalaController;
 use App\Http\Controllers\CargoController;
 use App\Http\Controllers\ClassificacaoController;
-use App\Http\Controllers\ServidorController;
-use App\Http\Controllers\SetorController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UnidadeAdministrativaController;
 use App\Http\Controllers\PatrimonioController;
 use App\Http\Controllers\MovimentoController;
+use App\Models\UnidadeAdministrativa;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,11 @@ use App\Http\Controllers\MovimentoController;
 
 Auth::routes();
 
-Route::middleware(['auth', 'valid'])->group(function () {
-    Route::name('home')->controller(HomeController::class)->group(function () {
-        Route::get('/', 'index');
-        Route::get('/home', 'index');
+Route::get('/validate', [HomeController::class, 'invalid'])->middleware('valid:false')->name('invalid');
+
+Route::middleware(['auth', 'valid:true'])->group(function () {
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/', 'home')->name('home');
     });
     
     Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {
@@ -58,8 +60,8 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/{predio_id}/sala/cadastrar', 'create')->name('create');
         Route::post('/sala/store', 'store')->name('store');
         Route::get('/sala/{sala_id}/editar', 'edit')->name('edit');
-        Route::put('/sala/update', 'update')->name('update');
-        Route::get('/sala/{sala_id}/delete', 'delete')->name('delete');
+        Route::put('/sala/{sala_id}/update', 'update')->name('update');
+        Route::delete('/sala/{sala_id}/delete', 'delete')->name('delete');
     });
     
     Route::get('/salas/search', [SalaController::class, 'search'])->name('sala.buscar');
@@ -84,7 +86,7 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/search', 'search')->name('buscar');
     });
     
-    Route::prefix('servidor')->name('servidor.')->controller(ServidorController::class)->group(function () {
+    Route::prefix('servidor')->name('servidor.')->controller(UserController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
@@ -95,13 +97,13 @@ Route::middleware(['auth', 'valid'])->group(function () {
         Route::get('/search', 'search')->name('buscar');
     });
     
-    Route::prefix('setor')->name('setor.')->controller(SetorController::class)->group(function () {
-        Route::get('/listar/{setor_pai_id?}', 'index')->name('index');
-        Route::get('/cadastrar/{setor_pai_id?}', 'create')->name('create');
+    Route::prefix('unidade')->name('unidade.')->controller(UnidadeAdministrativaController::class)->group(function () {
+        Route::get('/listar/{unidade_admin_pai_id?}', 'index')->name('index');
+        Route::get('/cadastrar/{unidade_admin_pai_id?}', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::get('/{setor_id}/editar', 'edit')->name('edit');
+        Route::get('/{unidade_admin_id}/editar', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/{setor_id}/delete', 'delete')->name('delete');
+        Route::get('/{unidade_admin_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
         // Route::get('/{setor_id}/restore', [SetorController::class, 'restore'])->name('restore');
     });
