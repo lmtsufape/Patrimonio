@@ -47,7 +47,7 @@
         ])
     
         <div class="d-flex justify-content-center">
-            {{ $predios->links('pagination::bootstrap-5') }}
+            {{ $predios->links('pagination::bootstrap-4') }}
         </div>
     </div>
 

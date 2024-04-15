@@ -22,18 +22,6 @@ class UpdateSubgrupoRequest extends FormRequest
             'classificacao_id' => 'required|exists:classificacoes,id',
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'nome.required' => 'O campo nome é obrigatório.',
-            'marca.required' => 'O campo marca é obrigatório.',
-            'modelo.required' => 'O campo modelo é obrigatório.',
-            'classificacao_id.required' => 'O campo classificação é obrigatório.',
-            'classificacao_id.exists' => 'A classificação selecionada não é válida.',
-        ];
-    }
-
     public function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();

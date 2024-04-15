@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Subgrupo;
-
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSubgrupoRequest extends FormRequest
@@ -21,14 +21,10 @@ class StoreSubgrupoRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function failedValidation(Validator $validator)
     {
-        return [
-            'nome.required' => 'O campo nome é obrigatório.',
-            'marca.required' => 'O campo marca é obrigatório.',
-            'modelo.required' => 'O campo modelo é obrigatório.',
-            'classificacao_id.required' => 'O campo classificação é obrigatório.',
-            'classificacao_id.exists' => 'A classificação selecionada não é válida.',
-        ];
+        $errors = $validator->errors();
+        return redirect()->back()->withErrors($errors)->withInput();
     }
+    
 }
