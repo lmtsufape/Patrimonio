@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('unidades_administrativas', function (Blueprint $table) {
+        Schema::create('sala_unidade_administrativa', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('codigo');
-            $table->boolean('unidade_admin_folha')->default(true);
-
-            $table->foreignId('unidade_admin_pai_id')->nullable()->constrained('unidades_administrativas');
-            $table->foreignId('predio_id')->constrained();
-
-
+            $table->foreignId('sala_id')->constrained();
+            $table->foreignId('unidade_admin_id')->constrained('unidades_administrativas');
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unidades_administrativas');
+        Schema::dropIfExists('sala_unidade_administrativa');
     }
 };

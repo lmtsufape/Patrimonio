@@ -27,6 +27,7 @@ class UnidadeAdministrativaSeeder extends Seeder
                     'nome' => $linha[0],
                     'codigo' => $linha[1],
                     'unidade_admin_folha' => false,
+                    'predio_id' => 1,
 
                 ]);
             }else{
@@ -34,6 +35,8 @@ class UnidadeAdministrativaSeeder extends Seeder
                     'nome' => $linha[0],
                     'codigo' => $linha[1],
                     'unidade_admin_pai_id' => intval(trim($linha[2])),
+                    'predio_id' => 1,
+
 
                 ]);
             }
