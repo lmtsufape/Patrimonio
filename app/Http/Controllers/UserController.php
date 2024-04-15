@@ -25,6 +25,7 @@ class UserController extends Controller
     {
         $cargos = Cargo::all();
         $roles = Role::all();
+
         return view('servidor.create', compact('cargos', 'roles'));
     }
 
