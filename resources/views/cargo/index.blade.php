@@ -33,7 +33,12 @@
                 ['link' => 'cargo.delete', 'param' => 'cargo_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
             ],
         ])
+
+        <div class="d-flex justify-content-center">
+            {{ $cargos->links('pagination::bootstrap-5') }}
+        </div>
     </div>
+
 
     @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarCargoModal',
