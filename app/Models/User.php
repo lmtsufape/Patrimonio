@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Patrimonio::class);
     }
 
+    public function unidade()
+    {
+        return $this->belongsTo(UnidadeAdministrativa::class, 'uni_adm_id');
+    }
+
     public function hasAnyRoles($tipo)
     {
         return $this->roles()->whereIn('nome', $tipo)->exists();

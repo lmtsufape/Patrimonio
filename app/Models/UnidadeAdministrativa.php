@@ -24,4 +24,9 @@ class UnidadeAdministrativa extends Model
     {
         return $this->hasMany(Patrimonio::class);
     }
+
+    public function servidores()
+    {
+        return $this->hasMany(User::class, 'uni_adm_id');
+    }
 }
