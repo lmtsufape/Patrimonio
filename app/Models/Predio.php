@@ -11,7 +11,7 @@ class Predio extends Model
 
     protected $fillable = ['nome'];
 
-    public function unidsAdmins(){
+    public function unidades(){
         return $this->hasMany(UnidadeAdministrativa::class);
     }
 

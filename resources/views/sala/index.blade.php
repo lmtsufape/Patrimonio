@@ -22,12 +22,11 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Nome', 'Telefone', 'Data de criação', 'Ações'],
+            'header' => ['ID', 'Nome', 'Telefone', 'Ações'],
             'content' => [
                 $salas->pluck('id'),
                 $salas->pluck('nome'),
                 $salas->pluck('telefone'),
-                $salas->pluck('created_at'),
             ],
             'acoes' => [
                 [
@@ -80,11 +79,16 @@
     <script>
         const salaUpdateRoute = "{{ route('sala.update', ['sala_id' => ':id']) }}"; 
         var SalaId = 0;
+        const salasNome = {!! json_encode($salas->pluck('nome', 'id')) !!};
+        const salasTelefone = {!! json_encode($salas->pluck('telefone', 'id')) !!};
 
         $(document).ready(function () {
             $('#editarSalaModal').on('show.bs.modal', function(event) {
                 var formAction = salaUpdateRoute.replace(':id', salaId); 
                 $(this).find('form').attr('action', formAction);
+                $('#nome-edit').val(salasNome[salaId]);
+                $('#telefone-edit').val(salasTelefone[salaId]);
+
             });
         });
 

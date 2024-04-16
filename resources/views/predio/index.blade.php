@@ -86,11 +86,15 @@
         const predioDeleteRoute = "http://127.0.0.1:8000/predio/id/delete";
         const predioUpdateRoute = "http://127.0.0.1:8000/predio/id/update";
         var predioId = false;
+        const predios = {!! json_encode($predios->pluck('nome', 'id')) !!}
+
 
         $(document).ready(function () {
             $('#editarPredioModal').on('show.bs.modal', function(event) {
                 var formAction = predioUpdateRoute.replace('id', predioId);
                 $(this).find('form').attr('action', formAction);
+                $('#nome-edit').val(predios[predioId]);
+
             });
         });
 
