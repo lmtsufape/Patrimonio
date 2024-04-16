@@ -34,31 +34,28 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'cpf' => $request->cpf,
+            'matricula' => $request->matricula
         ]);
         
         $user->roles()->sync($request->role_id);
 
-        User::create([
-            'user_id' => $user->id,
-            'cpf' => $request->cpf,
-            'matricula' => $request->matricula,
-        ]);
-
         return redirect()->route('servidor.index')->with('success', 'Servidor Cadastrado com Sucesso!');
     }
 
-    public function edit($user_id)
+    public function edit($id)
     {
-        $servidor = User::withTrashed()->find($user_id);
+        $servidor = User::findOrFail($id);
         $cargos = Cargo::all();
         $roles = Role::all();
+
         return view('servidor.edit', compact('servidor', 'cargos', 'roles'));
     }
 
     public function update(UpdateServidorRequest $request)
     {
-        $servidor = User::withTrashed()->find($request->servidor_id);
+        $servidor = User::findOrFail($request->servidor_id);
         $user = $servidor->user;
 
         if ($request->password != null) {
@@ -87,12 +84,11 @@ class UserController extends Controller
         return redirect(route('servidor.index'))->with('success', 'Servidor Editado com Sucesso!');
     }
 
-    public function delete($user_id)
+    public function delete($id)
     {
-        $servidor = User::find($user_id);
-        $user = $servidor->user;
-        $user->delete();
-        return redirect(route('servidor.index'))->with('success', 'Servidor Desativado com Sucesso!');
+        User::findOrFail($id)->delete();
+
+        return redirect()->route('servidor.index')->with('success', 'Servidor deletado com Sucesso!');
     }
 
     public function validar($id)
@@ -100,7 +96,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update(['ativo' => !$user->ativo]);
 
-        return redirect()->back()->with(['success' => 'Servidor alterado']);
+        return redirect()->back()->with(['success' => 'Servidor alterado.']);
     }
 
     public function search(Request $request)
