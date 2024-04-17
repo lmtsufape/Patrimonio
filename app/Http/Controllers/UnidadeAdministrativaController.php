@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UnidadeAdmin\StoreUnidadeAdministrativaRequest;
 use App\Http\Requests\UnidadeAdmin\UpdateUnidadeAdministrativaRequest;
 use App\Models\Patrimonio;
+use App\Models\Predio;
 use Illuminate\Http\Request;
 use App\Models\UnidadeAdministrativa;
 
@@ -14,8 +15,9 @@ class UnidadeAdministrativaController extends Controller
     public function index($unidade_admin_pai_id = null)
     {
         $unidades = UnidadeAdministrativa::paginate(10);
+        $predios = Predio::all();
         
-        return view('unidade_admin.index', compact('unidades'));
+        return view('unidade_admin.index', compact('unidades', 'predios'));
     }
 
     public function create($unidade_admin_pai_id = null)

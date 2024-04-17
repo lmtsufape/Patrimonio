@@ -23,7 +23,7 @@ use PDF;
 
 class PatrimonioController extends Controller
 {
-    public function index(FilterPatrimonioRequest $request)
+    public function index(FilterPatrimonioRequest $request) // index + filtro e buscas
     {
         $predios = Predio::all();
         $servidores = User::all();

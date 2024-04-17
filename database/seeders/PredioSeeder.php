@@ -15,17 +15,28 @@ class PredioSeeder extends Seeder
      */
     public function run()
     {
-        $predios = ['Bloco de Sala de Aula A', 'Bloco de Sala de Aula B', 'Bloco de Sala de Aula C',
-            'Bloco Administrativo', 'Bloco de Professores I', 'Blocos de Laboratórios I (LABENS)',
-            'Blocos de Laboratórios II (CENLAG)', 'Cantina Universitária', 'Bloco para Professores II',
-            'Bloco de Laboratório III (Anatomia animal)', 'Guarita', 'Hospital Veterinário', 'Bloco de Laboratórios IV Eng Alim (LACTAL)',
-            "Castelo d' água", 'Casa dos Estudantes', 'Quadra Poliesportiva', 'Galpão I', 'Galpão II', 'Casa de Heliópolis',
+        $predios = [
+            'Bloco de Sala de Aula A',
+            'Bloco de Sala de Aula B',
+            'Bloco de Sala de Aula C',
+            'Bloco Administrativo',
+            'Bloco de Professores I',
+            'Blocos de Laboratórios I (LABENS)',
+            'Blocos de Laboratórios II (CENLAG)',
+            'Cantina Universitária', 'Bloco para Professores II',
+            'Bloco de Laboratório III (Anatomia animal)',
+            'Guarita', 'Hospital Veterinário',
+            'Bloco de Laboratórios IV Eng Alim (LACTAL)',
+            "Castelo d' água",
+            'Casa dos Estudantes',
+            'Quadra Poliesportiva',
+            'Galpão I',
+            'Galpão II',
+            'Casa de Heliópolis'
         ];
-        foreach($predios as $i => $predio){
+
+        foreach($predios as $predio){
             Predio::factory()->create(['nome' => $predio]);
         }
-        
-
-
     }
 }

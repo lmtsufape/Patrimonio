@@ -19,12 +19,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'cpf', 
-        'matricula', 
-        'cargo_id', 
         'email',
         'password',
-        'role_id',
+        'cpf',
+        'matricula',
         'ativo'
     ];
 
@@ -65,6 +63,11 @@ class User extends Authenticatable
     public function patrimonio()
     {
         return $this->hasMany(Patrimonio::class);
+    }
+
+    public function unidade()
+    {
+        return $this->belongsTo(UnidadeAdministrativa::class, 'uni_adm_id');
     }
 
     public function hasAnyRoles($tipo)

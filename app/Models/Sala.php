@@ -16,6 +16,10 @@ class Sala extends Model
         return $this->belongsTo(Predio::class);
     }
 
+    public function unidades(){
+        return $this->belongsToMany(UnidadeAdministrativa::class, 'sala_unidade_administrativa', 'unidade_admin_id', 'sala_id');
+    }
+    
     public function patrimonios()
     {
         return $this->hasMany(Patrimonio::class);

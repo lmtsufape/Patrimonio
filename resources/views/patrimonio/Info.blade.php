@@ -20,7 +20,7 @@
                     <div class="col-md-6">
                                 <p><strong>Localização:</strong></p>
                                 <p>
-                                    <strong>Unidade Administrativa:</strong> {{ $patrimonio->unidAdmin->nome ?? 'Não especificado'}}
+                                    <strong>Unidade Administrativa:</strong> {{ $patrimonio->unidade->nome ?? 'Não especificado'}}
                                 </p>
                                 <p>
                                     <strong>Prédio:</strong> {{ $patrimonio->sala->predio->nome ?? 'Não especificado' }}

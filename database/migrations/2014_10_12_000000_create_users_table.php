@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('ativo')->default(false);
             
             $table->foreignId('sala_id')->nullable()->constrained();
+            $table->foreignId('uni_adm_id')->nullable()->constrained('unidades_administrativas');
             
             $table->timestamps();
         });

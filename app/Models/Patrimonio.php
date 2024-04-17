@@ -41,7 +41,7 @@ class Patrimonio extends Model
         return $this->hasMany(Codigo::class);
     }
 
-    public function unidAdmin()
+    public function unidade()
     {
         return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_admin_id');
     }
