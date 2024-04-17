@@ -55,7 +55,7 @@
         </li>
 
         @if(Auth::user()->hasAnyRoles(['Administrador']))
-          <li class="mt-1">
+          <li class="mt-1 mb-3">
             <img src="{{ asset('assets/sidebar-icons/people.svg') }}" alt="servidor-icon">
             
             <a href="{{ route('servidor.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'servidor')) active @endif">

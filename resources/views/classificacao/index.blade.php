@@ -84,7 +84,7 @@
         });
 
         const editModal = $('#editarClassificacaoModal');
-        const updateRoute = "{{ route('servidor.update', ['servidor_id' => 'id']) }}";
+        const updateRoute = "{{ route('servidor.update', ['id' => 'id']) }}";
         var servidorId = 0;
 
         $(document).ready(function() {
