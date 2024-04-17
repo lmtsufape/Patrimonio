@@ -1,6 +1,15 @@
 @extends('layouts.app')
+
+@push('styles')
+    <link rel="stylesheet" href="/css/layouts/searchbar.css">
+    <link rel="stylesheet" href="/css/layouts/table.css">
+@endpush
+
 @section('content')
-    @include('layouts.components.header', ['page_title' => 'Movimentação de Patrimônio', 'back' => true])
+
+    @include('layouts.components.searchbar', [
+        'title' => 'Editar Movimentação de Patrimonio',
+    ])
 
     <form method="POST" action="{{route('movimento.update')}}" enctype="multipart/form-data">
         @csrf

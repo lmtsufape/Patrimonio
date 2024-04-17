@@ -137,5 +137,6 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store/patrimonio', 'adicionarPatrimonio')->name('patrimonio.store');
         Route::post('/concluir', 'concluirMovimentacao')->name('concluir');
         Route::get('/delete/patrimonio/{movimento_patrimonio_id}', 'removerPatrimonio')->name('patrimonio.delete');
+        Route::get('/search', 'search')->name('buscar');
     });
 });
