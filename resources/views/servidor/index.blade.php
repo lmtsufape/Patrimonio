@@ -108,23 +108,21 @@
                 var formAction = updateRoute.replace(':id', servidorId);
                 editModal.find('form').attr('action', formAction);
             });
-        });
 
-        function openEditModal(id) {
-            servidorId = id;
-            editModal.modal('show');
-        }
-            
-        function openDeleteModal(id) {
-            servidorid = id;
-            $('#deleteConfirmationModal').modal('show');
-        }
-
-        $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
                 var formAction = servidorDeleteRoute.replace(':id', servidorId);
                 $(this).find('form').attr('action', formAction);
             });
         });
+        
+        function openEditModal(id) {
+            servidorId = id;
+            editModal.modal('show');
+        }
+        
+        function openDeleteModal(id) {
+            servidorId = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
     </script>
 @endpush

@@ -1,5 +1,5 @@
 @if ($type == 'delete')
-    <button class="btn me-1 p-0" onclick="openDeleteModal('{{ $id }}')">
+    <button class="btn me-1 p-0" onclick="openDeleteModal({{ $id }})">
         <img src="{{ $img }}" alt="Ícone de Ação">
     </button>
 @elseif ($type == 'edit')

@@ -9,7 +9,7 @@
 
     @include('layouts.components.searchbar', [
             'title' => 'Patrimônios > Relatórios',
-            'titleLink' => Route('patrimonio.relatorio.index'),
+            'titleLink' => Route('patrimonio.index'),
     ])
     <div class="col-md-10 mx-auto">
         <form method="GET" action="{{ route('patrimonio.relatorio.index') }}" class="mb-3">
