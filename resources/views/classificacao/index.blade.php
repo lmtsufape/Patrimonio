@@ -51,7 +51,7 @@
         'modalId' => 'editarClassificacaoModal',
         'modalTitle' => 'Editar Classificação',
         'type' => 'edit',
-        'formAction' => route('classificacao.update'),
+        'formAction' => route('classificacao.update', ['classificacao_id' => 'id']),
         'fields' => [
             ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:'],
             ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
@@ -70,7 +70,7 @@
 @push('scripts')
     <script>
         const classificacaoDeleteRoute = "http://127.0.0.1:8000/classificacao/id/delete";
-            
+                 var classificacaoId = 0;   
         function openDeleteModal(id) {
             classificacaoId = id;
             $('#deleteConfirmationModal').modal('show');
@@ -83,20 +83,19 @@
             });
         });
 
-        const editModal = $('#editarClassificacaoModal');
-        const updateRoute = "{{ route('servidor.update', ['id' => 'id']) }}";
-        var servidorId = 0;
-
-        $(document).ready(function() {
-            editModal.on('show.bs.modal', function(event) {
-                var formAction = updateRoute.replace('/id/', '/' + servidorId + '/');
-                editModal.find('form').attr('action', formAction);
+        const classificacaoUpdateRoute = "http://127.0.0.1:8000/classificacao/update/id";
+            
+            function openEditModal(id) {
+                classificacaoId = id;
+                $('#editarClassificacaoModal').modal('show');
+            }
+    
+            $(document).ready(function () {
+                $('#editarClassificacaoModal').on('show.bs.modal', function(event) {
+                    var formAction = classificacaoUpdateRoute.replace('id', classificacaoId);
+                    $(this).find('form').attr('action', formAction);
+                });
             });
-        });
-
-        function openEditModal(id) {
-            servidorId = id;
-            editModal.modal('show');
-        }
+            
     </script>
 @endpush
