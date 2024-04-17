@@ -29,13 +29,13 @@
             'acoes' => [
                 [
                     'link' => 'servidor.update',
-                    'param' => 'servidor_id',
+                    'param' => 'id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
                 [
                     'link' => 'servidor.delete',
-                    'param' => 'servidor_id',
+                    'param' => 'id',
                     'img' => asset('/images/delete.png'),
                     'type' => 'delete',
                 ],
@@ -74,7 +74,7 @@
         'modalId' => 'edit-servidor-modal',
         'modalTitle' => 'Editar servidor',
         'type' => 'edit',
-        'formAction' => route('servidor.update', ['servidor_id' => '0']),
+        'formAction' => route('servidor.update', ['id' => ':id']),
         'fields' => [
             ['type' => 'text', 'name' => 'name', 'id' => 'name', 'label' => 'Nome:'],
             ['type' => 'email', 'name' => 'email', 'id' => 'email', 'label' => 'E-mail:'],
@@ -90,7 +90,7 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar esse servidor ?',
-        'route' => route('servidor.delete', ['servidor_id' => 'id']),
+        'route' => route('servidor.delete', ['id' => ':id']),
     ])
 
 
@@ -99,13 +99,13 @@
 @push('scripts')
     <script>
         const editModal = $('#edit-servidor-modal');
-        const updateRoute = "{{ route('servidor.update', ['servidor_id' => 'id']) }}";
-        const servidorDeleteRoute = "http://127.0.0.1:8000/servidor/servidor_id/delete";
+        const updateRoute = "{{ route('servidor.update', ['id' => ':id']) }}";
+        const servidorDeleteRoute = "{{ route('servidor.delete', ['id' => ':id']) }}";
         var servidorId = 0;
 
         $(document).ready(function() {
             editModal.on('show.bs.modal', function(event) {
-                var formAction = updateRoute.replace('/id/', '/' + servidorId + '/');
+                var formAction = updateRoute.replace(':id', servidorId);
                 editModal.find('form').attr('action', formAction);
             });
         });
@@ -122,10 +122,9 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = servidorDeleteRoute.replace('servidor_id', servidorId);
+                var formAction = servidorDeleteRoute.replace(':id', servidorId);
                 $(this).find('form').attr('action', formAction);
             });
         });
-
     </script>
 @endpush
