@@ -90,9 +90,9 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::get('/{servidor_id}/editar', 'edit')->name('edit');
-        Route::put('/{servidor_id}/update', 'update')->name('update');
-        Route::get('/{servidor_id}/delete', 'delete')->name('delete');
+        Route::get('/{id}/editar', 'edit')->name('edit');
+        Route::put('/{id}/update', 'update')->name('update');
+        Route::get('/{id}/delete', 'delete')->name('delete');
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
         Route::get('/search', 'search')->name('buscar');
     });

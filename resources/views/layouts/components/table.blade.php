@@ -11,9 +11,22 @@
         <tbody>
             @foreach ($content[0] as $i => $id)
                 <tr class="text-md-center">
-                    @foreach ($content as $column)
-                        <td class="py-4">{{ $column[$i] }}</td>
+                    @foreach ($content as $columnSet)
+                        @if (is_array($columnSet[$i]))
+                            @if (!empty($columnSet[$i]))
+                                <td class="py-4">
+                                    {{ implode(', ', $columnSet[$i]) }}
+                                </td>
+                            @else
+                                <td class="py-4">
+                                    N/A
+                                </td>
+                            @endif
+                        @else
+                            <td class="py-4">{{ $columnSet[$i] }}</td>
+                        @endif
                     @endforeach
+
                     <td class="py-4 d-flex flex-row justify-content-center">
                         @foreach ($acoes as $acao)
                             @include('layouts.components.action-button', ['link' => route($acao['link'], [$acao['param'] => $id]), 'img' => $acao['img'], 'type' => $acao['type'], 'id' => $id])

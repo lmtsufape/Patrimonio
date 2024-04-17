@@ -15,13 +15,10 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Nome', 'Data de Criação', 'Ações'],
+            'header' => ['ID', 'Nome', 'Ações'],
             'content' => [
                 $cargos->pluck('id'),
                 $cargos->pluck('nome'),
-                $cargos->pluck('created_at')->map(function($date) {
-                    return \Carbon\Carbon::parse($date)->format('d-m-Y');
-                })
             ],
             'acoes' => [
                 [
@@ -73,11 +70,13 @@
         const editModal = $('#editarCargoModal');
         const updateRoute = "{{ route('cargo.update', ['cargo_id' => 'cargo_id']) }}";
         var cargoId = 0;
-
+        const cargos = {!! json_encode($cargos->pluck('nome', 'id')) !!}
         $(document).ready(function() {
             editModal.on('show.bs.modal', function(event) {
                 var formAction = updateRoute.replace('cargo_id', cargoId);
                 editModal.find('form').attr('action', formAction);
+                $('#nome-edit').val(cargos[cargoId]);
+
             });
         });
   

@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="/css/layouts/searchbar.css">
+    <link rel="stylesheet" href="/css/layouts/table.css">
+@endpush
+
 @section('content')
-
-    @push('styles')
-        <link rel="stylesheet" href="/css/layouts/searchbar.css">
-        <link rel="stylesheet" href="/css/layouts/table.css">
-    @endpush
-
     @include('layouts.components.searchbar', [
         'title' => 'Classificação Contábil',
         'addButtonModal' => 'cadastrarClassificacaoModal',
@@ -29,22 +28,22 @@
                 ['type' => 'delete' , 'link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
             ],
         ])
+
         <div class="d-flex justify-content-center mt-5">
             {{ $classificacaos->links('pagination::bootstrap-4') }}
         </div>
-
-</div>
+    </div>
 
     @include('layouts.components.modais.modal', [
-    'modalId' => 'cadastrarClassificacaoModal',
-    'modalTitle' => 'Cadastrar Classificação',
-    'type' => 'create',
-    'formAction' => route('classificacao.store'),
-    'fields' => [
-        ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:'],
-        ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
-        ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
-        ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
+        'modalId' => 'cadastrarClassificacaoModal',
+        'modalTitle' => 'Cadastrar Classificação',
+        'type' => 'create',
+        'formAction' => route('classificacao.store'),
+        'fields' => [
+            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:'],
+            ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
+            ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
+            ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
         ]
     ])
 
@@ -58,20 +57,18 @@
             ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
             ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
             ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
-            ]
-        ])
+        ]
+    ])
 
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar esta classificação?',
         'route' => route('classificacao.delete', ['classificacao_id' => 'id']), 
     ])
-
 @endsection
 
 @push('scripts')
     <script>
-
         const classificacaoDeleteRoute = "http://127.0.0.1:8000/classificacao/id/delete";
             
         function openDeleteModal(id) {

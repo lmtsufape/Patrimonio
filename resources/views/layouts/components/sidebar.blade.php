@@ -46,7 +46,7 @@
           </a>
         </li>
 
-        <li class="mt-1">
+        <li class="my-1">
           <img src="{{ asset('assets/sidebar-icons/relatorio.svg') }}" alt="relatorio-icon">
 
           <a href="{{ route('patrimonio.relatorio.index') }}" class="btn d-inline-flex align-items-center rounded border-0 @if (Str::startsWith(Route::currentRouteName(), 'relatorio')) active @endif">

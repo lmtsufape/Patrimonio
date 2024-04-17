@@ -14,12 +14,14 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Nome', 'Matrícula', 'Cargo', 'Status', 'Ações'],
+            'header' => ['ID', 'Nome', 'Matrícula', 'Cargos', 'Status', 'Ações'],
             'content' => [
                 $servidores->pluck('id'),
                 $servidores->pluck('name'),
-                $servidores->pluck('servidor.matricula'),
-                $servidores->pluck('servidor.cargo.nome'),
+                $servidores->pluck('matricula'),
+                $servidores->map(function ($servidor) {
+                    return $servidor->cargos->pluck('nome')->toArray();
+                }),
                 $servidores->map(function ($item, $index) {
                     return $item->ativo ? 'Ativo' : 'Inativo';
                 }),

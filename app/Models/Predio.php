@@ -11,6 +11,10 @@ class Predio extends Model
 
     protected $fillable = ['nome'];
 
+    public function unidades(){
+        return $this->hasMany(UnidadeAdministrativa::class);
+    }
+
     public function salas(){
         return $this->hasMany(Sala::class);
     }

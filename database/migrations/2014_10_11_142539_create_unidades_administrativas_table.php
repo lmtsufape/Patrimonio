@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean('unidade_admin_folha')->default(true);
 
             $table->foreignId('unidade_admin_pai_id')->nullable()->constrained('unidades_administrativas');
+            $table->foreignId('predio_id')->constrained();
+
 
             $table->timestamps();
         });
