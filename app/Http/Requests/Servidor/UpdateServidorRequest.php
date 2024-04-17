@@ -18,7 +18,7 @@ class UpdateServidorRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();
+        
         return redirect()->back()->withErrors($errors)->withInput();
     }
-
 }

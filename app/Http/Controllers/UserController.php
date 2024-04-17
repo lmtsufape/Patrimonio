@@ -7,6 +7,7 @@ use App\Http\Requests\Servidor\UpdateServidorRequest;
 use App\Models\Cargo;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -59,7 +60,13 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        User::findOrFail($id)->delete();
+        try {
+            User::findOrFail($id)->delete();
+        } catch (QueryException $e) {
+            if ($e->getCode() == '23503') {
+                return redirect()->back()->with(['fail' => 'O servidor não pôde ser deletado.']);
+            }
+        }
 
         return redirect()->route('servidor.index')->with('success', 'Servidor deletado com Sucesso!');
     }

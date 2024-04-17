@@ -60,7 +60,7 @@ class User extends Authenticatable
         return $this->belongsTo(Sala::class);
     }
 
-    public function patrimonio()
+    public function patrimonios()
     {
         return $this->hasMany(Patrimonio::class);
     }
