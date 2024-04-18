@@ -70,7 +70,13 @@
 @push('scripts')
     <script>
         const classificacaoDeleteRoute = "http://127.0.0.1:8000/classificacao/id/delete";
-                 var classificacaoId = 0;   
+        var classificacaoId = 0;
+        const classificacao = {!!json_encode($classificacaos->pluck('nome', 'id'))!!}
+        const codigo = {!!json_encode($classificacaos->pluck('codigo', 'id'))!!}
+        const residual = {!!json_encode($classificacaos->pluck('residual', 'id'))!!}
+        const vidaUtil = {!!json_encode($classificacaos->pluck('vida_util', 'id'))!!}
+
+
         function openDeleteModal(id) {
             classificacaoId = id;
             $('#deleteConfirmationModal').modal('show');
@@ -94,6 +100,12 @@
                 $('#editarClassificacaoModal').on('show.bs.modal', function(event) {
                     var formAction = classificacaoUpdateRoute.replace('id', classificacaoId);
                     $(this).find('form').attr('action', formAction);
+                    $('#nome-edit').val(classificacao[classificacaoId]);
+                    $('#codigo-edit').val(codigo[classificacaoId]);
+                    $('#residual-edit').val(residual[classificacaoId]);
+                    $('#vida_util-edit').val(vidaUtil[classificacaoId]);
+
+
                 });
             });
             
