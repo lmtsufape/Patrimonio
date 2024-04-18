@@ -11,6 +11,10 @@ footer {
     width: 110px;
 }
 
+.logo-patrimonio {
+    width: 70px;
+}
+
 footer * {
     text-decoration: none;
 }
