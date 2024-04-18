@@ -26,7 +26,7 @@
               Cadastros
             </button>
 
-            <div class="collapse" id="cadastros-collapse">
+            <div class="collapse show" id="cadastros-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
                 <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
                 <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>
