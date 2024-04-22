@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             CargoSeeder::class,
             UserSeeder::class,
-            TipoMovimentoSeeder::class,
             PredioSeeder::class,
             SalaSeeder::class,
             OrigemSeeder::class,

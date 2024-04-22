@@ -9,7 +9,7 @@ class Movimento extends Model
 {
     use HasFactory;
 
-    public $tipos = [
+    public static $tipos = [
         'solicitacao' => 1,
         'emprestimo' => 2,
         'devolucao' => 3,

@@ -15,6 +15,6 @@ class MovimentoSeeder extends Seeder
      */
     public function run()
     {
-        Movimento::factory(1)->create();
+        Movimento::factory()->create();
     }
 }

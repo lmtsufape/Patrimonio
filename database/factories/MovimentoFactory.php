@@ -17,10 +17,10 @@ class MovimentoFactory extends Factory
     public function definition()
     {
         return [
-            'user_destino_id' => 2,
-            'user_origem_id' => 1,
-            'tipo_movimento_id' => 1,
-            'data_movimento' => now()
+            'tipo' => \App\Models\Movimento::$tipos['solicitacao'],
+            'servidor_id' => 2,
+            'sala_id' => 1,
+            'cargo_id' => 1
         ];
     }
 }

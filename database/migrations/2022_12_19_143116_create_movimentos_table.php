@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('tipo');
 
-            $table->foreignId('servidor_id')->constrained();
+            $table->foreignId('servidor_id')->constrained('users');
             $table->foreignId('sala_id')->constrained();
             $table->foreignId('cargo_id')->constrained();
-            $table->morphs('movimentable');
+            //$table->morphs('movimentable');
 
             $table->timestamps();
         });
