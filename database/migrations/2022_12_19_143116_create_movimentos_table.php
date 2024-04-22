@@ -15,14 +15,12 @@ return new class extends Migration
     {
         Schema::create('movimentos', function (Blueprint $table) {
             $table->id();
-            $table->string('observacao')->nullable();
-            $table->string('status')->default('Não Concluido');
-            $table->date('data_movimento');
-            $table->date('data_conclusao')->nullable();
+            $table->tinyInteger('tipo');
 
-            $table->foreignId('user_destino_id')->constrainedTo('users');
-            $table->foreignId('user_origem_id')->constrained('users');
-            $table->foreignId('tipo_movimento_id')->constrainedTo('tipos_movimento');
+            $table->foreignId('servidor_id')->constrained();
+            $table->foreignId('sala_id')->constrained();
+            $table->foreignId('cargo_id')->constrained();
+            $table->morphs('movimentable');
 
             $table->timestamps();
         });

@@ -9,28 +9,26 @@ class Movimento extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['observacao', 'status' ,'user_destino_id', 'user_origem_id', 'tipo_movimento_id', 'data_movimento'];
+    public $tipos = [
+        'solicitacao' => 1,
+        'emprestimo' => 2,
+        'devolucao' => 3,
+        'particular' => 4,
+        'transferencia' => 5
+    ];
 
-    public function userDestino()
-{
-    return $this->belongsTo(User::class, 'user_destino_id');
-}
-
-
-    public function userOrigem()
+    public function servidor()
     {
-        return $this->belongsTo(User::class, 'user_origem_id');
-    }
-    
-
-    public function itens_movimento()
-    {
-        return $this->belongsToMany(Patrimonio::class, 'movimento_patrimonios', 'movimento_id')
-            ->withPivot('id');
+        return $this->belongsTo(User::class, 'servidor_id');
     }
 
+    public function patrimonios()
+    {
+        return $this->belongsToMany(Patrimonio::class);
+    }
 
-    public function tipo_movimento(){
-        return $this->belongsTo(TipoMovimento::class);
+    public function movimentable()
+    {
+        return $this->morphTo();
     }
 }

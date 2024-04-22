@@ -45,4 +45,9 @@ class Patrimonio extends Model
     {
         return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_admin_id');
     }
+
+    public function movimentos()
+    {
+        return $this->belongsToMany(Movimento::class);
+    }
 }

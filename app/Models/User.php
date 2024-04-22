@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->belongsTo(UnidadeAdministrativa::class, 'uni_adm_id');
     }
 
+    public function movimentos()
+    {
+        return $this->hasMany(Movimento::class, 'servidor_id');
+    }
+
     public function hasAnyRoles($tipo)
     {
         return $this->roles()->whereIn('nome', $tipo)->exists();
