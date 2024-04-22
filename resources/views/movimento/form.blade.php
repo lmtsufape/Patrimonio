@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="row mt-4">
+<div class="col mt-2">
     <label>Observação:</label>
     <textarea class="form-control" name="observacao" id="observacao"
               placeholder="Digite uma observação sobre o movimento">@if(isset($movimento)){{$movimento->observacao}}@endif</textarea>

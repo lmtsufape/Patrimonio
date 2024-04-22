@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
             <div class="text-center">
-                <h4 class="text-white"><strong>Logo</strong></h4>
+                <img src="{{asset('assets/logo.svg')}}" alt="logo" class="logo-patrimonio">
             </div>
 
             <div class="text-center">

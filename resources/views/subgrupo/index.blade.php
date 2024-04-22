@@ -100,6 +100,10 @@
     <script>
         const subgrupoUpdateRoute = "{{ route('subgrupo.update', ['id' => ':id']) }}"; 
         var subgrupoId = 0;
+        const subgruposNome = {!! json_encode($subgrupos->pluck('nome', 'id')) !!};
+        const subgruposMarca = {!! json_encode($subgrupos->pluck('marca', 'id')) !!};
+        const subgruposModelo = {!! json_encode($subgrupos->pluck('modelo', 'id')) !!};
+        const subgruposClassificacao = {!! json_encode($subgrupos->pluck('classificacao_id', 'id')) !!};
 
         $(document).ready(function () {
             $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
@@ -111,6 +115,10 @@
         function openEditModal(id) {
             subgrupoId = id;
             $('#editarSubgrupoModal').modal('show');
+            $('#nome-edit').val(subgruposNome[subgrupoId]);
+            $('#marca-edit').val(subgruposMarca[subgrupoId]);
+            $('#Modelo-edit').val(subgruposModelo[subgrupoId]);
+            $('#classificacao_id-edit').val(subgruposClassificacao[subgrupoId]);
         }
 
         const subgrupoDeleteRoute = "http://127.0.0.1:8000/subgrupo/id/delete";

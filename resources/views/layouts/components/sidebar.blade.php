@@ -4,7 +4,7 @@
 
 <nav class="sidebar offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="width: 300px">
   <div class="offcanvas-header justify-content-between p-4">
-    <h3 class="mb-0">Logo</h3>
+    <img src="{{asset('assets/logo-azul.svg')}}" alt="logo" class="logo-patrimonio">
     <button type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close"><img src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar"></button>
   </div>
 
@@ -26,7 +26,7 @@
               Cadastros
             </button>
 
-            <div class="collapse" id="cadastros-collapse">
+            <div class="collapse show" id="cadastros-collapse">
               <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small ms-3 mt-2 vertical-bar">
                 <li><a href="{{ route('patrimonio.create')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Patrimônio</a></li>
                 <li><a href="{{ route('classificacao.index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Classificação Contábil</a></li>

@@ -18,7 +18,7 @@ class MovimentoController extends Controller
 {
     public function index()
     {
-        $movimentos = Movimento::all();
+        $movimentos = Movimento::paginate(5);
 
         return view('movimento.index', compact('movimentos'));
     }
@@ -162,5 +162,18 @@ class MovimentoController extends Controller
         $movimento->update();
 
         return redirect()->route('movimento.index')->with('success', 'Movimento concluido com sucesso!');
+    }
+
+    public function search(Request $request)
+    {
+        $movimentos = Movimento::whereHas('userOrigem', function ($query) use ($request) {
+            $query->where('name', 'ilike', "%$request->busca%");
+        })
+        ->orWhereHas('userDestino', function ($query) use ($request) {
+            $query->where('name', 'ilike', "%$request->busca%");
+        })
+        ->paginate(10);
+
+        return view('movimento.index', compact('movimentos'));
     }
 }

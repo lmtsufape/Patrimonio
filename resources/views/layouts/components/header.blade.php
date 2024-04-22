@@ -1,7 +1,7 @@
 <div class="header-border-bottom mb-2 mt-1">
-  <h3 style="color: #3252C1; font-weight: bold; width: 100%"> 
+  <h3 style="color: #1a2876 ; font-weight: bold; width: 100%"> 
   @if ($back)
-  <a href="{{ URL::previous() }}" style="text-decoration: none;">
+  <a href="{{ URL::previous() }}" style="text-decoration: none; color: #1a2876">
     <img src="{{URL::asset('/assets/back.svg')}}" alt="Voltar">
   </a>
   @endif
