@@ -24,9 +24,7 @@ class DatabaseSeeder extends Seeder
             SituacaoSeeder::class,
             UnidadeAdministrativaSeeder::class,
             SubgrupoSeeder::class,
-            PatrimonioSeeder::class,
-            MovimentoSeeder::class,
-            MovimentoPatrimonioSeeder::class,
+            PatrimonioSeeder::class
         ]);
     }
 }

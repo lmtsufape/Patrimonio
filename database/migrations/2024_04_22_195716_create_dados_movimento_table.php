@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('movimentos', function (Blueprint $table) {
+        Schema::create('dados_movimento', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('tipo');
 
-            $table->morphs('movimentable');
-
+            $table->foreignId('servidor_id')->constrained('users');
+            $table->foreignId('sala_id')->constrained();
+            $table->foreignId('cargo_id')->constrained();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movimentos');
+        Schema::dropIfExists('dados_movimento');
     }
 };

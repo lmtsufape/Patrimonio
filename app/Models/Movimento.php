@@ -17,11 +17,6 @@ class Movimento extends Model
         'transferencia' => 5
     ];
 
-    public function servidor()
-    {
-        return $this->belongsTo(User::class, 'servidor_id');
-    }
-
     public function patrimonios()
     {
         return $this->belongsToMany(Patrimonio::class);
