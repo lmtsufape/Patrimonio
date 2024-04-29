@@ -14,7 +14,7 @@ class SalaController extends Controller
     public function index($predio_id)
     {
         $predio = Predio::find($predio_id);
-        $salas = $predio->salas()->orderBy('id')->paginate(5);
+        $salas = $predio->salas()->orderBy('id')->paginate(10);
         
         return view('sala.index', compact('salas', 'predio'));
     }

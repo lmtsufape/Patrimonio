@@ -15,9 +15,10 @@ class UnidadeAdministrativaController extends Controller
     public function index($unidade_admin_pai_id = null)
     {
         $unidades = UnidadeAdministrativa::paginate(10);
+        $unidadesAll = UnidadeAdministrativa::orderBy('nome');
         $predios = Predio::all();
         
-        return view('unidade_admin.index', compact('unidades', 'predios'));
+        return view('unidade_admin.index', compact('unidades', 'predios', 'unidadesAll'));
     }
 
     public function create($unidade_admin_pai_id = null)
@@ -32,13 +33,6 @@ class UnidadeAdministrativaController extends Controller
 
     public function store(StoreUnidadeAdministrativaRequest $request)
     {
-        if (isset($request->unidade_admin_pai_id) && $request->unidade_admin_pai_id != null) {
-            $unidade_admin_pai = UnidadeAdministrativa::find($request->unidade_admin_pai_id);
-            if ($unidade_admin_pai->unidade_admin_folha) {
-                $unidade_admin_pai->unidade_admin_folha = false;
-                $unidade_admin_pai->update();
-            }
-        }
         UnidadeAdministrativa::create($request->all());
         return redirect(route('unidade.index'))->with('success', 'Unidade Administrativa Cadastrada com Sucesso!');
     }
@@ -51,6 +45,7 @@ class UnidadeAdministrativaController extends Controller
 
     public function update(UpdateUnidadeAdministrativaRequest $request, $id)
     {
+        dd($request);
         UnidadeAdministrativa::find($id)->update($request->all());
         return redirect(route('unidade.index'))->with('success', 'Unidade Administrativa Editada com Sucesso!');
     }

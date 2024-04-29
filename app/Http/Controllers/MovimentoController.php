@@ -18,7 +18,7 @@ class MovimentoController extends Controller
 {
     public function index()
     {
-        $movimentos = Movimento::paginate(5);
+        $movimentos = Movimento::paginate(10);
 
         return view('movimento.index', compact('movimentos'));
     }

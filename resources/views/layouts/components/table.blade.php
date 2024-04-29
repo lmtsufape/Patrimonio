@@ -27,10 +27,12 @@
                         @endif
                     @endforeach
 
-                    <td class="py-4 d-flex flex-row justify-content-center">
-                        @foreach ($acoes as $acao)
-                            @include('layouts.components.action-button', ['link' => route($acao['link'], [$acao['param'] => $id]), 'img' => $acao['img'], 'type' => $acao['type'], 'id' => $id])
-                        @endforeach
+                    <td class="py-4">
+                        <div class="d-flex justify-content-center">
+                            @foreach ($acoes as $acao)
+                                @include('layouts.components.action-button', ['link' => route($acao['link'], [$acao['param'] => $id]), 'img' => $acao['img'], 'type' => $acao['type'], 'id' => $id])
+                            @endforeach
+                        </div>
                     </td>
                 </tr>
             @endforeach

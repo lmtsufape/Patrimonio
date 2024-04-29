@@ -92,7 +92,7 @@
 
   <div class="d-flex justify-content-between align-items-center p-4 py-2">
     <a href="#" class="d-flex align-items-center justify-content-center link-body-emphasis text-decoration-none">
-      <img src="https://github.com/mdo.png" alt="mdo" width="50" height="50" class="rounded-circle">
+      <img src="https://img.freepik.com/vetores-premium/icone-da-conta-icone-do-usuario-graficos-vetoriais_292645-552.jpg?w=740" alt="mdo" width="50" height="50" class="rounded-circle">
     </a>
     <div class="d-flex flex-column w-100 ps-3">
       <span id="username">{{ auth()->user()->name }}</span>

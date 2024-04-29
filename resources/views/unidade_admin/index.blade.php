@@ -15,12 +15,14 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Nome', 'Codigo', 'Prédio', 'Ações'],
+            'header' => ['ID', 'Nome', 'Codigo', 'Prédio', 'Unidade','Ações'],
             'content' => [
                 $unidades->pluck('id'),
                 $unidades->pluck('nome'),
                 $unidades->pluck('codigo'),
                 $unidades->pluck('predio.nome'),
+                $unidades->pluck('unidadeAdmin_pai.nome'),
+
             ],
             'acoes' => [
                 [
@@ -53,13 +55,19 @@
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
             ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text', 'label' => 'Código:'],
             [
-                'name' => 'Prédio',
+                'name' => 'predio_id',
                 'id' => 'predio',
                 'type' => 'select',
                 'label' => 'Prédio:',
                 'placeholder' => 'Selecione o Prédio',
                 'options' => $predios->pluck('nome', 'id'),
             ],
+            ['name' => 'unidade_admin_pai_id',
+                'id' => 'unidade_admin_pai',
+                'type' => 'select',
+                'label' => 'Unidade:',
+                'placeholder' => 'Selecione a Unidade',
+                'options' => $unidadesAll->pluck('nome', 'id'),]
         ],
     ])
 
@@ -79,6 +87,14 @@
                 'placeholder' => 'Selecione o Prédio',
                 'options' => $predios->pluck('nome', 'id'),
             ],
+            [
+                'name' => 'Unidade',
+                'id' => 'unidade_admin_pai',
+                'type' => 'select',
+                'label' => 'Unidade:',
+                'placeholder' => 'Selecione a Unidade',
+                'options' => $unidadesAll->pluck('nome', 'id'),
+            ],
         ],
     ])
 
@@ -97,6 +113,7 @@
         const unidadesNome = {!! json_encode($unidades->pluck('nome', 'id')) !!};
         const unidadesCodigo = {!! json_encode($unidades->pluck('codigo', 'id')) !!};
         const unidadesPredio = {!! json_encode($unidades->pluck('predio_id', 'id')) !!}
+        const unidadesPai = {!! json_encode($unidadesAll->pluck('unidade_admin_pai_id', 'id')) !!}
 
         function openDeleteModal(id) {
             unidadeId = id;
@@ -110,6 +127,8 @@
                 $('#nome-edit').val(unidadesNome[unidadeId]);
                 $('#codigo-edit').val(unidadesCodigo[unidadeId]);
                 $('#predio-edit').val(unidadesPredio[unidadeId]);
+                $('#unidade_admin_pai-edit').val(unidadesPai[unidadeId]);
+
             });
 
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {

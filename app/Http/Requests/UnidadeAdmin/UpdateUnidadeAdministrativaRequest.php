@@ -13,7 +13,9 @@ class UpdateUnidadeAdministrativaRequest extends FormRequest
         return [
             'nome' => 'required|unique:unidades_administrativas|max:255',
             'codigo' => 'required|unique:unidades_administrativas|max:255',
-            'unidade_admin_pai_id' => 'nullable|integer|exists:unidades_administrativas,id'
+            'unidade_admin_pai_id' => 'nullable|integer|exists:unidades_administrativas,id',
+            'predio_id' => 'required|exists:predios,id',
+            
         ];
     }
 

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class ClassificacaoController extends Controller
 {
     public function index(){
-        $classificacaos = Classificacao::paginate(5);
+        $classificacaos = Classificacao::paginate(10);
         return view('classificacao.index', compact('classificacaos'));
     }
 

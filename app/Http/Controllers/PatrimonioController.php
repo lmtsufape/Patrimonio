@@ -68,7 +68,7 @@ class PatrimonioController extends Controller
             });
         }
 
-        $patrimonios = $query->paginate(5);
+        $patrimonios = $query->paginate(10);
 
         return view('patrimonio.index', compact('patrimonios', 'predios', 'servidores', 'situacoes', 'origens', 'unidades', 'classificacoes'));
     }

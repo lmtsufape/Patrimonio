@@ -12,7 +12,7 @@ class CargoController extends Controller
 {
     public function index()
     {
-        $cargos = Cargo::paginate(5);
+        $cargos = Cargo::paginate(10);
 
         return view('cargo.index', compact('cargos'));
     }

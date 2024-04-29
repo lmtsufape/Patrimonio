@@ -12,7 +12,7 @@ class SubgrupoController extends Controller
 {
     public function index()
     {
-        $subgrupos = Subgrupo::paginate(5);
+        $subgrupos = Subgrupo::paginate(10);
         $classificacoes = Classificacao::all();
         return view('subgrupo.index', compact('subgrupos', 'classificacoes'));
     }

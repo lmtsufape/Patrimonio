@@ -45,7 +45,7 @@
                                         <option value="{{ $i }}">{{ $option }}</option>
                                     @endforeach
                                     @error($field['name'])
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </select>
                             </div>
