@@ -70,8 +70,9 @@
 @endsection
 
 @push('scripts')
-    <script>
+    <script src="{{ asset('js/filter.js') }}"></script>
 
+    <script>
         var patrimonioId = 0;
         const patrimonioDeleteRoute = "http://127.0.0.1:8000/patrimonio/id/delete";
             
@@ -86,6 +87,5 @@
                 $(this).find('form').attr('action', formAction);
             });
         });
-
     </script>
 @endpush
