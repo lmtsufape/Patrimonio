@@ -6,7 +6,6 @@
     <style>
         label{
             color: #1A2876;
-            
         }
         .red-asterisk {
             color: #AA2E2E;
@@ -39,8 +38,8 @@
                     <label for="origem" class="form-label fw-bold">Origem: <span
                             class="red-asterisk">*</span></label>
                     <select class="form-select" aria-label="Selecione uma Origem" id="origem_id"
-                        name="origem_id">
-                        <option selected value="">Selecione uma Origem</option>
+                        name="origem_id" required>
+                        <option selected disabled value="">Selecione uma Origem</option>
                         @foreach ($origens as $origem)
                             <option value="{{ $origem->id }}">{{ $origem->nome }}</option>
                         @endforeach
@@ -51,8 +50,8 @@
             <div class="row mb-3">
                 <div class="form-group col">
                     <label for="classificacao" class="form-label fw-bold">Classificação</label>
-                    <select class="form-select" name="classificacao" id="classificacao">
-                        <option selected value="">Selecione uma classificação</option>
+                    <select class="form-select" name="classificacao" id="classificacao" required>
+                        <option selected disabled value="">Selecione uma classificação</option>
                         @foreach ($classificacoes as $classificacao)
                             <option value="{{$classificacao->id}}">{{$classificacao->nome}}</option>
                         @endforeach
@@ -62,8 +61,8 @@
                     <label for="classificacao" class="form-label fw-bold">Subgrupo: <span
                             class="red-asterisk">*</span></label>
                     <select class="form-select" aria-label="Selecione uma classificação"
-                        id="subgrupo_id" name="subgrupo_id">
-                        <option selected value="">Selecione um subgrupo</option>
+                        id="subgrupo_id" name="subgrupo_id" required>
+                        <option selected disabled value="">Selecione um subgrupo</option>
                         @foreach ($subgrupos as $subgrupo)
                             <option value="{{ $subgrupo->id }}">{{ $subgrupo->nome }}</option>
                         @endforeach
@@ -73,8 +72,8 @@
                     <label for="situacao" class="form-label fw-bold">Situação: <span
                             class="red-asterisk">*</span></label>
                     <select class="form-select" aria-label="Selecione uma Situação" id="situacao_id"
-                        name="situacao_id">
-                        <option selected value="">Selecione uma Situação</option>
+                        name="situacao_id" required>
+                        <option selected disabled value="">Selecione uma Situação</option>
                         @foreach ($situacoes as $situacao)
                             <option value="{{ $situacao->id }}">{{ $situacao->nome }}</option>
                         @endforeach
@@ -87,8 +86,8 @@
                     <label for="predio" class="form-label fw-bold">Prédio: <span
                             class="red-asterisk">*</span></label>
                     <select class="form-select" onchange="filtrarSalas()"
-                        aria-label="Selecione um prédio" id="predio_id" name="predio_id">
-                        <option selected value="">Selecione um prédio</option>
+                        aria-label="Selecione um prédio" id="predio_id" name="predio_id" required>
+                        <option selected disabled value="">Selecione um prédio</option>
                         @foreach ($predios as $predio)
                             <option value="{{ $predio->id }}">{{ $predio->nome }}</option>
                         @endforeach
@@ -96,8 +95,8 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="unidade" class="form-label fw-bold">Unidade Administrativa: <span class="red-asterisk">*</span></label>
-                    <select class="form-select" aria-label="Selecione uma unidade" id="unidade_admin_id" name="unidade_admin_id">
-                        <option selected value="">Selecione uma Unidade Administrativa</option>
+                    <select class="form-select" aria-label="Selecione uma unidade" id="unidade_admin_id" name="unidade_admin_id" required>
+                        <option selected disabled value="">Selecione uma Unidade Administrativa</option>
                         @foreach ($unidades as $unidade)
                             <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
                         @endforeach
@@ -107,8 +106,8 @@
                     <label for="sala" class="form-label fw-bold">Sala: <span
                             class="red-asterisk">*</span></label>
                     <select class="form-select" aria-label="Selecione uma sala" id="sala_id"
-                        name="sala_id">
-                        <option selected value="">Selecione uma sala</option>
+                        name="sala_id" required>
+                        <option selected disabled value="">Selecione uma sala</option>
                     </select>
                 </div>
                 
@@ -152,15 +151,15 @@
                     <label for="processoLicitacao" class="form-label fw-bold">Processo de licitação:</label>
                     <select class="form-select" aria-label="Selecione o processo de licitação"
                         id="processoLicitacao" name="processoLicitacao">
-                        <option selected value="">Selecione o processo de licitação</option>
+                        <option selected disabled value="">Selecione o processo de licitação</option>
                     </select>
                 </div>
                 <div class="form-group col">
                     <label for="servidor" class="form-label fw-bold">Servidor: <span
                             class="red-asterisk">*</span></label>
                     <select class="form-select" aria-label="Selecione um servidor" id="user_id"
-                        name="user_id">
-                        <option selected value="">Selecione um servidor</option>
+                        name="user_id" required>
+                        <option selected disabled value="">Selecione um servidor</option>
                         @foreach ($servidores as $servidor)
                             <option value="{{ $servidor->id }}">{{ $servidor->name }}</option>
                         @endforeach
@@ -214,5 +213,9 @@
                 selectSala.add(option);
             }
         }
+
+        $(document).ready(function () {
+            filtrarSalas();
+        });
     </script>
 @endpush
