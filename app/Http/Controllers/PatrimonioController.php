@@ -34,7 +34,7 @@ class PatrimonioController extends Controller
 
         $query = Patrimonio::query();
         
-        if ($request->has('busca') && $request->busca != '') {
+        if ($request->filled('busca')) {
             $query->where('nome', 'ilike', "%$request->busca%");
         }
 

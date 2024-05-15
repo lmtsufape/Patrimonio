@@ -32,7 +32,7 @@
                 <div class="form-group col-md-4">
                     <label for="descricao" class="form-label fw-bold">Descrição: <span
                             class="red-asterisk">*</span></label>
-                    <textarea type="text" class="form-control" rows="1" name="descricao" id="descricao" ></textarea>
+                    <textarea type="text" class="form-control" rows="1" name="descricao" id="descricao" required></textarea>
                 </div>
                 <div class="form-group col">
                     <label for="origem" class="form-label fw-bold">Origem: <span
@@ -49,7 +49,8 @@
 
             <div class="row mb-3">
                 <div class="form-group col">
-                    <label for="classificacao" class="form-label fw-bold">Classificação</label>
+                    <label for="classificacao" class="form-label fw-bold">Classificação: <span
+                        class="red-asterisk">*</span></label>
                     <select class="form-select" name="classificacao" id="classificacao" required>
                         <option selected disabled value="">Selecione uma classificação</option>
                         @foreach ($classificacoes as $classificacao)
@@ -122,11 +123,11 @@
                 <div class="form-group col">
                     <label for="data_incorporação" class="form-label fw-bold">Data de Incorporação: <span
                             class="red-asterisk">*</span></label>
-                    <input type="date" class="form-control" name="data_incorporação" id="data_incorporação">
+                    <input type="date" class="form-control" name="data_incorporação" id="data_incorporação" required>
                 </div>
                 <div class="form-group col">
                     <label for="valor" class="form-label fw-bold">Valor do item:</label>
-                    <input type="number" class="form-control" name="valor" id="valor" required>
+                    <input type="number" class="form-control" name="valor" id="valor">
                 </div>
                 <div class="form-group col">
                     <label for="conta_contabil" class="form-label fw-bold">Conta contábil: <span
@@ -140,7 +141,7 @@
                 <div class="col">
                     <label for="empenho" class="form-label fw-bold">Empenho: <span
                             class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control" name="empenho" id="empenho" required>
+                    <input type="text" class="form-control" name="empenho" id="empenho">
                 </div>
                 <div class="col">
                     <label for="nota_fiscal" class="form-label fw-bold">Nota fiscal: <span
@@ -214,8 +215,23 @@
             }
         }
 
+        function trocarRequired(required) {
+            campos = $('#empenho, #nota_fiscal, #data_compra');
+
+            $(campos).each(function () {
+                $(this).prop('required', required);
+                asterisk = $(this).prev('label').find('span.red-asterisk');
+                required ? asterisk.show() : asterisk.hide();
+            });
+        }
+        
+        $('#origem_id').on('change', function () {
+            required = $(this).find('option:selected').text() == "Licitação";
+            trocarRequired(required);
+        });
+
         $(document).ready(function () {
             filtrarSalas();
         });
-    </script>
+        </script>
 @endpush
