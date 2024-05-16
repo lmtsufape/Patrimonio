@@ -1,5 +1,3 @@
-
-
 <div class="modal fade" id="patrimonioModal" tabindex="-1" aria-labelledby="patrimonioModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">

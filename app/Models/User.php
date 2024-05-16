@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->roles()->whereIn('nome', $tipo)->exists();
     }
+
+    public function hasAnyCargos($cargo)
+    {
+        return $this->cargos()->WhereIn('nome', $cargo)->exists();
+    }
 }

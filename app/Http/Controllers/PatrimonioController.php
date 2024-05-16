@@ -76,7 +76,11 @@ class PatrimonioController extends Controller
     public function create()
     {
         $unidades = UnidadeAdministrativa::all();
-        $origens = Origem::orderBy('nome')->get();
+        if(!Auth::user()->hasAnyRoles(['Administrador'])){
+            $origens = Origem::where('id', 3)->get();//pessoal
+        }else{
+            $origens = Origem::orderBy('nome')->get();
+        }
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
         $classificacoes = Classificacao::orderBy('nome')->get();
@@ -88,10 +92,12 @@ class PatrimonioController extends Controller
 
     public function store(StorePatrimonioRequest $request)
     {
-        $this->authorize('create', Patrimonio::class);
-        $validatedData = $request->validated();
+        // $this->authorize('create', Patrimonio::class);
+        if(!Auth::user()->hasAnyRoles(['Administrador'])){
+            $request['user_id'] = Auth::user()->id;
+        }
 
-        $patrimonio = Patrimonio::create($validatedData);
+        $patrimonio = Patrimonio::create($request->toArray());
 
         return redirect()->route('patrimonio.codigo.index', ['patrimonio_id' => $patrimonio->id], 201)->with('success', 'Patrimônio Cadastrado com Sucesso, Adicione os Códigos ao Patrimônio.');
     }

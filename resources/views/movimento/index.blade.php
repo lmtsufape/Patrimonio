@@ -17,7 +17,7 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['#', 'Servidor de Origem', 'Servidor de Destino', 'Tipo do Movimento', 'Itens do Movimento', 'Ações'],
+            'header' => ['#', 'Servidor de Origem', 'Servidor de Destino', 'Tipo do Movimento', 'Ações'],
 
             'content' => [
                 $movimentos->pluck('id'),
@@ -28,10 +28,7 @@
                     return $movimento->userDestino->name;
                 }),
                 $movimentos->map(function ($movimento) {
-                    return $movimento->tipo_movimento->nome;
-                }),
-                $movimentos->map(function ($movimento) {
-                    return $movimento->itens_movimento->take(3)->pluck('nome')->implode(',');
+                    return $movimento->tipo;
                 }),
             ],
                 

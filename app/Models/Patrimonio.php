@@ -48,6 +48,6 @@ class Patrimonio extends Model
 
     public function movimentos()
     {
-        return $this->belongsToMany(Movimento::class);
+        return $this->belongsToMany(Movimento::class, 'movimento_patrimonio', 'patrimonio_id', 'movimento_id');
     }
 }

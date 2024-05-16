@@ -17,38 +17,96 @@ use Illuminate\Support\Facades\Auth;
 class MovimentoController extends Controller
 {
     public function index()
-    {
-        $movimentos = Movimento::paginate(10);
+    {   
+        if(Auth::user()->hasAnyRoles(['Administrador'])){
+            $movimentos = Movimento::paginate(10);
+        }
+        if(Auth::user()->hasAnyRoles(['Servidor'])){
+            $movimentos = Movimento::where('user_origem_id', Auth::user()->id)->paginate(10);
+            $pedidosMovimentos = Movimento::where('user_destino_id', Auth::user()->id)->paginate(10);
+            if(Auth::user()->hasAnyCargos(['Diretor', 'Coordenador'])){
+
+            }
+        }
 
         return view('movimento.index', compact('movimentos'));
     }
 
     public function create()
     {
-        $tipo_movimentos = TipoMovimento::all();
         $servidores = User::where('id', '!=', Auth::user()->id)->get();
-        return view('movimento.create', compact('tipo_movimentos', 'servidores'));
+        $patrimonios = Patrimonio::where('user_id', Auth::user()->id)->whereNotIn('id',function($query){
+            $query->select('patrimonio_id')->from('movimentos');
+        })->get();
+        
+        $patrimoniosDisponi = Patrimonio::whereIn('sala_id', [21, 22])->get();
+
+        return view('movimento.create', compact( 'servidores', 'patrimonios', 'patrimoniosDisponi'));
     }
 
     public function store(StoreMovimentoRequest $request)
     {
+
         $data = $request->all();
         $data['data_movimento'] = now();
-        if(!$this->verificarServidores($data))
-            return redirect()->back()->with('fail', 'Os servidores de origem e destino não podem ser o mesmo!');
+
+        switch ($request->tipo) {
+            case 1://Solicitação
+                $data['user_origem_id'] = Auth::user()->id;
+                $data['user_destino_id'] = 1;
+                break;
+            case 2://Emprestimo
+
+                break;
+            case 3://Devolução
+                $data['user_origem_id'] = Auth::user()->id;
+                $data['user_destino_id'] = 1;
+                $data['motivo'] = $request->motivo;
+                $data['cargo_id'] = 1;
+                break;
+            case 4://Transferência
+                $data['user_origem_id'] = Auth::user()->id;
+                $data['user_destino_id'] = $request->user_destino_id;
+                $data['cargo_id'] = 1;
+                break;        
+        }
+
         $movimento = Movimento::create($data);
-        return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])->with('success', 'Movimento Cadastrado com Sucesso!');
+        
+        return redirect()->back()->with('success', 'Movimento Cadastrado com Sucesso!');
     }
 
+    public function finalizarMovimentacao($movimento_id){
+        $movimento = Movimento::find($movimento_id);
+        $movimento->patrimonio()->update([
+            'user_id'   => $movimento->user_destino_id,
+            'sala_id'   => $movimento->user_destino_id->sala()->id,
+            'unidade_admin_id'  => $movimento->user_destino_id->unid_admi()->id,
+        ]);
+
+        $movimento->status = 'Finalizado';
+
+        return redirect()->back();
+    }
+    
+    public function aprovarMovimentacao($movimento_id){
+        $movimento = Movimento::find($movimento_id);
+        $movimento->status = 'Aprovado';
+
+    }
+    public function reprovarMovimentacao($movimento_id){
+        $movimento = Movimento::find($movimento_id);
+        $movimento->status = 'Reprovado';
+
+    }
     public function edit($movimento_id)
     {
         $movimento = Movimento::find($movimento_id);
-        $tipo_movimentos = TipoMovimento::all();
-        $servidores = User::all();
-        $predios = Predio::all();
-        $patrimonios = Patrimonio::where('user_id', $movimento->user_origem_id)->get();
+        $servidores = User::where('id', '!=', Auth::user()->id)->get();
+        $patrimonios = Patrimonio::where('user_id', Auth::user()->id)->get();
+        $patrimoniosDisponi = Patrimonio::whereIn('sala_id', [21, 22])->get();
 
-        return view('movimento.edit', compact('movimento', 'tipo_movimentos', 'servidores', 'patrimonios', 'predios'));
+        return view('movimento.edit', compact('servidores', 'patrimonios', 'patrimoniosDisponi', 'movimento'));
     }
 
     public function update(UpdateMovimentoRequest $request)
@@ -59,14 +117,6 @@ class MovimentoController extends Controller
         if($movimento->status == 'Concluido')
             return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já concluido!');
 
-        if(!$this->verificarServidores($data))
-        {
-            return redirect()->back()->with('fail', 'Os servidores de origem e destino não podem ser o mesmo!');
-        } elseif(!$this->verificarItensMovimento($data, $movimento))
-        {
-            return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])->with('fail', 'Não é possivel alterar os servidores, pois já existem itens atrelados a essa movimentação!');
-        }
-
         $movimento->update($data);
         return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])->with('success', 'Movimento Alterado com Sucesso!');
     }
@@ -74,8 +124,7 @@ class MovimentoController extends Controller
     public function delete($movimento_id)
     {
         $movimento = Movimento::find($movimento_id);
-        if($movimento->status == 'Não Concluido')
-        {
+        if($movimento->status == 'Pendente'){
             $movimento->delete();
             return redirect()->route('movimento.index')->with('success', 'Movimento removido com sucesso!');
         }
@@ -83,85 +132,6 @@ class MovimentoController extends Controller
         return redirect()->route('movimento.index')->with('fail', 'O movimento já foi concluido e não pode ser excluido');
 
 
-    }
-
-    public function adicionarPatrimonio(Request $request)
-    {
-        $data = $request->all();
-        $movimento = Movimento::find($data['movimento_id']);
-        if($movimento->status == 'Concluido')
-            return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já concluido!');
-        $patrimonio = Patrimonio::find($data['patrimonio_id']);
-
-        $item_movimento = $movimento->itens_movimento()
-            ->wherePivot('patrimonio_id', $patrimonio->id)
-            ->first();
-
-        if (!$item_movimento) {
-            $movimento->itens_movimento()->sync($patrimonio);
-            return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])
-                ->with('success', 'Patrimônio Adicionado ao Movimento com Sucesso!');
-        } else {
-            return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])
-                ->with('fail', 'Este Patrimônio já Consta na Movimentação.');
-        }
-    }
-
-    public function removerPatrimonio($movimento_patrimonio_id)
-    {
-        $item_movimento = MovimentoPatrimonio::find($movimento_patrimonio_id);
-        $item_movimento->delete();
-
-        return redirect()->back()->with('success', 'Patrimônio removido com sucesso da movimentação');
-    }
-
-    private function verificarServidores($data)
-    {
-        $servidor_origem_id = $data['user_origem_id'];
-        $servidor_destino_id = $data['user_destino_id'];
-
-        if($servidor_origem_id == $servidor_destino_id)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    private function verificarItensMovimento($data, $movimento)
-    {
-        if(count($movimento->itens_movimento) > 0) {
-            $user_origem_id = $data['user_origem_id'];
-            $user_destino_id = $data['user_destino_id'];
-            if($movimento->user_origem_id != $user_origem_id)
-                return false;
-        }
-        return true;
-
-    }
-
-    public function concluirMovimentacao(ConcluirMovimentoRequest $request)
-    {
-        $data = $request->all();
-        $movimento = Movimento::find($data['movimento_id']);
-
-        if($movimento->status == 'Concluido')
-            return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já concluido!');
-
-        $patrimonios = $movimento->itens_movimento;
-
-        foreach ($patrimonios as $patrimonio)
-        {
-            $patrimonio->sala_id = $data['sala_id'];
-            $patrimonio->servidor_id = $movimento->servidor_destino_id;
-            $patrimonio->update();
-        }
-
-        $movimento->status = 'Concluido';
-        $movimento->data_conclusao = now();
-        $movimento->update();
-
-        return redirect()->route('movimento.index')->with('success', 'Movimento concluido com sucesso!');
     }
 
     public function search(Request $request)

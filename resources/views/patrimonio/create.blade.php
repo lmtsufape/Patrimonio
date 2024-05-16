@@ -147,24 +147,26 @@
                             class="red-asterisk">*</span></label>
                     <input type="text" class="form-control" name="nota_fiscal" id="nota_fiscal">
                 </div>
-                <div class="col">
-                    <label for="processoLicitacao" class="form-label fw-bold">Processo de licitação:</label>
-                    <select class="form-select" aria-label="Selecione o processo de licitação"
-                        id="processoLicitacao" name="processoLicitacao">
-                        <option selected disabled value="">Selecione o processo de licitação</option>
-                    </select>
-                </div>
-                <div class="form-group col">
-                    <label for="servidor" class="form-label fw-bold">Servidor: <span
-                            class="red-asterisk">*</span></label>
-                    <select class="form-select" aria-label="Selecione um servidor" id="user_id"
-                        name="user_id" required>
-                        <option selected disabled value="">Selecione um servidor</option>
-                        @foreach ($servidores as $servidor)
-                            <option value="{{ $servidor->id }}">{{ $servidor->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                @if(Auth::user()->hasAnyRoles(['Administrador']))
+                    <div class="col">
+                        <label for="processoLicitacao" class="form-label fw-bold">Processo de licitação:</label>
+                        <select class="form-select" aria-label="Selecione o processo de licitação"
+                            id="processoLicitacao" name="processoLicitacao">
+                            <option selected value="">Selecione o processo de licitação</option>
+                        </select>
+                    </div>
+                    <div class="form-group col">
+                        <label for="servidor" class="form-label fw-bold">Servidor: <span
+                                class="red-asterisk">*</span></label>
+                        <select class="form-select" aria-label="Selecione um servidor" id="user_id"
+                            name="user_id">
+                            <option selected value="">Selecione um servidor</option>
+                            @foreach ($servidores as $servidor)
+                                <option value="{{ $servidor->id }}">{{ $servidor->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
             </div>
                 <div class="col">
                     <label for="observacao" class="form-label fw-bold">Observações pertinentes a este

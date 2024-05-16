@@ -45,7 +45,6 @@ class UnidadeAdministrativaController extends Controller
 
     public function update(UpdateUnidadeAdministrativaRequest $request, $id)
     {
-        dd($request);
         UnidadeAdministrativa::find($id)->update($request->all());
         return redirect(route('unidade.index'))->with('success', 'Unidade Administrativa Editada com Sucesso!');
     }
@@ -61,7 +60,9 @@ class UnidadeAdministrativaController extends Controller
             if ($unidade_admin_filho) {
                 return redirect()->back()->with('fail', 'Não é possivel remover a unidade administrativa, existem sub-unidades vinculadas a ela!');
             }
+
             $unidade_admin->delete();
+            
             return redirect(route('unidade.index'))->with('success', 'Unidade Removida com Sucesso!');
         } else {
             return redirect(route('unidade.index'))->with('fail', 'Não é possivel remover a unidade, existem patrimônios vinculados a ela!');

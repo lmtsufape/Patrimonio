@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('movimento_patrimonio', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('movimento_id')->constrained()->cascadeOnDelete();
+
+            $table->foreignId('movimento_id')->constrained();
             $table->foreignId('patrimonio_id')->constrained();
 
             $table->timestamps();
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movimento_patrimonios');
+        Schema::dropIfExists('movimento_patrimonio');
     }
 };
