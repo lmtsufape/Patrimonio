@@ -127,7 +127,7 @@
                 </div>
                 <div class="form-group col">
                     <label for="valor" class="form-label fw-bold">Valor do item:</label>
-                    <input type="number" class="form-control" name="valor" id="valor">
+                    <input type="number" step="0.01" class="form-control" name="valor" id="valor">
                 </div>
                 <div class="form-group col">
                     <label for="conta_contabil" class="form-label fw-bold">Conta contábil: <span

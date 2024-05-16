@@ -11,13 +11,13 @@ class StorePatrimonioRequest extends FormRequest
     {
         return [
             'nome' => 'required|string|max:255',
-            'nota_fiscal' => 'nullable|string|max:255',
+            'nota_fiscal' => 'required_if:origem_id,==,4|string|max:255',
             'descricao' => 'required|string',
             'observacao' => 'nullable|string|max:255',
-            'data_compra' => 'nullable|date',
-            'data_incorporação' => 'nullable|date',
+            'data_compra' => 'required_if:origem_id,==,4|date',
+            'data_incorporação' => 'required|date',
             'valor' => 'required|numeric',
-            'empenho' => 'required|string',
+            'empenho' => 'required_if:origem_id,==,4|sometimes|string',
             'conta_contabil' => 'required|string',
             'user_id' => 'required|integer|exists:users,id',
             'unidade_admin_id' => 'required|integer|exists:unidades_administrativas,id',
