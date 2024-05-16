@@ -18,6 +18,8 @@ return new class extends Migration
             
             $table->foreignId('cargo_id')->constrained()->restrictOnDelete();
             $table->foreignId('user_id')->constrained();
+
+            $table->unique(['cargo_id', 'user_id']);
             $table->timestamps();
         });
     }

@@ -75,7 +75,7 @@ class PatrimonioController extends Controller
 
     public function create()
     {
-        $unidades = UnidadeAdministrativa::all();
+        $unidades = UnidadeAdministrativa::orderBy('nome')->get();
         $origens = Origem::orderBy('nome')->get();
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
