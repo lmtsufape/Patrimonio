@@ -103,7 +103,7 @@
     ];
 
     foreach ($servidores as $servidor) {
-        $dados['cargos'][$servidor->id] = $servidor->cargos->pluck('nome');
+        $dados['cargos'][$servidor->id] = $servidor->cargos->pluck('id');
         $dados['role'][$servidor->id] = $servidor->roles->first()->id;
     }
 @endphp
@@ -127,6 +127,10 @@
                 $('#role-edit').val(dados['role'][servidorId]);
 
                 $('input[type="checkbox"]').prop('checked', false);
+                
+                dados['cargos'][servidorId].forEach(element => {
+                    $('#cargo_id-edit-' + element).prop('checked', true);
+                });
             });
 
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {

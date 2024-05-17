@@ -54,8 +54,8 @@
                                 <label class="form-label">{{ $field['label'] }}</label>
                                 @foreach ($field['options'] as $i => $option)
                                     <div class="form-check">
-                                        <input class="form-check-input @error($field['name']) is-invalid @enderror" type="checkbox" value="{{ $i }}" id="{{ $field['id'] . "-$i" }}" name="{{ $field['name'] }}[]">
-                                        <label class="form-check-label" for="{{ $field['id'] . "-$i" }}">{{ $option }}</label>
+                                        <input class="form-check-input @error($field['name']) is-invalid @enderror" type="checkbox" value="{{ $i }}" id="{{ $field['id'] . "-$type" . "-$i" }}" name="{{ $field['name'] }}[]">
+                                        <label class="form-check-label" for="{{ $field['id'] . "-$type" . "-$i" }}">{{ $option }}</label>
                                     </div>
                                 @endforeach
                                 @error($field['name'])
