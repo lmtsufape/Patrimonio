@@ -10,7 +10,7 @@ class StoreServidorRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|min:3',
+            'name' => 'required|min:3',
             'email' => 'required|email',
             'password' => 'required|string|min:8',
             'cpf' => 'required|regex:/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/',

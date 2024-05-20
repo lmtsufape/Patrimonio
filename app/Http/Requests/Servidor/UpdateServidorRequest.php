@@ -10,7 +10,7 @@ class UpdateServidorRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|min:3',
+            'name' => 'required|min:3',
             'matricula' => 'required|regex:/^[0-9]{9}$/',
         ];
     }
