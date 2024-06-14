@@ -92,25 +92,49 @@
         'modalTitle' => 'Tem certeza que deseja apagar esse servidor ?',
         'route' => route('servidor.delete', ['id' => ':id']),
     ])
-
-
 @endsection
 
+@php
+    $dados = [
+        'name' => $servidores->pluck('name', 'id'),
+        'email' => $servidores->pluck('email', 'id'),
+        'cpf' => $servidores->pluck('cpf', 'id'),
+        'matricula' => $servidores->pluck('matricula', 'id'),
+    ];
+
+    foreach ($servidores as $servidor) {
+        $dados['cargos'][$servidor->id] = $servidor->cargos->pluck('id');
+        $dados['role'][$servidor->id] = $servidor->roles->first()->id;
+    }
+@endphp
+    
 @push('scripts')
     <script>
+        const dados = {!! json_encode($dados) !!};
         const editModal = $('#edit-servidor-modal');
         const updateRoute = "{{ route('servidor.update', ['id' => ':id']) }}";
-        const servidorDeleteRoute = "{{ route('servidor.delete', ['id' => ':id']) }}";
+        const deleteRoute = "{{ route('servidor.delete', ['id' => ':id']) }}";
         var servidorId = 0;
 
         $(document).ready(function() {
             editModal.on('show.bs.modal', function(event) {
                 var formAction = updateRoute.replace(':id', servidorId);
                 editModal.find('form').attr('action', formAction);
+                $('#name-edit').val(dados['name'][servidorId]);
+                $('#email-edit').val(dados['email'][servidorId]);
+                $('#cpf-edit').val(dados['cpf'][servidorId]);
+                $('#matricula-edit').val(dados['matricula'][servidorId]);
+                $('#role-edit').val(dados['role'][servidorId]);
+
+                $('input[type="checkbox"]').prop('checked', false);
+                
+                dados['cargos'][servidorId].forEach(element => {
+                    $('#cargo_id-edit-' + element).prop('checked', true);
+                });
             });
 
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = servidorDeleteRoute.replace(':id', servidorId);
+                var formAction = deleteRoute.replace(':id', servidorId);
                 $(this).find('form').attr('action', formAction);
             });
         });

@@ -78,7 +78,6 @@
         'modalTitle' => 'Tem certeza que deseja apagar este Predio?',
         'route' => route('predio.delete', ['predio_id' => 'id']), 
     ])
-    
 @endsection
 
 @push('scripts')
@@ -88,13 +87,11 @@
         var predioId = false;
         const predios = {!! json_encode($predios->pluck('nome', 'id')) !!}
 
-
         $(document).ready(function () {
             $('#editarPredioModal').on('show.bs.modal', function(event) {
                 var formAction = predioUpdateRoute.replace('id', predioId);
                 $(this).find('form').attr('action', formAction);
                 $('#nome-edit').val(predios[predioId]);
-
             });
         });
 
@@ -114,6 +111,5 @@
                 $(this).find('form').attr('action', formAction);
             });
         });
-
     </script>
 @endpush

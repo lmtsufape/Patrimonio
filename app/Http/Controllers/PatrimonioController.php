@@ -33,8 +33,8 @@ class PatrimonioController extends Controller
         $classificacoes = Classificacao::all();
 
         $query = Patrimonio::query();
-        
-        if ($request->has('busca') && $request->busca != '') {
+
+        if ($request->filled('busca')) {
             $query->where('nome', 'ilike', "%$request->busca%");
         }
 
@@ -75,7 +75,7 @@ class PatrimonioController extends Controller
 
     public function create()
     {
-        $unidades = UnidadeAdministrativa::all();
+        $unidades = UnidadeAdministrativa::orderBy('nome')->get();
         if(!Auth::user()->hasAnyRoles(['Administrador'])){
             $origens = Origem::where('id', 3)->get();//pessoal
         }else{
@@ -117,7 +117,7 @@ class PatrimonioController extends Controller
     public function update(UpdatePatrimonioRequest $request, $id)
     {
         $patrimonio = Patrimonio::findOrFail($id);
-        $patrimonio->update($request->all()); 
+        $patrimonio->update($request->all());
         return redirect(route('patrimonio.index'))->with('success', 'Patrimônio Editado com Sucesso!');
     }
 
@@ -141,7 +141,7 @@ class PatrimonioController extends Controller
         return response()->json($salas);
     }
 
-    
+
     public function relatorio(Request $request)
     {
         $query = Patrimonio::query();
