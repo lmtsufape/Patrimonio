@@ -9,7 +9,6 @@
 
     @include('layouts.components.searchbar', [
         'title' => 'Movimentações de Patrimonios',
-        'addButton' => route('movimento.create'),
         'searchForm' => route('movimento.buscar'),
     ])
 
@@ -35,14 +34,14 @@
 
             'acoes' => [
                 [
-                    'link' => 'movimento.edit',
-                    'param' => 'movimento_id',
+                    'link' => 'movimento.reprovar',
+                    'param' => 'id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'editar',
                 ],
                 [
-                    'link' => 'movimento.delete',
-                    'param' => 'movimento_id',
+                    'link' => 'movimento.reprovar',
+                    'param' => 'id',
                     'img' => asset('/images/delete.png'),
                     'type' => 'delete',
                 ],

@@ -34,7 +34,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
     Route::controller(HomeController::class)->group(function () {
         Route::get('/', 'home')->name('home');
     });
-    
+
     Route::prefix('subgrupo')->name('subgrupo.')->controller(SubgrupoController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
@@ -54,7 +54,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/{predio_id}/delete', 'delete')->name('delete');
         Route::get('/predio/busca', 'busca')->name('busca.get');
     });
-    
+
     Route::prefix('predio')->name('sala.')->controller(SalaController::class)->group(function () {
         Route::get('/{predio_id}/sala/listar', 'index')->name('index');
         Route::get('/{predio_id}/sala/cadastrar', 'create')->name('create');
@@ -63,9 +63,9 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::put('/sala/{sala_id}/update', 'update')->name('update');
         Route::delete('/sala/{sala_id}/delete', 'delete')->name('delete');
     });
-    
+
     Route::get('/salas/search', [SalaController::class, 'search'])->name('sala.buscar');
-    
+
     Route::prefix('cargo')->name('cargo.')->controller(CargoController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
@@ -75,7 +75,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/{cargo_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
-    
+
     Route::prefix('classificacao')->name('classificacao.')->controller(ClassificacaoController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
@@ -85,7 +85,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/{classificacao_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
-    
+
     Route::prefix('servidor')->name('servidor.')->controller(UserController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
@@ -96,7 +96,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
         Route::get('/search', 'search')->name('buscar');
     });
-    
+
     Route::prefix('unidade')->name('unidade.')->controller(UnidadeAdministrativaController::class)->group(function () {
         Route::get('/listar/{unidade_admin_pai_id?}', 'index')->name('index');
         Route::get('/cadastrar/{unidade_admin_pai_id?}', 'create')->name('create');
@@ -107,7 +107,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/search', 'search')->name('buscar');
         // Route::get('/{setor_id}/restore', [SetorController::class, 'restore'])->name('restore');
     });
-    
+
     Route::prefix('patrimonio')->name('patrimonio.')->controller(PatrimonioController::class)->group(function () {
         Route::get('/listar', 'index')->name('index');
         Route::get('/cadastrar', 'create')->name('create');
@@ -125,9 +125,13 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/patrimonio/{patrimonio_id}', 'show')->name('patrimonio');
 
     });
-    
+
     Route::prefix('movimento')->name('movimento.')->controller(MovimentoController::class)->group(function () {
+        Route::get('/test/{id}', 'finalizarMovimentacao')->name('finalizar');
         Route::get('/listar', 'index')->name('index');
+        Route::get('/aprovar/{id}', 'aprovarMovimentacao')->name('aprovar');
+        Route::get('/reprovar/{id}', 'reprovarMovimentacao')->name('reprovar');
+        Route::get('/listar/pedidos', 'indexPedidosMovimentos')->name('pedidos.index');
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{movimento_id}/editar', 'edit')->name('edit');

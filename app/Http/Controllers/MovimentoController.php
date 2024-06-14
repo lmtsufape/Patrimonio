@@ -17,28 +17,32 @@ use Illuminate\Support\Facades\Auth;
 class MovimentoController extends Controller
 {
     public function index()
-    {   
-        if(Auth::user()->hasAnyRoles(['Administrador'])){
+    {
+        if(!Auth::user()->hasAnyRoles(['Administrador'])){
             $movimentos = Movimento::paginate(10);
         }
-        if(Auth::user()->hasAnyRoles(['Servidor'])){
+        if(!Auth::user()->hasAnyRoles(['Servidor'])){
             $movimentos = Movimento::where('user_origem_id', Auth::user()->id)->paginate(10);
-            $pedidosMovimentos = Movimento::where('user_destino_id', Auth::user()->id)->paginate(10);
-            if(Auth::user()->hasAnyCargos(['Diretor', 'Coordenador'])){
-
-            }
         }
 
         return view('movimento.index', compact('movimentos'));
+    }
+
+    public function indexPedidosMovimentos()
+    {
+        $movimentos = Movimento::where('user_destino_id', Auth::user()->id)->paginate(10);
+
+        return view('movimento.index_pedidos', compact('movimentos'));
+
     }
 
     public function create()
     {
         $servidores = User::where('id', '!=', Auth::user()->id)->get();
         $patrimonios = Patrimonio::where('user_id', Auth::user()->id)->whereNotIn('id',function($query){
-            $query->select('patrimonio_id')->from('movimentos');
-        })->get();
-        
+            $query->select('patrimonio_id')->from('movimento_patrimonio');
+        })->with('sala.predio')->get();
+
         $patrimoniosDisponi = Patrimonio::whereIn('sala_id', [21, 22])->get();
 
         return view('movimento.create', compact( 'servidores', 'patrimonios', 'patrimoniosDisponi'));
@@ -46,9 +50,7 @@ class MovimentoController extends Controller
 
     public function store(StoreMovimentoRequest $request)
     {
-
         $data = $request->all();
-        $data['data_movimento'] = now();
 
         switch ($request->tipo) {
             case 1://Solicitação
@@ -60,45 +62,32 @@ class MovimentoController extends Controller
                 break;
             case 3://Devolução
                 $data['user_origem_id'] = Auth::user()->id;
-                $data['user_destino_id'] = 1;
+                $data['user_destino_id'] = User::where(function($query) {
+                                            $query->whereHas('roles', function($roleQuery) {
+                                                    $roleQuery->whereIn('nome', ['Administrador']);
+                                                })->whereHas('cargos', function($cargoQuery) {
+                                                    $cargoQuery->whereIn('nome', ['Diretor']);
+                                                });
+                                            })->pluck('id')->first();
                 $data['motivo'] = $request->motivo;
-                $data['cargo_id'] = 1;
+                $data['cargo_id'] = 3;
+                $data['sala_id'] = 1;
+
                 break;
             case 4://Transferência
                 $data['user_origem_id'] = Auth::user()->id;
                 $data['user_destino_id'] = $request->user_destino_id;
-                $data['cargo_id'] = 1;
-                break;        
+                $data['sala_id'] = 1;
+                break;
         }
 
+        $data['data'] = now();
         $movimento = Movimento::create($data);
-        
+        $movimento->patrimonios()->attach(array_map('intval',(explode(',', (implode(',', $request->patrimonios_id))))));
+
         return redirect()->back()->with('success', 'Movimento Cadastrado com Sucesso!');
     }
 
-    public function finalizarMovimentacao($movimento_id){
-        $movimento = Movimento::find($movimento_id);
-        $movimento->patrimonio()->update([
-            'user_id'   => $movimento->user_destino_id,
-            'sala_id'   => $movimento->user_destino_id->sala()->id,
-            'unidade_admin_id'  => $movimento->user_destino_id->unid_admi()->id,
-        ]);
-
-        $movimento->status = 'Finalizado';
-
-        return redirect()->back();
-    }
-    
-    public function aprovarMovimentacao($movimento_id){
-        $movimento = Movimento::find($movimento_id);
-        $movimento->status = 'Aprovado';
-
-    }
-    public function reprovarMovimentacao($movimento_id){
-        $movimento = Movimento::find($movimento_id);
-        $movimento->status = 'Reprovado';
-
-    }
     public function edit($movimento_id)
     {
         $movimento = Movimento::find($movimento_id);
@@ -130,8 +119,6 @@ class MovimentoController extends Controller
         }
 
         return redirect()->route('movimento.index')->with('fail', 'O movimento já foi concluido e não pode ser excluido');
-
-
     }
 
     public function search(Request $request)
@@ -145,5 +132,36 @@ class MovimentoController extends Controller
         ->paginate(10);
 
         return view('movimento.index', compact('movimentos'));
+    }
+
+    public function finalizarMovimentacao($movimento_id){
+        $movimento = Movimento::find($movimento_id);
+        $movimento->patrimonios()->first()->update([
+            'user_id'   => $movimento->user_destino_id,
+            'sala_id'   => $movimento->sala_id,
+            'unidade_admin_id'  => $movimento->user_destino_id,
+        ]);
+
+        $movimento->status = 'Finalizado';
+        $movimento->update();
+
+        return redirect()->back();
+    }
+
+    public function aprovarMovimentacao($movimento_id){
+
+        dd('aprovar');
+        $movimento = Movimento::find($movimento_id);
+        $movimento->status = 'Aprovado';
+        $movimento->update();
+
+        return redirect()->back();
+    }
+
+    public function reprovarMovimentacao($movimento_id){
+        dd('reprovar');
+
+        $movimento = Movimento::find($movimento_id);
+        $movimento->status = 'Reprovado';
     }
 }

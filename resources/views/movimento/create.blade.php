@@ -13,6 +13,7 @@
 
     <form method="POST" action="{{route('movimento.store')}}" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" id="patrimonios_id" name="patrimonios_id[]">
         <div class="row">
             @if(isset($movimento))
                 <input type="hidden" name="movimento_id" value="{{$movimento->id}}">
@@ -45,21 +46,10 @@
                     @endforeach
                 </select>
             </div>
-        
+
         </div>
-        
+
         <div class="d-none row" id="transferencia">
-            <div class="col-4">
-                <label>Servidor de Origem:<strong style="color: red">*</strong></label>
-                <select class="form-control" name="user_origem_id" required>
-                    <option selected disabled>Selecione o Servidor de Origem</option>
-                    @foreach($servidores as $servidor)
-                        <option value="{{$servidor->id}}"
-                                @if(isset($movimento) && $servidor->id == $movimento->user_origem_id)selected @endif>{{$servidor->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-        
             <div class="col-4">
                 <label>Servidor de Destino:<strong style="color: red">*</strong></label>
                 <select class="form-control" name="user_destino_id" required>
@@ -70,9 +60,20 @@
                     @endforeach
                 </select>
             </div>
+
+            {{-- <div class="col-4">
+                <label>Sala de Destino:<strong style="color: red">*</strong></label>
+                <select class="form-control" name="sala_id" required>
+                    <option selected disabled>Selecione o Servidor de Destino</option>
+                    @foreach($servidores as $servidor)
+                        <option value="{{$servidor->id}}"
+                                @if(isset($movimento) && $servidor->id == $movimento->user_destino_id)selected @endif>{{$servidor->name}}</option>
+                    @endforeach
+                </select>
+            </div> --}}
         </div>
 
-        
+
         <div class="d-none row" id="devolucao">
             <div class="col mt-2">
                 <label>Motivo:</label>
@@ -81,32 +82,105 @@
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="">
-                <button style="max-width: 200px" type="submit" class="btn btn-success w-100">Salvar</button>
+        <div class="d-flex justify-content-center mt-4 mb-5">
+            <button type="button" class="btn btn-blue px-5 py-2" onclick="adicionarPatrimonio()">Adicionar</button>
+        </div>
+
+        <div>
+            <table class="table table-hover patrimoniolist">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Prédio</th>
+                        <th>Sala</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-4 mb-5">
+            <div class="d-flex justify-content-center">
+                <button style="max-width: 200px" type="submit" class="btn btn-success w-100">Concluir</button>
+                <button style="max-width: 200px" class="btn btn-danger w-100">Cancelar</button>
             </div>
         </div>
     </form>
+
 <script>
-    document.getElementById("tipo").addEventListener("change", function(){
+
+    let patrimoniosData = @json($patrimonios);
+    patrimonios = document.querySelector('#patrimonios_id');
+
+    function adicionarPatrimonio(){
+        let tabela = document.getElementsByClassName('patrimoniolist')[0];
+        let tbody = tabela.getElementsByTagName('tbody')[0];
+        let patrimonioId = document.querySelector('#patrimonio_id').value;
+
+        if(patrimonios.value === ''){
+            patrimonios.value = patrimonioId
+        }else{
+            patrimonios.value = patrimonios.value.split(',').concat(patrimonioId).join(',');
+        }
+
+
+        let exibirpatrimonio = patrimoniosData.find(function(element){
+            return element.id == patrimonioId}
+            );
+
+        let linha = tbody.insertRow();
+        linha.insertCell(0).textContent = patrimonios.value.split(',').length;
+        linha.insertCell(1).textContent = exibirpatrimonio.nome;
+        linha.insertCell(2).textContent = exibirpatrimonio.sala.predio.nome;
+        linha.insertCell(3).textContent = exibirpatrimonio.sala.nome;
+        linha.insertCell(4).innerHTML = '<td><button class="btn btn-danger" type="button" onclick="removerPatrimonio(this)">Remover</button></td>';
+
+
+        document.querySelector(`#patrimonio_id option[value="${patrimonioId}"]`).disabled = true;
+
+        document.querySelector('#patrimonio_id').value = '';
+    };
+
+    function removerPatrimonio(botao){
+        let linha = botao.parentNode.parentNode;
+        document.querySelector(`#patrimonio_id option[value="${patrimonios.value.split(',')[parseInt(linha.textContent[0] - 1)]}"]`).disabled = false;
+
+        arrayPatrimonio = patrimonios.value.split(',');
+        arrayPatrimonio.splice(linha.textContent[0] - 1, 1)
+        patrimonios.value = arrayPatrimonio.join(',')
+
+        pai = linha.parentNode
+        linha.parentNode.removeChild(linha);//fazer assyncwait
+
+        for(i = 1; i <= pai.children.length; i++){
+            pai.children[i - 1].children[0].textContent = i;
+        }// fazer que a atualização acontecesse somente nas linhas posteriores a mudança
+
+    }
+
+    document.querySelector("#tipo").addEventListener("change", function(){
         if(this.value == 1){
-            document.getElementById("solicitacao").classList.remove("d-none");
-            document.getElementById("devolucao").classList.add("d-none");
-            document.getElementById("transferencia").classList.add("d-none");
-            document.getElementById("patrimonio").classList.add("d-none");
+            document.querySelector("#solicitacao").classList.remove("d-none");
+            document.querySelector("#devolucao").classList.add("d-none");
+            document.querySelector("#transferencia").classList.add("d-none");
+            document.querySelector("#patrimonio").classList.add("d-none");
 
         }else if(this.value == 2){
-            
+
         }else if(this.value == 3){
-            document.getElementById("devolucao").classList.remove("d-none");
-            document.getElementById("patrimonio").classList.remove("d-none");
-            document.getElementById("solicitacao").classList.add("d-none");
-            document.getElementById("transferencia").classList.add("d-none");
+            document.querySelector("#devolucao").classList.remove("d-none");
+            document.querySelector("#patrimonio").classList.remove("d-none");
+            document.querySelector("#solicitacao").classList.add("d-none");
+            document.querySelector("#transferencia").classList.add("d-none");
         }else{
-            document.getElementById("transferencia").classList.remove("d-none");
-            document.getElementById("patrimonio").classList.remove("d-none");
-            document.getElementById("solicitacao").classList.add("d-none");
-            document.getElementById("devolucao").classList.add("d-none");
+            document.querySelector("#transferencia").classList.remove("d-none");
+            document.querySelector("#patrimonio").classList.remove("d-none");
+            document.querySelector("#solicitacao").classList.add("d-none");
+            document.querySelector("#devolucao").classList.add("d-none");
 
         }
     });

@@ -23,7 +23,7 @@ class PatrimonioFactory extends Factory
             'valor' => $this->faker->numberBetween($min = 100, $max = 5000),
             'empenho' => $this->faker->sentence,
             'conta_contabil' => $this->faker->sentence,
-            'user_id' => 2,
+            'user_id' => 4,
             'subgrupo_id' => 1,
             'situacao_id' => 1,
             'origem_id' => 1,

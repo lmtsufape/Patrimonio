@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('status')->default('Pendente');//aprovada/reprovada -> entregue -> finalizada
             $table->string('motivo')->nullable();
 
-            $table->foreignId('patrimonio_id')->constrained();
             $table->foreignId('sala_id')->constrained();
             $table->foreignId('user_origem_id')->constrained('users');
             $table->foreignId('user_destino_id')->constrained('users')->nullable();
