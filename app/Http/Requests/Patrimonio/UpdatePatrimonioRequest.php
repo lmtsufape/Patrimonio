@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePatrimonioRequest extends FormRequest
 {
-    
+
     public function rules()
     {
         return [
@@ -22,7 +22,7 @@ class UpdatePatrimonioRequest extends FormRequest
             'situacao' => 'required|integer|exists:situations,id',
         ];
     }
-    
+
     public function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();

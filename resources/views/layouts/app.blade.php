@@ -25,7 +25,7 @@
     </head>
 
     <body class="d-flex flex-column min-vh-100 bg-light">
-        
+
         <div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;">
             <ul id="menu-barra-temp" style="list-style:none;">
                 <li
@@ -36,11 +36,15 @@
                 </li>
             </ul>
         </div>
-        
-        @include('layouts.components.messages')
+
+        @if (session('success'))
+            <div class="text-md-center align-middle alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
         @includeUnless(in_array(Route::currentRouteName(), ['login', 'register', 'password.request']), 'layouts.components.sidebar')
-    
+
         <main class="container">
             @yield('content')
         </main>
@@ -49,9 +53,9 @@
 
         <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
             crossorigin="anonymous"></script>
-            
+
         @stack('scripts')
-        
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>

@@ -63,7 +63,7 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar esta classificação?',
-        'route' => route('classificacao.delete', ['classificacao_id' => 'id']), 
+        'route' => route('classificacao.delete', ['classificacao_id' => 'id']),
     ])
 @endsection
 
@@ -90,12 +90,12 @@
         });
 
         const classificacaoUpdateRoute = "http://127.0.0.1:8000/classificacao/update/id";
-            
+
             function openEditModal(id) {
                 classificacaoId = id;
                 $('#editarClassificacaoModal').modal('show');
             }
-    
+
             $(document).ready(function () {
                 $('#editarClassificacaoModal').on('show.bs.modal', function(event) {
                     var formAction = classificacaoUpdateRoute.replace('id', classificacaoId);
@@ -108,6 +108,6 @@
 
                 });
             });
-            
+
     </script>
 @endpush

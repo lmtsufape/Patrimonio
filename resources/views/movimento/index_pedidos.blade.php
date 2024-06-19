@@ -36,14 +36,20 @@
                 [
                     'link' => 'movimento.reprovar',
                     'param' => 'id',
-                    'img' => asset('/images/pencil.png'),
-                    'type' => 'editar',
+                    'img' => asset('/assets/vision.svg'),
+                    'type' => 'link',
                 ],
                 [
                     'link' => 'movimento.reprovar',
                     'param' => 'id',
-                    'img' => asset('/images/delete.png'),
-                    'type' => 'delete',
+                    'img' => asset('/assets/cancel.svg'),
+                    'type' => 'link',
+                ],
+                [
+                    'link' => 'movimento.aprovar',
+                    'param' => 'id',
+                    'img' => asset('/assets/check.svg'),
+                    'type' => 'link',
                 ],
 
             ],
@@ -54,31 +60,11 @@
         </div>
     </div>
 
-    @include('layouts.components.modais.modal_delete', [
-        'modalId' => 'deleteConfirmationModal',
-        'modalTitle' => 'Tem certeza que deseja apagar esta Movimentação?',
-        'route' => route('movimento.delete', ['movimento_id' => 'id']),
-    ])
+
 
 
 @endsection
 
 @push('scripts')
-    <script>
-        const movimentacaoDeleteRoute = "http://127.0.0.1:8000/movimento/id/delete";
-        var movimentoId = 0;
-        function openDeleteModal(id) {
-            movimentoId = id;
-            $('#deleteConfirmationModal').modal('show');
-        }
 
-        $(document).ready(function () {
-            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = movimentacaoDeleteRoute.replace('id', movimentoId);
-                $(this).find('form').attr('action', formAction);
-            });
-        });
-
-
-    </script>
 @endpush

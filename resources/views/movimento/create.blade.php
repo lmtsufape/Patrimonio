@@ -16,22 +16,28 @@
         <input type="hidden" id="patrimonios_id" name="patrimonios_id[]">
         <div class="row">
             @if(isset($movimento))
-                <input type="hidden" name="movimento_id" value="{{$movimento->id}}">
+                <input type="hidden" id="movimento_id" name="movimento_id" value="{{$movimento->id}}">
             @endif
             <div class="col-4">
                 <label>Tipo de Movimento:<strong style="color: red">*</strong></label>
-                <select class="form-control" id="tipo" name="tipo" required>
+                <select class="form-control @error('tipo') is-invalid @enderror" id="tipo" name="tipo" required>
                     <option selected disabled>Selecione um Tipo de Movimento</option>
                     @foreach(App\Models\Movimento::$tipos as $texto => $tipo)
                         <option value="{{$tipo}}"
-                                @if(isset($movimento) && $tipo == $movimento->tipo)selected @endif>{{$texto}}</option>
+                                @if($tipo == old('tipo'))selected @endif>{{$texto}}</option>
                     @endforeach
                 </select>
+
+                @error('tipo')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="col-md-6 form-group d-none" id="patrimonio">
                 <label class="" for="patrimonio_id">Patrimônios</label>
                 <select class="form-control" name="patrimonio_id" id="patrimonio_id">
-                    <option selected disabled>Escolha o Patrimônio para traferencia</option>
+                    <option value="" selected disabled>Escolha o Patrimônio para traferencia</option>
                     @foreach ($patrimonios as $patrimonio)
                         <option value="{{$patrimonio->id}}">{{$patrimonio->nome}}</option>
                     @endforeach
@@ -52,13 +58,19 @@
         <div class="d-none row" id="transferencia">
             <div class="col-4">
                 <label>Servidor de Destino:<strong style="color: red">*</strong></label>
-                <select class="form-control" name="user_destino_id" required>
+                <select class="form-control @error('user_destino_id') is-invalid @enderror" name="user_destino_id" required>
                     <option selected disabled>Selecione o Servidor de Destino</option>
                     @foreach($servidores as $servidor)
                         <option value="{{$servidor->id}}"
                                 @if(isset($movimento) && $servidor->id == $movimento->user_destino_id)selected @endif>{{$servidor->name}}</option>
                     @endforeach
                 </select>
+
+                @error('user_destino_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
             </div>
 
             {{-- <div class="col-4">
@@ -77,8 +89,14 @@
         <div class="d-none row" id="devolucao">
             <div class="col mt-2">
                 <label>Motivo:</label>
-                <textarea class="form-control" name="observacao" id="observacao"
+                <textarea class="form-control @error('observacao') is-invalid @enderror" name="observacao" id="observacao"
                           placeholder="Digite uma observação sobre o movimento">@if(isset($movimento)){{$movimento->observacao}}@endif</textarea>
+
+                @error('observacao')
+                    <span class="invalid-feedback"  role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
 
@@ -117,32 +135,38 @@
     patrimonios = document.querySelector('#patrimonios_id');
 
     function adicionarPatrimonio(){
-        let tabela = document.getElementsByClassName('patrimoniolist')[0];
-        let tbody = tabela.getElementsByTagName('tbody')[0];
         let patrimonioId = document.querySelector('#patrimonio_id').value;
 
-        if(patrimonios.value === ''){
-            patrimonios.value = patrimonioId
+        if(patrimonioId === ''){
+            alert('Selecione um patrimônio para adicionar.')
         }else{
-            patrimonios.value = patrimonios.value.split(',').concat(patrimonioId).join(',');
+            let tabela = document.getElementsByClassName('patrimoniolist')[0];
+            let tbody = tabela.getElementsByTagName('tbody')[0];
+
+            if(patrimonios.value === ''){
+                patrimonios.value = patrimonioId
+            }else{
+                patrimonios.value = patrimonios.value.split(',').concat(patrimonioId).join(',');
+            }
+
+
+            let exibirpatrimonio = patrimoniosData.find(function(element){
+                return element.id == patrimonioId}
+                );
+
+            let linha = tbody.insertRow();
+            linha.insertCell(0).textContent = patrimonios.value.split(',').length;
+            linha.insertCell(1).textContent = exibirpatrimonio.nome;
+            linha.insertCell(2).textContent = exibirpatrimonio.sala.predio.nome;
+            linha.insertCell(3).textContent = exibirpatrimonio.sala.nome;
+            linha.insertCell(4).innerHTML = '<td><button class="btn btn-danger" type="button" onclick="removerPatrimonio(this)">Remover</button></td>';
+
+
+            document.querySelector(`#patrimonio_id option[value="${patrimonioId}"]`).disabled = true;
+
+            document.querySelector('#patrimonio_id').value = '';
+
         }
-
-
-        let exibirpatrimonio = patrimoniosData.find(function(element){
-            return element.id == patrimonioId}
-            );
-
-        let linha = tbody.insertRow();
-        linha.insertCell(0).textContent = patrimonios.value.split(',').length;
-        linha.insertCell(1).textContent = exibirpatrimonio.nome;
-        linha.insertCell(2).textContent = exibirpatrimonio.sala.predio.nome;
-        linha.insertCell(3).textContent = exibirpatrimonio.sala.nome;
-        linha.insertCell(4).innerHTML = '<td><button class="btn btn-danger" type="button" onclick="removerPatrimonio(this)">Remover</button></td>';
-
-
-        document.querySelector(`#patrimonio_id option[value="${patrimonioId}"]`).disabled = true;
-
-        document.querySelector('#patrimonio_id').value = '';
     };
 
     function removerPatrimonio(botao){

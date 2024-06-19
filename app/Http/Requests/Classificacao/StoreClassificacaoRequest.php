@@ -7,17 +7,25 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreClassificacaoRequest extends FormRequest
 {
-    
+
     public function rules()
     {
         return [
-            'nome' => 'required|unique:classificacoes|max:255'
+            'nome' => 'required|unique:classificacoes|max:255',
+            'codigo'    => 'required',
+            'residual'  => 'required|numeric',
+            'vida_util' => 'required|numeric',
+
         ];
     }
 
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+    public function messages(){
+        return [
+            'nome.required' => 'dsfdf',
+            'codigo.required' => 'dfsf',
+            'residual.numeric' => 'ta errado',
+            'vida_util.numeric' => 'ta errado',
+        ];
     }
+
 }

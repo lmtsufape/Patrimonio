@@ -1,6 +1,6 @@
 @if ($content[0]->count() > 0)
     <table class="table table-hover">
-        <thead class="text-md-center">
+        <thead class="text-md-center align-middle">
             <tr>
                 @foreach ($header as $item)
                     <th>{{ $item }}</th>

@@ -51,7 +51,6 @@ class MovimentoController extends Controller
     public function store(StoreMovimentoRequest $request)
     {
         $data = $request->all();
-
         switch ($request->tipo) {
             case 1://Solicitação
                 $data['user_origem_id'] = Auth::user()->id;
@@ -85,7 +84,7 @@ class MovimentoController extends Controller
         $movimento = Movimento::create($data);
         $movimento->patrimonios()->attach(array_map('intval',(explode(',', (implode(',', $request->patrimonios_id))))));
 
-        return redirect()->back()->with('success', 'Movimento Cadastrado com Sucesso!');
+        return redirect()->route('movimento.index')->with('success', 'Movimento Cadastrado com Sucesso!');
     }
 
     public function edit($movimento_id)

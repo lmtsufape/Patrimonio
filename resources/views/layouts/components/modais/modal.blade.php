@@ -22,7 +22,7 @@
                                 <label for="{{ $field['id'] . "-$type" }}" class="form-label">
                                     {{ $field['label'] }}
                                 </label>
-                                <input type="{{ $field['type'] }}" id="{{ $field['id'] . "-$type" }}" name="{{ $field['name'] }}" class="form-control @error($field['name']) is-invalid @enderror" required>
+                                <input type="{{ $field['type'] }}" id="{{ $field['id'] . "-$type" }}" name="{{ $field['name'] }}" class="form-control @error($field['name']) is-invalid @enderror" value="{{old($field['id'])}}" required>
                                 @error($field['name'])
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -72,3 +72,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if ($errors->any())
+            var myModal = new bootstrap.Modal(document.getElementById('{{ $modalId }}'));
+            myModal.show();
+        @endif
+    });
+    document.getElementById('{{ $modalId }}').addEventListener('hidden.bs.modal', function () {
+        var modalElement = document.getElementById('{{ $modalId }}');
+        modalElement.querySelectorAll('.is-invalid').forEach(function(element) {
+            element.classList.remove('is-invalid');
+        });
+        modalElement.querySelectorAll('.invalid-feedback').forEach(function(element) {
+            element.innerHTML = '';
+        });
+    });
+</script>

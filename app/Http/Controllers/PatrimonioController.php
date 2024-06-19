@@ -109,9 +109,10 @@ class PatrimonioController extends Controller
         $origens = Origem::orderBy('nome')->get();
         $predios = Predio::with('salas')->orderBy('nome')->get();
         $situacoes = Situacao::orderBy('nome')->get();
+        $classificacoes = Classificacao::orderBy('nome')->get();
         $subgrupos = Subgrupo::orderBy('nome')->get();
         $servidores = User::orderBy('name')->get();
-        return view('patrimonio.edit', compact('patrimonio', 'unidades', 'origens', 'predios', 'situacoes', 'servidores', 'subgrupos'));
+        return view('patrimonio.edit', compact('patrimonio', 'unidades', 'origens', 'predios', 'situacoes', 'servidores', 'classificacoes', 'subgrupos'));
     }
 
     public function update(UpdatePatrimonioRequest $request, $id)

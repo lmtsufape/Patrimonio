@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('aprovado')->default(true);
             $table->text('observacao')->nullable();
             $table->date('data_compra')->nullable();
-            $table->date('data_incorporação')->nullable();
+            $table->date('data_incorporacao')->nullable();
             $table->double('valor');
             $table->string('empenho');
             $table->string('conta_contabil');

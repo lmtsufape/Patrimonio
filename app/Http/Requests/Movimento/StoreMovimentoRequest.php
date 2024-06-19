@@ -11,17 +11,18 @@ class StoreMovimentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'observacao' => 'nullable|string|max:255',
+            'tipo' => 'required|integer|',
+            'patrimonios_id'   => 'required',
             'user_destino_id' => 'required|integer|exists:users,id',
-            'user_origem_id' => 'required|integer|exists:users,id',
-            'tipo_movimento_id' => 'required|integer|exists:tipos_movimento,id',
-            'data_movimento' => 'required|date'
+            'observacao' => 'required_if:tipo,3','string','max:255',
+            'user_origem_id' => 'integer|exists:users,id',
+            'data_movimento' => 'date'
         ];
     }
 
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+    public function messages(){
+        return [
+            'observacao.required_if' => 'Precia da observação'
+        ];
     }
 }
