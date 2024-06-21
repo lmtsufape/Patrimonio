@@ -17,7 +17,7 @@ class SalaFactory extends Factory
     public function definition()
     {
         return [
-            'telefone' => $this->faker->phoneNumber,
+            'telefone' => $this->faker->numerify('(##) #####-####'),
             'nome' => $this->faker->streetName,
             'predio_id' => 1
         ];
