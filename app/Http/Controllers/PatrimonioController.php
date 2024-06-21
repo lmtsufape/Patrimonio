@@ -126,13 +126,9 @@ class PatrimonioController extends Controller
     public function delete($patrimonio_id)
     {
         $patrimonio = Patrimonio::find($patrimonio_id);
-        $movimento = MovimentoPatrimonio::where('patrimonio_id', $patrimonio->id)->first();
-        if ($movimento == null) {
-            $patrimonio->delete();
-            return redirect(route('patrimonio.index'))->with('success', 'Patrimonio Removido com Sucesso!');
-        } else {
-            return redirect(route('patrimonio.index'))->with('fail', 'Não é possivel remover, o patrimônio já foi movimentado.');
-        }
+        $patrimonio->delete();
+        
+        return redirect(route('patrimonio.index'))->with('success', 'Patrimonio Removido com Sucesso!');
     }
 
     public function getSalas(Request $request)

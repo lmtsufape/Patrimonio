@@ -21,10 +21,12 @@ class StoreClassificacaoRequest extends FormRequest
 
     public function messages(){
         return [
-            'nome.required' => 'dsfdf',
-            'codigo.required' => 'dfsf',
-            'residual.numeric' => 'ta errado',
-            'vida_util.numeric' => 'ta errado',
+            'nome.required' => 'O campo nome é obrigatório.',
+            'codigo.required' => 'o campo código é obrigatório.',
+            'residual.required' => 'O campo residual é obrigatório.',
+            'residual.numeric' => 'O campo residual é numérico.',
+            'vida_util.required' => 'O campo vida útil é obrigatório.',
+            'vida_util.numeric' => 'O campo vida útil é numérico.',
         ];
     }
 

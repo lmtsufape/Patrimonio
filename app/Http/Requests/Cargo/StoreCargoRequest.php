@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCargoRequest extends FormRequest
 {
-    
+
     public function rules()
     {
         return [
@@ -15,9 +15,11 @@ class StoreCargoRequest extends FormRequest
         ];
     }
 
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+    public function messages(){
+        return [
+            'nome.required' =>  'O campo nome é obrigatório.',
+            'nome.unique'   =>  'O campo nome precisa ser único.',
+            'nome.max'      =>  'O campo nome não pode ter mais de 244 caracteres.'
+        ];
     }
 }

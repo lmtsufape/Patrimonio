@@ -72,19 +72,19 @@
             ['name' => 'telefone', 'id' => 'telefone', 'type' => 'text' , 'label' => 'Telefone:'],
         ]
     ])
-    
+
 @endsection
 
 @push('scripts')
     <script>
-        const salaUpdateRoute = "{{ route('sala.update', ['sala_id' => ':id']) }}"; 
+        const salaUpdateRoute = "{{ route('sala.update', ['sala_id' => ':id']) }}";
         var SalaId = 0;
         const salasNome = {!! json_encode($salas->pluck('nome', 'id')) !!};
         const salasTelefone = {!! json_encode($salas->pluck('telefone', 'id')) !!};
 
         $(document).ready(function () {
             $('#editarSalaModal').on('show.bs.modal', function(event) {
-                var formAction = salaUpdateRoute.replace(':id', salaId); 
+                var formAction = salaUpdateRoute.replace(':id', salaId);
                 $(this).find('form').attr('action', formAction);
                 $('#nome-edit').val(salasNome[salaId]);
                 $('#telefone-edit').val(salasTelefone[salaId]);

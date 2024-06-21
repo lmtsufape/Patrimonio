@@ -41,6 +41,11 @@
             <div class="text-md-center align-middle alert alert-success">
                 {{ session('success') }}
             </div>
+
+        @elseif(session('fail'))
+            <div class="text-md-center align-middle alert alert-danger">
+                {{ session('fail') }}
+            </div>
         @endif
 
         @includeUnless(in_array(Route::currentRouteName(), ['login', 'register', 'password.request']), 'layouts.components.sidebar')

@@ -12,15 +12,17 @@ class StorePredioRequest extends FormRequest
         return [
 
             'nome' => 'required|unique:predios|max:255'
-            
+
         ];
-            
+
     }
 
-    public function failedValidation(Validator $validator)
+    public function messages()
     {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+        return [
+            'nome.required'     =>      'O campo nome é obrigatório.',
+            'nome.max'          =>      'O campo nome não pode ter mais de 244 caracteres.'
+        ];
     }
 
 }

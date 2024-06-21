@@ -21,10 +21,14 @@ class StoreSubgrupoRequest extends FormRequest
         ];
     }
 
-    public function failedValidation(Validator $validator)
+    public function messages()
     {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+        return [
+            'nome.required'     =>  'O campo nome é obrigatório',
+            'marca.required'    =>  'O campo marca é obrigatório',
+            'modelo.required'   =>  'O campo modelo é obrigatório',
+            'classificacao_id'  =>  'O campo classificação é obrigatório',
+        ];
     }
-    
+
 }

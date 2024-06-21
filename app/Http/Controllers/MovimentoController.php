@@ -149,7 +149,6 @@ class MovimentoController extends Controller
 
     public function aprovarMovimentacao($movimento_id){
 
-        dd('aprovar');
         $movimento = Movimento::find($movimento_id);
         $movimento->status = 'Aprovado';
         $movimento->update();
@@ -158,9 +157,12 @@ class MovimentoController extends Controller
     }
 
     public function reprovarMovimentacao($movimento_id){
-        dd('reprovar');
 
         $movimento = Movimento::find($movimento_id);
         $movimento->status = 'Reprovado';
+        $movimento->update();
+
+        return redirect()->back();
+
     }
 }

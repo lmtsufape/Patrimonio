@@ -7,17 +7,25 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateClassificacaoRequest extends FormRequest
 {
-    
+
     public function rules()
     {
         return [
-            'nome' => 'required|unique:classificacoes|max:255'
+            'nome' => 'required|max:255',
+            'codigo'    => 'required',
+            'residual'  => 'required|numeric',
+            'vida_util' => 'required|numeric',
         ];
     }
 
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+    public function messages(){
+        return [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'codigo.required' => 'o campo código é obrigatório.',
+            'residual.required' => 'O campo residual é obrigatório.',
+            'residual.numeric' => 'O campo residual é numérico.',
+            'vida_util.required' => 'O campo vida útil é obrigatório.',
+            'vida_util.numeric' => 'O campo vida útil é numérico.',
+        ];
     }
 }

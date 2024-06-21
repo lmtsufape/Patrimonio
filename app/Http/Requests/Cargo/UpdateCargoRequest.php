@@ -7,17 +7,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCargoRequest extends FormRequest
 {
-    
+
     public function rules()
     {
         return [
             'nome' => 'required|unique:cargos|max:255'
         ];
-    }
-
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
     }
 }

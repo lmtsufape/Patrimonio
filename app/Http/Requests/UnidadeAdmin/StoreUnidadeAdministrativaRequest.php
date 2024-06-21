@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUnidadeAdministrativaRequest extends FormRequest
 {
-   
+
     public function rules()
     {
         return [
@@ -18,11 +18,14 @@ class StoreUnidadeAdministrativaRequest extends FormRequest
         ];
     }
 
-    
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+
+    public function messages(){
+        return [
+            'nome.required'     =>  'O campo nome é obrigatório.',
+            'codigo.required'    =>  'O campo codigo é obrigatório.',
+            'unidade_admin_pai_id.integer'   =>  'O campo unidade é um inteiro.',
+            'predio_id'  =>  'O campo prédio é obrigatório.',
+        ];
     }
-    
+
 }

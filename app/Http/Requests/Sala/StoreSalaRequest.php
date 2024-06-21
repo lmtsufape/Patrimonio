@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSalaRequest extends FormRequest
 {
-   
+
     public function rules()
     {
         return [
@@ -17,11 +17,13 @@ class StoreSalaRequest extends FormRequest
         ];
     }
 
-    
-    public function failedValidation(Validator $validator)
+    public function messages()
     {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+        return [
+            'nome.required'     =>  'O campo nome é obrigatório.',
+            'telefone.required' =>  'O campo telefone é obrigatório.',
+            'predio_id.required'    =>  'O campo de prédio é obrigatório.'
+        ];
     }
-    
+
 }

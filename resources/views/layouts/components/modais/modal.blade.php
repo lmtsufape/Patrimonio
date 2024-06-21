@@ -16,6 +16,8 @@
                         @method('PUT')
                     @endif
 
+                    <input type="hidden" name="modalId" id="modalId" value="{{$modalId}}">{{-- variavel usada para diferenciar os modais quando houver falha na validação --}}
+
                     @foreach ($fields as $field)
                         @if ($field['type'] == 'text' || $field['type'] == 'email' || $field['type'] == 'password')
                             <div class="mb-3">
@@ -76,17 +78,17 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if ($errors->any())
-            var myModal = new bootstrap.Modal(document.getElementById('{{ $modalId }}'));
+            let myModal = new bootstrap.Modal(document.getElementById('{{  old('modalId')  }}'));
             myModal.show();
         @endif
     });
-    document.getElementById('{{ $modalId }}').addEventListener('hidden.bs.modal', function () {
-        var modalElement = document.getElementById('{{ $modalId }}');
+    document.getElementById('{{  old('modalId')  }}').addEventListener('hidden.bs.modal', function () {
+        let modalElement = document.getElementById('{{  old('modalId')  }}');
+
         modalElement.querySelectorAll('.is-invalid').forEach(function(element) {
             element.classList.remove('is-invalid');
-        });
-        modalElement.querySelectorAll('.invalid-feedback').forEach(function(element) {
-            element.innerHTML = '';
+            element.classList.remove('invalid-feedback');
+            element.value = ''
         });
     });
 </script>

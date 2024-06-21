@@ -35,9 +35,9 @@ class PredioController extends Controller
         $salas = Sala::where('predio_id', $predio->id)->first();
         if ($salas == null) {
             $predio->delete();
-            return redirect(route('predio.index'))->with('success', 'Predio Removido com Sucesso!');
+            return redirect(route('predio.index'))->with('success', 'Prédio Removido com Sucesso!');
         } else {
-            return redirect(route('predio.index'))->with('fail', 'É Necessário Remover todas as Salas do Prédio Antes!');
+            return redirect(route('predio.index'))->with('fail', 'É Necessário Remover Todas as Salas do Prédio Antes!');
         }
     }
 
@@ -45,7 +45,7 @@ class PredioController extends Controller
     {
         $termo = $request->input('busca');
         $predios = Predio::busca($termo);
-    
+
         return view('predio.index', compact('predios'));
     }
 }
