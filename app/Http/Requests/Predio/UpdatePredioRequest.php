@@ -4,22 +4,17 @@ namespace App\Http\Requests\Predio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\Rule;
 
 class UpdatePredioRequest extends FormRequest
 {
     public function rules()
     {
-        return [
-            'nome' => 'required|unique:predios|max:255'
-           
-            
-        ];
-    }
+        $predioId = $this->route('id');
 
-    public function failedValidation(Validator $validator)
-    {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+        return [
+            'nome' => ['required', 'max:255', Rule::unique('predios')->ignore($predioId)],
+        ];
     }
 
 }

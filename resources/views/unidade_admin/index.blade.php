@@ -80,7 +80,7 @@
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
             ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text', 'label' => 'Codigo:'],
             [
-                'name' => 'Prédio',
+                'name' => 'predio_id',
                 'id' => 'predio',
                 'type' => 'select',
                 'label' => 'Prédio:',
@@ -88,7 +88,7 @@
                 'options' => $predios->pluck('nome', 'id'),
             ],
             [
-                'name' => 'Unidade',
+                'name' => 'unidade_admin_pai_id',
                 'id' => 'unidade_admin_pai',
                 'type' => 'select',
                 'label' => 'Unidade:',

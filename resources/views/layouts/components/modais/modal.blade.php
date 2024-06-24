@@ -44,10 +44,12 @@
 
                                     <option value="" selected disabled>{{ $field['placeholder'] }}</option>
                                     @foreach ($field['options'] as $i => $option)
-                                        <option value="{{ $i }}">{{ $option }}</option>
+                                        <option value="{{ $i }}" @if(old($field['name']) == $i) selected @endif>{{ $option }}</option>
                                     @endforeach
                                     @error($field['name'])
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </select>
                             </div>
