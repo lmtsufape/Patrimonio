@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Movimento extends Model
 {
     use HasFactory;
+
+    use SoftDeletes;
 
     protected $fillable = ['tipo', 'data', 'motivo', 'user_origem_id', 'user_destino_id', 'sala_id'];
     public static $tipos = [//biblioteca de enum

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sala_id')->constrained();
             $table->foreignId('unidade_admin_id')->constrained('unidades_administrativas');
+            
             $table->timestamps();
         });
     }

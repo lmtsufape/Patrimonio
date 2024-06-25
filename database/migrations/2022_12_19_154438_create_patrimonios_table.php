@@ -33,6 +33,7 @@ return new class extends Migration
             $table->foreignId('sala_id')->constrained();
             $table->foreignId('situacao_id')->constrained('situacoes');
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

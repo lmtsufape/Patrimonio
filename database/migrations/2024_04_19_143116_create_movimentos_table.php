@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('user_origem_id')->constrained('users');
             $table->foreignId('user_destino_id')->constrained('users')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

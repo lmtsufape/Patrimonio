@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patrimonio extends Model
 {
     use HasFactory;
+
+    use SoftDeletes;
 
     protected $fillable = ['nome', 'nota_fiscal', 'aprovado', 'descricao', 'user_id', 'unidade_admin_id', 'classificacao_id', 'origem_id', 'sala_id', 'situacao_id', 'data_compra', 'data_incorporação', 'valor', 'observacao', 'subgrupo_id', 'empenho', 'conta_contabil'];
 
