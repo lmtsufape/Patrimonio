@@ -10,9 +10,9 @@
             </div>
             <div class="modal-body row d-flex justify-content-center">
                 <div class="col-md-3">
-                    <form action="{{ $route }}" method="DELETE">
+                    <form action="{{ $route }}" method="POST">
                         @csrf
-                        @method('delete')
+                        @method('DELETE')
                         <button type="submit" class="btn btn-success w-100">Sim</button>
                     </form>
                 </div>

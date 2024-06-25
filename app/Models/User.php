@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     use SoftDeletes;
-    
+
     protected $fillable = [
         'name',
         'email',
@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function unidade()
     {
-        return $this->belongsTo(UnidadeAdministrativa::class, 'uni_adm_id');
+        return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_admin_id');
     }
 
     public function hasAnyRoles($tipo)

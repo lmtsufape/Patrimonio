@@ -32,9 +32,10 @@ class PredioController extends Controller
     public function delete($predio_id)
     {
         $predio = Predio::find($predio_id);
-        $salas = Sala::where('predio_id', $predio->id)->first();
-        if ($salas == null) {
+
+        if (!$predio->salas()->exists()) {
             $predio->delete();
+
             return redirect(route('predio.index'))->with('success', 'Prédio Removido com Sucesso!');
         } else {
             return redirect(route('predio.index'))->with('fail', 'É Necessário Remover Todas as Salas do Prédio Antes!');

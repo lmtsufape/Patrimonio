@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('marca');
             $table->string('modelo');
 
-            $table->foreignId('classificacao_id')->constrained('classificacoes');
+            $table->foreignId('classificacao_id')->constrained('classificacoes')->restrictOnDelete();
 
             $table->timestamps();
         });

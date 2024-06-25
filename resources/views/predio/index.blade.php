@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-    
+
     @include('layouts.components.searchbar', [
         'title' => 'Prédios',
         'addButtonModal' => 'cadastrarPredioModal',
@@ -45,7 +45,7 @@
                 ],
             ],
         ])
-    
+
         <div class="d-flex justify-content-center">
             {{ $predios->links('pagination::bootstrap-4') }}
         </div>
@@ -72,11 +72,11 @@
         ]
     ])
 
-    
+
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
-        'modalTitle' => 'Tem certeza que deseja apagar este Predio?',
-        'route' => route('predio.delete', ['predio_id' => 'id']), 
+        'modalTitle' => 'Tem certeza que deseja apagar este Prédio?',
+        'route' => route('predio.delete', ['predio_id' => 'id']),
     ])
 @endsection
 

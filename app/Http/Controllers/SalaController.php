@@ -7,6 +7,7 @@ use App\Http\Requests\Sala\UpdateSalaRequest;
 use App\Models\Patrimonio;
 use App\Models\Predio;
 use App\Models\Sala;
+use App\Models\UnidadeAdministrativa;
 use Illuminate\Http\Request;
 
 class SalaController extends Controller
@@ -15,7 +16,7 @@ class SalaController extends Controller
     {
         $predio = Predio::find($predio_id);
         $salas = $predio->salas()->orderBy('id')->paginate(10);
-        
+
         return view('sala.index', compact('salas', 'predio'));
     }
 
@@ -49,13 +50,17 @@ class SalaController extends Controller
     public function delete($sala_id)
     {
         $sala = Sala::find($sala_id);
-
-        $patrimonio = Patrimonio::where('sala_id', $sala->id)->first();
-        if ($patrimonio == null) {
+        if (!$sala->patrimonios()->exists() &&
+            !$sala->users()->exists() &&
+            !UnidadeAdministrativa::whereHas('salas', function ($query) use ($sala_id){
+                $query->where('sala_id', $sala_id);
+            })->exists())
+        {
             $sala->delete();
+
             return redirect(route('sala.index', ['predio_id' => $sala->predio_id]))->with('success', 'Sala Removida com Sucesso!');
         } else {
-            return redirect(route('sala.index', ['predio_id' => $sala->predio_id]))->with('fail', 'É Necessário Remover Todos os Patrimônios da Sala Antes!');
+            return redirect(route('sala.index', ['predio_id' => $sala->predio_id]))->with('fail', 'Não é possível remover a sala, há dependências relacionadas.');
         }
     }
 

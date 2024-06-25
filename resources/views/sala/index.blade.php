@@ -73,10 +73,17 @@
         ]
     ])
 
+    @include('layouts.components.modais.modal_delete', [
+        'modalId' => 'deleteConfirmationModal',
+        'modalTitle' => 'Tem certeza que deseja apagar esta Sala?',
+        'route' => route('sala.delete', ['sala_id' => 'id']),
+    ])
+
 @endsection
 
 @push('scripts')
     <script>
+        const salaDeleteRoute = "http://127.0.0.1:8000/sala/sala_id/delete";
         const salaUpdateRoute = "{{ route('sala.update', ['sala_id' => ':id']) }}";
         var SalaId = 0;
         const salasNome = {!! json_encode($salas->pluck('nome', 'id')) !!};
@@ -96,5 +103,17 @@
             salaId = id;
             $('#editarSalaModal').modal('show');
         }
+
+        function openDeleteModal(id) {
+            SalaId = id;
+            $('#deleteConfirmationModal').modal('show');
+        }
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                var formAction = salaDeleteRoute.replace('sala_id', SalaId);
+                $(this).find('form').attr('action', formAction);
+            });
+        });
     </script>
 @endpush

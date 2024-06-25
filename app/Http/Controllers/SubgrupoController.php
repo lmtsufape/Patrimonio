@@ -43,17 +43,18 @@ class SubgrupoController extends Controller
         return redirect(route('subgrupo.index'))->with('success', 'Subgrupo editado com sucesso!');
     }
 
-    
+
 
     public function delete($subgrupo_id)
     {
         $subgrupo = Subgrupo::find($subgrupo_id);
 
         if ($subgrupo->patrimonios()->exists()) {
-            return redirect()->back()->with('error', 'Não é possível excluir o subgrupo pois existem patrimônios associados.');
+            return redirect()->back()->with('fail', 'Não é possivel remover este subgrupo, há patrimônios vinculados a ele!');
         }
 
         $subgrupo->delete();
+        
         return redirect(route('subgrupo.index'))->with('success', 'Subgrupo removido com sucesso!');
     }
 

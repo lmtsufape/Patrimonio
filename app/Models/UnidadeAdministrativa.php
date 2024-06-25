@@ -26,16 +26,16 @@ class UnidadeAdministrativa extends Model
     }
 
     public function salas(){
-        return $this->belongsToMany(Sala::class, 'sala_unidades_administrativas', 'unidade_admin_id', 'sala_id');
+        return $this->belongsToMany(Sala::class, 'sala_unidade_administrativa', 'unidade_admin_id', 'sala_id');
     }
 
     public function patrimonios()
     {
-        return $this->hasMany(Patrimonio::class);
+        return $this->hasMany(Patrimonio::class, 'unidade_admin_id');
     }
 
-    public function servidores()
+    public function users()
     {
-        return $this->hasMany(User::class, 'uni_adm_id');
+        return $this->hasMany(User::class, 'unidade_admin_id');
     }
 }

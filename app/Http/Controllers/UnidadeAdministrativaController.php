@@ -7,6 +7,7 @@ use App\Http\Requests\UnidadeAdmin\StoreUnidadeAdministrativaRequest;
 use App\Http\Requests\UnidadeAdmin\UpdateUnidadeAdministrativaRequest;
 use App\Models\Patrimonio;
 use App\Models\Predio;
+use App\Models\Sala;
 use Illuminate\Http\Request;
 use App\Models\UnidadeAdministrativa;
 
@@ -17,7 +18,7 @@ class UnidadeAdministrativaController extends Controller
         $unidades = UnidadeAdministrativa::paginate(10);
         $unidadesAll = UnidadeAdministrativa::orderBy('nome');
         $predios = Predio::all();
-        
+
         return view('unidade_admin.index', compact('unidades', 'predios', 'unidadesAll'));
     }
 
@@ -52,20 +53,22 @@ class UnidadeAdministrativaController extends Controller
     public function delete($unidade_admin_id)
     {
         $unidade_admin = UnidadeAdministrativa::find($unidade_admin_id);
-        $patrimonio = Patrimonio::where('unidade_admin_id', $unidade_admin_id)->first();
 
-        if ($patrimonio == null) {
-            $unidade_admin_filho = UnidadeAdministrativa::where('unidade_admin_pai_id', $unidade_admin_id)->first();
-            
-            if ($unidade_admin_filho) {
+        if (!$unidade_admin->patrimonios()->exists() &&
+                !$unidade_admin->users()->exists() &&
+                !Sala::whereHas('unidades', function ($query) use ($unidade_admin_id){
+                    $query->where('unidade_admin_id', $unidade_admin_id);
+                })->exists())
+        {
+            if (UnidadeAdministrativa::where('unidade_admin_pai_id', $unidade_admin_id)->exists()) {
                 return redirect()->back()->with('fail', 'Não é possivel remover a unidade administrativa, existem sub-unidades vinculadas a ela!');
             }
 
             $unidade_admin->delete();
-            
+
             return redirect(route('unidade.index'))->with('success', 'Unidade Removida com Sucesso!');
         } else {
-            return redirect(route('unidade.index'))->with('fail', 'Não é possivel remover a unidade, existem patrimônios vinculados a ela!');
+            return redirect(route('unidade.index'))->with('fail', 'Não é possível remover a unidade administrativa, há dependências relacionadas.');
 
         }
 
