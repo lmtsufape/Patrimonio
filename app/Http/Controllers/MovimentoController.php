@@ -30,6 +30,12 @@ class MovimentoController extends Controller
 
     public function indexPedidosMovimentos()
     {
+        if(Auth::user()->hasAnyRoles(['Administrador'])){
+            $movimentos = Movimento::where('status', 'Aprovado')->paginate(10);
+            $movimentos->concat(Movimento::where('user_destino_id', Auth::user()->id)->paginate(10));
+
+            return view('movimento.index_pedidos', compact('movimentos'));
+        }
         $movimentos = Movimento::where('user_destino_id', Auth::user()->id)->paginate(10);
 
         return view('movimento.index_pedidos', compact('movimentos'));
