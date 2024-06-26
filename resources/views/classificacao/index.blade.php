@@ -69,7 +69,6 @@
 
 @push('scripts')
     <script>
-        const classificacaoDeleteRoute = "http://127.0.0.1:8000/classificacao/id/delete";
         var classificacaoId = 0;
         const classificacao = {!!json_encode($classificacaos->pluck('nome', 'id'))!!}
         const codigo = {!!json_encode($classificacaos->pluck('codigo', 'id'))!!}
@@ -84,12 +83,11 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = classificacaoDeleteRoute.replace('id', classificacaoId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', classificacaoId));
+
             });
         });
 
-        const classificacaoUpdateRoute = "http://127.0.0.1:8000/classificacao/update/id";
 
             function openEditModal(id) {
                 classificacaoId = id;
@@ -98,14 +96,11 @@
 
             $(document).ready(function () {
                 $('#editarClassificacaoModal').on('show.bs.modal', function(event) {
-                    var formAction = classificacaoUpdateRoute.replace('id', classificacaoId);
-                    $(this).find('form').attr('action', formAction);
+                    $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', classificacaoId));
                     $('#nome-edit').val(classificacao[classificacaoId]);
                     $('#codigo-edit').val(codigo[classificacaoId]);
                     $('#residual-edit').val(residual[classificacaoId]);
                     $('#vida_util-edit').val(vidaUtil[classificacaoId]);
-
-
                 });
             });
 

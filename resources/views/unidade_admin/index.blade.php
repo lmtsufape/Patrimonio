@@ -74,7 +74,7 @@
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarUnidadeModal',
         'modalTitle' => 'Editar Unidade Administrativa',
-        'formAction' => route('unidade.update', ['id' => 'id']),
+        'formAction' => route('unidade.update', ['unidade_admin_id' => ':id']),
         'type' => 'edit',
         'fields' => [
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
@@ -101,14 +101,12 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar essa Unidade Administrativa?',
-        'route' => route('unidade.delete', ['unidade_admin_id' => 'id']),
+        'route' => route('unidade.delete', ['unidade_admin_id' => ':id']),
     ])
 @endsection
 
 @push('scripts')
     <script>
-        const unidadeDeleteRoute = "http://127.0.0.1:8000/unidade/unidade_id/delete";
-        const unidadeUpdateRoute = "{{ route('unidade.update', ['id' => ':id']) }}";
         var unidadeId = 0;
         const unidadesNome = {!! json_encode($unidades->pluck('nome', 'id')) !!};
         const unidadesCodigo = {!! json_encode($unidades->pluck('codigo', 'id')) !!};
@@ -122,8 +120,7 @@
 
         $(document).ready(function() {
             $('#editarUnidadeModal').on('show.bs.modal', function(event) {
-                var formAction = unidadeUpdateRoute.replace(':id', unidadeId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace(':id', unidadeId));
                 $('#nome-edit').val(unidadesNome[unidadeId]);
                 $('#codigo-edit').val(unidadesCodigo[unidadeId]);
                 $('#predio-edit').val(unidadesPredio[unidadeId]);
@@ -132,8 +129,7 @@
             });
 
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = unidadeDeleteRoute.replace('unidade_id', unidadeId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace(':id', unidadeId));
             });
         });
 

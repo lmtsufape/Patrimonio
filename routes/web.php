@@ -40,8 +40,8 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{subgrupo_id}/editar', 'edit')->name('edit');
-        Route::put('/{id}/update', 'update')->name('update');
-        Route::get('/{subgrupo_id}/delete', 'delete')->name('delete');
+        Route::put('/{subgrupo_id}/update', 'update')->name('update');
+        Route::delete('/{subgrupo_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
 
@@ -51,7 +51,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{predio_id}/editar', 'edit')->name('edit');
         Route::put('/{id}/update', 'update')->name('update');
-        Route::get('/{predio_id}/delete', 'delete')->name('delete');
+        Route::delete('/{predio_id}/delete', 'delete')->name('delete');
         Route::get('/predio/busca', 'busca')->name('busca.get');
     });
 
@@ -61,8 +61,8 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/sala/store', 'store')->name('store');
         Route::get('/sala/{sala_id}/editar', 'edit')->name('edit');
         Route::put('/sala/{sala_id}/update', 'update')->name('update');
+        Route::delete('/sala/{sala_id}/delete', 'delete')->name('delete');
     });
-    Route::delete('/sala/{sala_id}/delete',[SalaController::class, 'delete'])->name('sala.delete');
 
     Route::get('/salas/search', [SalaController::class, 'search'])->name('sala.buscar');
 
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{cargo_id}/editar', 'edit')->name('edit');
         Route::put('/{cargo_id}/update', 'update')->name('update');
-        Route::get('/{cargo_id}/delete', 'delete')->name('delete');
+        Route::delete('/{cargo_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
 
@@ -82,7 +82,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{classificacao_id}/editar', 'edit')->name('edit');
         Route::put('/update/{classificacao_id}', 'update')->name('update');
-        Route::get('/{classificacao_id}/delete', 'delete')->name('delete');
+        Route::delete('/{classificacao_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
     });
 
@@ -102,8 +102,8 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/cadastrar/{unidade_admin_pai_id?}', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
         Route::get('/{unidade_admin_id}/editar', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/{unidade_admin_id}/delete', 'delete')->name('delete');
+        Route::put('/update/{unidade_admin_id}', 'update')->name('update');
+        Route::delete('/{unidade_admin_id}/delete', 'delete')->name('delete');
         Route::get('/search', 'search')->name('buscar');
         // Route::get('/{setor_id}/restore', [SetorController::class, 'restore'])->name('restore');
     });

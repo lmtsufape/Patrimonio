@@ -64,7 +64,7 @@
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarSalaModal',
         'modalTitle' => 'Editar Sala',
-        'formAction' => route('sala.update', ['sala_id' => ':id']),
+        'formAction' => route('sala.update', ['sala_id' => 'id']),
         'type' => ('edit'),
         'fields' => [
             ['type' => 'hidden', 'name' => 'predio_id', 'id' => 'predio_id', 'value' => $predio->id],
@@ -83,16 +83,14 @@
 
 @push('scripts')
     <script>
-        const salaDeleteRoute = "http://127.0.0.1:8000/sala/sala_id/delete";
-        const salaUpdateRoute = "{{ route('sala.update', ['sala_id' => ':id']) }}";
-        var SalaId = 0;
+        var salaId = 0;
         const salasNome = {!! json_encode($salas->pluck('nome', 'id')) !!};
         const salasTelefone = {!! json_encode($salas->pluck('telefone', 'id')) !!};
 
         $(document).ready(function () {
             $('#editarSalaModal').on('show.bs.modal', function(event) {
-                var formAction = salaUpdateRoute.replace(':id', salaId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', salaId));
+
                 $('#nome-edit').val(salasNome[salaId]);
                 $('#telefone-edit').val(salasTelefone[salaId]);
 
@@ -105,14 +103,13 @@
         }
 
         function openDeleteModal(id) {
-            SalaId = id;
+            salaId = id;
             $('#deleteConfirmationModal').modal('show');
         }
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = salaDeleteRoute.replace('sala_id', SalaId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', salaId));
             });
         });
     </script>

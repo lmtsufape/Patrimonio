@@ -66,7 +66,7 @@
         'modalId' => 'editarPredioModal',
         'modalTitle' => 'Editar Prédio',
         'type' => 'edit',
-        'formAction' => route('predio.update', ['id' => '0']),
+        'formAction' => route('predio.update', ['id' => 'id']),
         'fields' => [
             ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
         ]
@@ -82,15 +82,12 @@
 
 @push('scripts')
     <script>
-        const predioDeleteRoute = "http://127.0.0.1:8000/predio/id/delete";
-        const predioUpdateRoute = "http://127.0.0.1:8000/predio/id/update";
         var predioId = false;
         const predios = {!! json_encode($predios->pluck('nome', 'id')) !!}
 
         $(document).ready(function () {
             $('#editarPredioModal').on('show.bs.modal', function(event) {
-                var formAction = predioUpdateRoute.replace('id', predioId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', predioId));
                 $('#nome-edit').val(predios[predioId]);
             });
         });
@@ -107,8 +104,7 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = predioDeleteRoute.replace('id', predioId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', predioId));
             });
         });
     </script>

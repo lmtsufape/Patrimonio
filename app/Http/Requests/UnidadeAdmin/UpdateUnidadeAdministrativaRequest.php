@@ -11,7 +11,7 @@ class UpdateUnidadeAdministrativaRequest extends FormRequest
 
     public function rules()
     {
-        $unidadeAdm = $this->route('id');
+        $unidadeAdm = $this->route('unidade_admin_id');
 
         return [
             'nome' => ['required', Rule::unique('unidades_administrativas')->ignore($unidadeAdm), 'max:255'],

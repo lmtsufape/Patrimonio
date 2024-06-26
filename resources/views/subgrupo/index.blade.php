@@ -18,7 +18,7 @@
             {{ session('error') }}
         </div>
     @endif
-    
+
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
             'header' => ['ID', 'Nome', 'Marca', 'Modelo', 'Classificação', 'Ações'],
@@ -28,7 +28,7 @@
                 $subgrupos->pluck('marca'),
                 $subgrupos->pluck('modelo'),
                 $subgrupos->map(function ($subgrupo) {
-                    return $subgrupo->classificacao->nome; 
+                    return $subgrupo->classificacao->nome;
                 }),
             ],
             'acoes' => [
@@ -50,7 +50,7 @@
         @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarSubgrupoModal',
         'modalTitle' => 'Cadastrar Subgrupo',
-        'formAction' => route('subgrupo.store'), 
+        'formAction' => route('subgrupo.store'),
         'type'=> 'create',
         'fields' => [
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
@@ -61,7 +61,7 @@
                 'id' => 'classificacao_id',
                 'type' => 'select',
                 'label' => 'Classificação:',
-                'options' => $classificacoes->pluck('nome'), 
+                'options' => $classificacoes->pluck('nome'),
                 'placeholder' => 'Escolha uma Classificação'
             ],
         ],
@@ -70,7 +70,7 @@
     @include('layouts.components.modais.modal', [
         'modalId' => 'editarSubgrupoModal',
         'modalTitle' => 'Editar Subgrupo',
-        'formAction' => route('unidade.update', ['id' => 'id']),
+        'formAction' => route('subgrupo.update', ['subgrupo_id' => 'id']),
         'type'=> 'edit',
         'fields' => [
             ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
@@ -81,7 +81,7 @@
                 'id' => 'classificacao_id',
                 'type' => 'select',
                 'label' => 'Classificação:',
-                'options' => $classificacoes->pluck('nome'), 
+                'options' => $classificacoes->pluck('nome'),
                 'placeholder' => 'Escolha uma Classificação'
             ],
         ],
@@ -90,7 +90,7 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar este Subgrupo?',
-        'route' => route('subgrupo.delete', ['subgrupo_id' => 'id']), 
+        'route' => route('subgrupo.delete', ['subgrupo_id' => 'id']),
     ])
 
 @endsection
@@ -98,7 +98,6 @@
 @push('scripts')
 
     <script>
-        const subgrupoUpdateRoute = "{{ route('subgrupo.update', ['id' => ':id']) }}"; 
         var subgrupoId = 0;
         const subgruposNome = {!! json_encode($subgrupos->pluck('nome', 'id')) !!};
         const subgruposMarca = {!! json_encode($subgrupos->pluck('marca', 'id')) !!};
@@ -107,8 +106,7 @@
 
         $(document).ready(function () {
             $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
-                var formAction = subgrupoUpdateRoute.replace(':id', subgrupoId); 
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', subgrupoId));
             });
         });
 
@@ -121,8 +119,6 @@
             $('#classificacao_id-edit').val(subgruposClassificacao[subgrupoId]);
         }
 
-        const subgrupoDeleteRoute = "http://127.0.0.1:8000/subgrupo/id/delete";
-        
         function openDeleteModal(id) {
             subgrupoId = id;
             $('#deleteConfirmationModal').modal('show');
@@ -130,11 +126,10 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = subgrupoDeleteRoute.replace('id', subgrupoId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', subgrupoId));
             });
         });
 
     </script>
-    
+
 @endpush
