@@ -27,7 +27,7 @@
                 <div class="form-group col-md-4">
                     <label for="nome" class="form-label fw-bold">Nome do
                         item: <span class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="nome">
+                    <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome" id="nome" value="{{old('nome')}}">
 
                     @error('nome')
                         <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
                 <div class="form-group col-md-4">
                     <label for="descricao" class="form-label fw-bold">Descrição: <span
                             class="red-asterisk">*</span></label>
-                    <textarea type="text" class="form-control @error('descricao') is-invalid @enderror" rows="1" name="descricao" id="descricao"></textarea>
+                    <textarea type="text" class="form-control @error('descricao') is-invalid @enderror" rows="1" name="descricao" id="descricao">{{old('descricao')}}</textarea>
 
                     @error('descricao')
                         <span class="invalid-feedback" role="alert">
@@ -53,7 +53,7 @@
                         name="origem_id">
                         <option selected disabled value="">Selecione uma Origem</option>
                         @foreach ($origens as $origem)
-                            <option value="{{ $origem->id }}">{{ $origem->nome }}</option>
+                            <option value="{{ $origem->id }}" @if(old('origem_id') == $origem->id) selected @endif>{{ $origem->nome }}</option>
                         @endforeach
                     </select>
 
@@ -72,7 +72,7 @@
                     <select class="form-select @error('classificacao') is-invalid @enderror" name="classificacao" id="classificacao">
                         <option selected disabled value="">Selecione uma classificação</option>
                         @foreach ($classificacoes as $classificacao)
-                            <option value="{{$classificacao->id}}">{{$classificacao->nome}}</option>
+                            <option value="{{$classificacao->id}}" @if(old('classificacao') == $classificacao->id) selected @endif>{{$classificacao->nome}}</option>
                         @endforeach
                     </select>
 
@@ -89,7 +89,7 @@
                         id="subgrupo_id" name="subgrupo_id">
                         <option selected disabled value="">Selecione um subgrupo</option>
                         @foreach ($subgrupos as $subgrupo)
-                            <option value="{{ $subgrupo->id }}">{{ $subgrupo->nome }}</option>
+                            <option value="{{ $subgrupo->id }}"  @if(old('subgrupo_id') == $subgrupo->id) selected @endif>{{ $subgrupo->nome }}</option>
                         @endforeach
                     </select>
 
@@ -106,7 +106,7 @@
                         name="situacao_id">
                         <option selected disabled value="">Selecione uma Situação</option>
                         @foreach ($situacoes as $situacao)
-                            <option value="{{ $situacao->id }}">{{ $situacao->nome }}</option>
+                            <option value="{{ $situacao->id }}"  @if(old('situacao_id') == $situacao->id) selected @endif>{{ $situacao->nome }}</option>
                         @endforeach
                     </select>
 
@@ -126,7 +126,7 @@
                         aria-label="Selecione um prédio" id="predio_id" name="predio_id" >
                         <option selected disabled value="">Selecione um prédio</option>
                         @foreach ($predios as $predio)
-                            <option value="{{ $predio->id }}">{{ $predio->nome }}</option>
+                            <option value="{{ $predio->id }}"  @if(old('predio_id') == $predio->id) selected @endif>{{ $predio->nome }}</option>
                         @endforeach
                     </select>
 
@@ -141,7 +141,7 @@
                     <select class="form-select @error('unidade_admin_id') is-invalid @enderror" aria-label="Selecione uma unidade" id="unidade_admin_id" name="unidade_admin_id" >
                         <option selected disabled value="">Selecione uma Unidade Administrativa</option>
                         @foreach ($unidades as $unidade)
-                            <option value="{{ $unidade->id }}">{{ $unidade->nome }}</option>
+                            <option value="{{ $unidade->id }}"  @if(old('unidade_admin_id') == $unidade->id) selected @endif>{{ $unidade->nome }}</option>
                         @endforeach
                     </select>
 
@@ -172,7 +172,7 @@
                 <div class="form-group col">
                     <label for="data_compra" class="form-label fw-bold">Data da Nota Fiscal: <span
                             class="red-asterisk">*</span></label>
-                    <input type="date" class="form-control @error('data_compra') is-invalid @enderror" name="data_compra" id="data_compra">
+                    <input type="date" class="form-control @error('data_compra') is-invalid @enderror" name="data_compra" id="data_compra" value="{{old('data_compra')}}">
 
                     @error('data_compra')
                         <span class="invalid-feedback" role="alert">
@@ -183,7 +183,7 @@
                 <div class="form-group col">
                     <label for="data_incorporacao" class="form-label fw-bold">Data de Incorporação: <span
                             class="red-asterisk">*</span></label>
-                    <input type="date" class="form-control @error('data_incorporacao') is-invalid @enderror" name="data_incorporacao" id="data_incorporacao" >
+                    <input type="date" class="form-control @error('data_incorporacao') is-invalid @enderror" name="data_incorporacao" id="data_incorporacao" value="{{old('data_incorporacao')}}">
 
                     @error('data_incorporacao')
                         <span class="invalid-feedback" role="alert">
@@ -193,7 +193,7 @@
                 </div>
                 <div class="form-group col">
                     <label for="valor" class="form-label fw-bold">Valor do item:</label>
-                    <input type="number" step="0.01" class="form-control @error('valor') is-invalid @enderror" name="valor" id="valor">
+                    <input type="number" step="0.01" class="form-control @error('valor') is-invalid @enderror" name="valor" id="valor" value="{{old('valor')}}">
 
                     @error('valor')
                         <span class="invalid-feedback" role="alert">
@@ -204,7 +204,7 @@
                 <div class="form-group col">
                     <label for="conta_contabil" class="form-label fw-bold">Conta contábil: <span
                             class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control @error('conta_contabil') is-invalid @enderror" name="conta_contabil" id="conta_contabil">
+                    <input type="text" class="form-control @error('conta_contabil') is-invalid @enderror" name="conta_contabil" id="conta_contabil" value="{{old('conta_contabil')}}">
 
                     @error('conta_contabil')
                         <span class="invalid-feedback" role="alert">
@@ -218,7 +218,7 @@
                 <div class="col">
                     <label for="empenho" class="form-label fw-bold">Empenho: <span
                             class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control @error('empenho') is-invalid @enderror" name="empenho" id="empenho">
+                    <input type="text" class="form-control @error('empenho') is-invalid @enderror" name="empenho" id="empenho" value="{{old('empenho')}}">
 
                     @error('empenho')
                         <span class="invalid-feedback" role="alert">
@@ -229,7 +229,7 @@
                 <div class="col">
                     <label for="nota_fiscal" class="form-label fw-bold">Nota fiscal: <span
                             class="red-asterisk">*</span></label>
-                    <input type="text" class="form-control @error('nota_fiscal') is-invalid @enderror" name="nota_fiscal" id="nota_fiscal">
+                    <input type="text" class="form-control @error('nota_fiscal') is-invalid @enderror" name="nota_fiscal" id="nota_fiscal" value="{{old('nota_fiscal')}}">
 
                     @error('nota_fiscal')
                         <span class="invalid-feedback" role="alert">
@@ -240,25 +240,38 @@
                 @if(Auth::user()->hasAnyRoles(['Administrador']))
                     <div class="col">
                         <label for="processo_licitacao" class="form-label fw-bold">Processo de licitação:</label>
-                        <input type="number" id="processo_licitacao" name="processo_licitacao" class="form-control">
+                        <input type="number" id="processo_licitacao" name="processo_licitacao" class="form-control @error('processo_licitacao') is-invalid @enderror" value="{{old('processo_licitacao')}}">
+
+                        @error('processo_licitacao')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
                     </div>
+
                     <div class="form-group col">
                         <label for="servidor" class="form-label fw-bold">Servidor: <span
                                 class="red-asterisk">*</span></label>
-                        <select class="form-select" aria-label="Selecione um servidor" id="user_id"
+                        <select class="form-select @error('user_id') is-invalid @enderror" aria-label="Selecione um servidor" id="user_id"
                             name="user_id">
                             <option selected value="">Selecione um servidor</option>
                             @foreach ($servidores as $servidor)
-                                <option value="{{ $servidor->id }}">{{ $servidor->name }}</option>
+                                <option value="{{ $servidor->id }}"  @if(old('user_id') == $servidor->id) selected @endif>{{ $servidor->name }}</option>
                             @endforeach
                         </select>
+
+                        @error('user_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
                     </div>
                 @endif
             </div>
                 <div class="col">
                     <label for="observacao" class="form-label fw-bold">Observações pertinentes a este
                         patrimônio:</label>
-                    <textarea class="form-control" id="observacao" name="observacao" rows="4"></textarea>
+                    <textarea class="form-control" id="observacao" name="observacao" rows="4">{{old('observacao')}}</textarea>
                 </div>
             </div>
 
