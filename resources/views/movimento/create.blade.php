@@ -186,27 +186,36 @@
 
     }
 
+
     document.querySelector("#tipo").addEventListener("change", function(){
-        if(this.value == 1){
+        acaoDivs(this.value);
+    });
+
+    if(@json(old('tipo')) != null){
+        acaoDivs(@json(old('tipo')))
+    }
+
+    function acaoDivs(valor){
+        if(valor == 1){
             document.querySelector("#solicitacao").classList.remove("d-none");
             document.querySelector("#devolucao").classList.add("d-none");
             document.querySelector("#transferencia").classList.add("d-none");
             document.querySelector("#patrimonio").classList.add("d-none");
 
-        }else if(this.value == 2){
+        }else if(valor == 2){
 
-        }else if(this.value == 3){
+        }else if(valor == 3){
             document.querySelector("#devolucao").classList.remove("d-none");
             document.querySelector("#patrimonio").classList.remove("d-none");
             document.querySelector("#solicitacao").classList.add("d-none");
             document.querySelector("#transferencia").classList.add("d-none");
-        }else{
+        }else if(valor == 4){
             document.querySelector("#transferencia").classList.remove("d-none");
             document.querySelector("#patrimonio").classList.remove("d-none");
             document.querySelector("#solicitacao").classList.add("d-none");
             document.querySelector("#devolucao").classList.add("d-none");
 
         }
-    });
+    }
 </script>
 @endsection
