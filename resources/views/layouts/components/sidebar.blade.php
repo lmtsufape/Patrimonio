@@ -5,8 +5,8 @@
 
 <nav class="sidebar offcanvas offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel"
     style="width: 300px">
-    <div class="offcanvas-header justify-content-between p-4">
-        <img src="{{ asset('assets/logo-azul.svg') }}" alt="logo" class="logo-patrimonio">
+    <div class="offcanvas-header justify-content-between p-3">
+        <img src="{{ asset('images/logo_2cores.png') }}" alt="logo" class="logo-sigepat mt-3">
         <button type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close"><img
                 src="{{ asset('assets/sidebar-icons/toggle.svg') }}" alt="fechar"></button>
     </div>

@@ -1,8 +1,8 @@
 <footer class="mt-auto p-3 z-3">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-            <div class="text-center">
-                <img src="{{asset('assets/logo.svg')}}" alt="logo" class="logo-patrimonio">
+            <div class="text-center" style="align-self: flex-end;">
+                <img src="{{asset('images/logo_branca.png')}}" alt="logo" class="logo-sigepat">
             </div>
 
             <div class="text-center">
