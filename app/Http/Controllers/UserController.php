@@ -18,7 +18,6 @@ class UserController extends Controller
         $servidores = User::OrderBy('id')->paginate(10);
         $cargos = Cargo::all();
         $roles = Role::where('nome', '<>', 'Administrador')->get();
-
         return view('servidor.index', compact('servidores', 'cargos', 'roles'));
     }
 
@@ -35,13 +34,14 @@ class UserController extends Controller
         $user = User::make($request->except('password'));
         $user->password = Hash::make($request->password);
         $user->save();
-        
+
         return redirect()->route('servidor.index')->with('success', 'Servidor Cadastrado com Sucesso!');
+
     }
 
     public function edit($id)
     {
-        $servidor = User::findOrFail($id);
+        $servidor = User::with('roles', 'cargos')->findOrFail($id);
         $cargos = Cargo::all();
         $roles = Role::all();
 
@@ -50,10 +50,14 @@ class UserController extends Controller
 
     public function update(UpdateServidorRequest $request, $id)
     {
+
         $user = User::findOrFail($id);
         $validatedData = $request->validated();
 
+
         $user->update($validatedData);
+        $user->roles()->sync($request->role_id);
+        $user->cargos()->sync($request->cargo_id);
 
         return redirect()->route('servidor.index')->with('success', 'Servidor editado com Sucesso!');
     }

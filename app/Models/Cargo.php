@@ -12,6 +12,6 @@ class Cargo extends Model
     protected $fillable = ['nome'];
 
     public function users() {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'cargo_user', 'cargo_id', 'user_id');
     }
 }
