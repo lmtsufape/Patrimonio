@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-   
+
     <link rel="stylesheet" href="/css/cadastros/cadastro_usuario.css">
 @endsection
 
@@ -10,10 +10,9 @@
 <div class="d-flex justify-content-center align-items-center" style="margin-top: 10px; margin-bottom :10px;">
         <div class="card p-4" style="width: 60%;">
             @include('layouts.components.header', ['page_title' => 'Cadastro', 'back' => false])
-            <div class="card-body">      
+            <div class="card-body">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
-                    
                     <div class="mb-3">
                     <div class="col">
                         <label for="name">{{ __('Nome') }}</label>
@@ -46,7 +45,7 @@
                             </span>
                         @enderror
                     </div>
-
+                    <input type="hidden" id="role_id" name="role_id" value="4">
                     <div class="col">
                         <label for="cargo_id">{{ __('Cargo') }}</label>
                         <select class="form-control @error('cargo_id') is-invalid @enderror" id="cargo_id" name="cargo_id" required>

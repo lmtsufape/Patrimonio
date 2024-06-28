@@ -8,7 +8,7 @@
 @section('content')
     @include('layouts.components.searchbar', [
         'title' => 'Servidores',
-        'addButtonModal' => 'create-servidor-modal',
+        //'addButtonModal' => 'create-servidor-modal',
         'searchForm' => route('servidor.buscar'),
     ])
 
@@ -25,10 +25,11 @@
                 $servidores->map(function ($item, $index) {
                     return $item->ativo ? 'Ativo' : 'Inativo';
                 }),
+
             ],
             'acoes' => [
                 [
-                    'link' => 'servidor.update',
+                    'link' => 'servidor.edit',
                     'param' => 'id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
@@ -82,8 +83,6 @@
             ['type' => 'text', 'name' => 'matricula', 'id' => 'matricula', 'label' => 'Matrícula:'],
             ['type' => 'checkbox', 'name' => 'cargo_id', 'id' => 'cargo_id', 'label' => 'Cargo:', 'options' => $cargos->pluck('nome', 'id'), 'placeholder' => 'Selecione um cargo'],
             ['type' => 'select', 'name' => 'role_id', 'id' => 'role', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
-            ['type' => 'password', 'name' => 'password', 'id' => 'password', 'label' => 'Senha:'],
-            ['type' => 'password', 'name' => 'confirm_password', 'id' => 'confirm_password', 'label' => 'Confirmar senha:'],
         ]
     ])
 
@@ -107,7 +106,7 @@
         $dados['role'][$servidor->id] = $servidor->roles->first()->id;
     }
 @endphp
-    
+
 @push('scripts')
     <script>
         const dados = {!! json_encode($dados) !!};
@@ -124,10 +123,12 @@
                 $('#email-edit').val(dados['email'][servidorId]);
                 $('#cpf-edit').val(dados['cpf'][servidorId]);
                 $('#matricula-edit').val(dados['matricula'][servidorId]);
+
+                $('#role-edit option').prop('selected', false);
                 $('#role-edit').val(dados['role'][servidorId]);
 
                 $('input[type="checkbox"]').prop('checked', false);
-                
+
                 dados['cargos'][servidorId].forEach(element => {
                     $('#cargo_id-edit-' + element).prop('checked', true);
                 });
@@ -138,12 +139,12 @@
                 $(this).find('form').attr('action', formAction);
             });
         });
-        
+
         function openEditModal(id) {
             servidorId = id;
             editModal.modal('show');
         }
-        
+
         function openDeleteModal(id) {
             servidorId = id;
             $('#deleteConfirmationModal').modal('show');

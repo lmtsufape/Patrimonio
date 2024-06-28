@@ -11,6 +11,8 @@ class UpdateServidorRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
+            'email' => 'required|email',
+            'cpf' => 'required|regex:/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/',
             'matricula' => 'required|regex:/^[0-9]{9}$/',
         ];
     }
@@ -18,7 +20,7 @@ class UpdateServidorRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();
-        
+
         return redirect()->back()->withErrors($errors)->withInput();
     }
 }

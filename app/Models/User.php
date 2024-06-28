@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function cargos()
     {
-        return $this->belongsToMany(Cargo::class);
+        return $this->belongsToMany(Cargo::class, 'cargo_user', 'user_id', 'cargo_id');
     }
 
     public function sala()
