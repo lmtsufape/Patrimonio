@@ -136,11 +136,12 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{movimento_id}/editar', 'edit')->name('edit');
         Route::post('/update', 'update')->name('update');
-        Route::get('/{movimento_id}/delete', 'delete')->name('delete');
+        Route::delete('/{movimento_id}/delete', 'delete')->name('delete');
         Route::get('/{movimento_id}/restore', 'restore')->name('restore');
         Route::post('/store/patrimonio', 'adicionarPatrimonio')->name('patrimonio.store');
         Route::post('/concluir', 'concluirMovimentacao')->name('concluir');
-        Route::get('/delete/patrimonio/{movimento_patrimonio_id}', 'removerPatrimonio')->name('patrimonio.delete');
+        Route::get('/{movimento_id}/detalhamento', 'detalhamento')->name('detalhamento');
+        Route::get('/delete/patrimonio/{movimento_id}', 'removerPatrimonio')->name('patrimonio.delete');
         Route::get('/search', 'search')->name('buscar');
     });
 });

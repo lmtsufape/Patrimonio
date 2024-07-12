@@ -14,41 +14,61 @@
     ])
 
     <div class="col-md-10 mx-auto">
-        @include('layouts.components.table', [
-            'header' => ['#', 'Servidor de Origem', 'Servidor de Destino', 'Tipo do Movimento', 'Itens do Movimento', 'Ações'],
+        <table class="table table-hover">
+            <thead class="text-md-center align-middle">
+                <tr>
+                    <th>#</th>
+                    <th>Servidor de Origem</th>
+                    <th>Servidor de Destino</th>
+                    <th>Tipo do Movimento</th>
+                    <th>Itens do Movimento</th>
+                    <th>Ações</th>
 
-            'content' => [
-                $movimentos->pluck('id'),
-                $movimentos->map(function ($movimento) {
-                    return $movimento->userOrigem->name;
-                }),
-                $movimentos->map(function ($movimento) {
-                    return $movimento->userDestino->name;
-                }),
-                $movimentos->map(function ($movimento) {
-                    return array_search($movimento->tipo, $movimento::$tipos);
-                }),
-                $movimentos->map(function ($movimento) {
-                    return $movimento->patrimonios()->pluck('nome');
-                }),
-            ],
+                </tr>
+            </thead>
 
-            'acoes' => [
-                [
-                    'link' => 'movimento.edit',
-                    'param' => 'movimento_id',
-                    'img' => asset('/images/pencil.png'),
-                    'type' => 'editar',
-                ],
-                [
-                    'link' => 'movimento.delete',
-                    'param' => 'movimento_id',
-                    'img' => asset('/images/delete.png'),
-                    'type' => 'delete',
-                ],
+            <tbody>
+                @foreach ($movimentos as $i => $movimento)
+                    <tr class="text-md-center">
+                        <td class="py-4">
+                            {{$movimento->id}}
+                        </td>
+                        <td class="py-4">
+                            {{$movimento->userOrigem->name}}
+                        </td>
+                        <td class="py-4">
+                            @if($movimento->tipo == 4)
+                                {{$movimento->userDestino->name}}
+                            @else
+                                Não aplicavel ao tipo de Movimentação
+                            @endif
+                        </td>
+                        <td class="py-4">
+                            {{array_search($movimento->tipo, $movimento::$tipos)}}
+                        </td>
+                        <td class="py-4">
+                            {{$movimento->patrimonios()->pluck('nome')}}
+                        </td>
+                        <td class="py-4">
+                            <div class="d-flex justify-content-center">
+                                @if($movimento->status == 'Pendente')
+                                    <a class="btn p-0" href="{{route('movimento.edit', ['movimento_id'=> $movimento->id])}}">
+                                        <img src="{{asset('/images/pencil.png')}}" alt="Ícone de Editar">
+                                    </a>
 
-            ],
-        ])
+                                    <button class="btn me-1 p-0" onclick="openDeleteModal({{ $movimento->id }})">
+                                        <img src="{{asset('/images/delete.png')}}" alt="Ícone de Deletar">
+                                    </button>
+                                @endif
+                                <a class="btn me-1 p-0" href="{{route('movimento.detalhamento', ['movimento_id' => $movimento->id])}}">
+                                    <img src="{{asset('/images/vision.png')}}" alt="Ícone de Detalhamento">
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
         <div class="d-flex justify-content-center">
             {{ $movimentos->links('pagination::bootstrap-4') }}
@@ -58,7 +78,7 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar esta Movimentação?',
-        'route' => route('movimento.delete', ['movimento_id' => 'id']),
+        'route' => route('movimento.delete', ['movimento_id' => ':id']),
     ])
 
 
@@ -66,7 +86,6 @@
 
 @push('scripts')
     <script>
-        const movimentacaoDeleteRoute = "http://127.0.0.1:8000/movimento/id/delete";
         var movimentoId = 0;
         function openDeleteModal(id) {
             movimentoId = id;
@@ -75,11 +94,9 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = movimentacaoDeleteRoute.replace('id', movimentoId);
-                $(this).find('form').attr('action', formAction);
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace(':id', movimentoId));
             });
         });
-
 
     </script>
 @endpush

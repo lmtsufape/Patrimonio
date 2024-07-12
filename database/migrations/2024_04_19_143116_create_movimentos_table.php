@@ -17,12 +17,18 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('tipo');
             $table->date('data');
-            $table->string('status')->default('Pendente');//aprovada/reprovada -> entregue -> finalizada
+            $table->string('cidade')->nullable();
+            $table->string('logradouro')->nullable();
+            $table->string('numero')->nullable();
+            $table->string('bairro')->nullable();
+            $table->string('evento')->nullable();
+            $table->date('data_devolucao')->nullable();
             $table->string('motivo')->nullable();
+            $table->string('status')->default('Pendente');//aprovada/reprovada -> entregue -> finalizada
 
-            $table->foreignId('sala_id')->constrained();
+            $table->foreignId('sala_id')->nullable()->constrained();
             $table->foreignId('user_origem_id')->constrained('users');
-            $table->foreignId('user_destino_id')->constrained('users')->nullable();
+            $table->foreignId('user_destino_id')->nullable()->constrained('users');
 
             $table->softDeletes();
             $table->timestamps();

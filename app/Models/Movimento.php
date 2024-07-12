@@ -12,7 +12,7 @@ class Movimento extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['tipo', 'data', 'motivo', 'user_origem_id', 'user_destino_id', 'sala_id'];
+    protected $fillable = ['tipo', 'status','data', 'motivo', 'user_origem_id', 'user_destino_id', 'sala_id', 'cidade', 'logradouro', 'numero', 'bairro', 'evento'];
     public static $tipos = [//biblioteca de enum
         'Solicitação' => 1,
         'Emprestimo' => 2,

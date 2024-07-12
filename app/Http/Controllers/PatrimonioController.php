@@ -118,7 +118,7 @@ class PatrimonioController extends Controller
     public function update(UpdatePatrimonioRequest $request, $id)
     {
         $patrimonio = Patrimonio::findOrFail($id);
-        $patrimonio->update($request->all());
+        $patrimonio->update($request->except(['classificacao']));
         return redirect(route('patrimonio.index'))->with('success', 'Patrimônio Editado com Sucesso!');
     }
 
@@ -127,7 +127,7 @@ class PatrimonioController extends Controller
     {
         $patrimonio = Patrimonio::find($patrimonio_id);
         $patrimonio->delete();
-        
+
         return redirect(route('patrimonio.index'))->with('success', 'Patrimonio Removido com Sucesso!');
     }
 

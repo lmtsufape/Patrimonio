@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Movimento\ConcluirMovimentoRequest;
 use App\Http\Requests\Movimento\StoreMovimentoRequest;
 use App\Http\Requests\Movimento\UpdateMovimentoRequest;
+use App\Mail\CriacaoMovimentoMail;
 use App\Models\Movimento;
 use App\Models\MovimentoPatrimonio;
 use App\Models\Patrimonio;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Models\TipoMovimento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class MovimentoController extends Controller
 {
@@ -60,10 +62,17 @@ class MovimentoController extends Controller
         switch ($request->tipo) {
             case 1://Solicitação
                 $data['user_origem_id'] = Auth::user()->id;
-                $data['user_destino_id'] = 1;
+                $data['status'] = 'Aprovado';
                 break;
             case 2://Emprestimo
-
+                $data['user_origem_id'] = Auth::user()->id;
+                $data['cidade'] = $request->cidade;
+                $data['logradouro'] = $request->logradouro;
+                $data['numero'] = $request->numero;
+                $data['bairro'] = $request->bairro;
+                $data['evento'] = $request->evento;
+                $data['data_devolucao'] = $request->data_devolucao;
+                $data['status'] = 'Aprovado';
                 break;
             case 3://Devolução
                 $data['user_origem_id'] = Auth::user()->id;
@@ -75,6 +84,7 @@ class MovimentoController extends Controller
                                                 });
                                             })->pluck('id')->first();
                 $data['motivo'] = $request->motivo;
+                $data['status'] = 'Aprovado';//preciso tratar o condicional do default
                 $data['cargo_id'] = 3;
                 $data['sala_id'] = 1;
 
@@ -89,6 +99,8 @@ class MovimentoController extends Controller
         $data['data'] = now();
         $movimento = Movimento::create($data);
         $movimento->patrimonios()->attach(array_map('intval',(explode(',', (implode(',', $request->patrimonios_id))))));
+
+        Mail::to(Auth::user()->email)->send(new CriacaoMovimentoMail($movimento));
 
         return redirect()->route('movimento.index')->with('success', 'Movimento Cadastrado com Sucesso!');
     }
@@ -108,8 +120,8 @@ class MovimentoController extends Controller
         $data = $request->all();
         $movimento = Movimento::find($data['movimento_id']);
 
-        if($movimento->status == 'Concluido')
-            return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já concluido!');
+        if($movimento->status == 'Aprovado' || $movimento->status == 'Finalizado')
+            return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já concluído!');
 
         $movimento->update($data);
         return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])->with('success', 'Movimento Alterado com Sucesso!');
@@ -119,11 +131,11 @@ class MovimentoController extends Controller
     {
         $movimento = Movimento::find($movimento_id);
         if($movimento->status == 'Pendente'){
-            $movimento->delete();
+            $movimento->forceDelete();
             return redirect()->route('movimento.index')->with('success', 'Movimento removido com sucesso!');
         }
 
-        return redirect()->route('movimento.index')->with('fail', 'O movimento já foi concluido e não pode ser excluido');
+        return redirect()->route('movimento.index')->with('fail', 'O movimento já foi concluído e não pode ser excluído.');
     }
 
     public function search(Request $request)
@@ -141,7 +153,7 @@ class MovimentoController extends Controller
 
     public function finalizarMovimentacao($movimento_id){
         $movimento = Movimento::find($movimento_id);
-        $movimento->patrimonios()->first()->update([
+        $movimento->patrimonios()->update([
             'user_id'   => $movimento->user_destino_id,
             'sala_id'   => $movimento->sala_id,
             'unidade_admin_id'  => $movimento->user_destino_id,
@@ -170,5 +182,9 @@ class MovimentoController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function detalhamento($movimento_id){
+        return view('movimento.detalhamento');
     }
 }

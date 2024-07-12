@@ -268,11 +268,10 @@
                     </div>
                 @endif
             </div>
-                <div class="col">
-                    <label for="observacao" class="form-label fw-bold">Observações pertinentes a este
-                        patrimônio:</label>
-                    <textarea class="form-control" id="observacao" name="observacao" rows="4">{{old('observacao')}}</textarea>
-                </div>
+            <div class="col">
+                <label for="observacao" class="form-label fw-bold">Observações pertinentes a este
+                    patrimônio:</label>
+                <textarea class="form-control" id="observacao" name="observacao" rows="4">{{old('observacao')}}</textarea>
             </div>
 
             <div class="row justify-content-center mb-5 mt-5">

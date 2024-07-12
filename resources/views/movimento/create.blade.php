@@ -55,6 +55,75 @@
 
         </div>
 
+        <div class="d-none row" id="emprestimo">
+            <div class="form-group col-md-4">
+                <label for="cidade">Cidade</label>
+                <input class="form-control @error('cidade') is-invalid @enderror" type="text" id="cidade" name="cidade" value="{{old('cidade')}}">
+
+                @error('cidade')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="logradouro">Logradouro</label>
+                <input class="form-control @error('logradouro') is-invalid @enderror" type="text" id="logradouro" name="logradouro" value="{{old('logradouro')}}">
+
+                @error('logradouro')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="numero">Número</label>
+                <input class="form-control @error('numero') is-invalid @enderror" type="text" id="numero" name="numero" value="{{old('numero')}}">
+
+                @error('numero')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="bairro">Bairro</label>
+                <input class="form-control @error('bairro') is-invalid @enderror" type="text" id="bairro" name="bairro" value="{{old('bairro')}}">
+
+                @error('bairro')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="evento">Evento</label>
+                <input class="form-control @error('evento') is-invalid @enderror" type="text" id="evento" name="evento" value="{{old('evento')}}">
+
+                @error('evento')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="data_devolucao">Data de devolução</label>
+                <input class="form-control @error('data_devolucao') is-invalid @enderror" type="date" id="data_devolucacao" name="data_devolucao" value="{{old('data_devolucao')}}">
+
+                @error('data_devolucao')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
+
+        </div>
+
         <div class="d-none row" id="transferencia">
             <div class="col-4">
                 <label>Servidor de Destino:<strong style="color: red">*</strong></label>
@@ -73,16 +142,23 @@
                 @enderror
             </div>
 
-            {{-- <div class="col-4">
-                <label>Sala de Destino:<strong style="color: red">*</strong></label>
-                <select class="form-control" name="sala_id" required>
-                    <option selected disabled>Selecione o Servidor de Destino</option>
+            <div class="col-4">
+                <label for="sala_id">Sala: </label>
+
+                <select class="form-select @error('sala_id') is-invalid @enderror" name="sala_id" id="sala_id">
+                    <option selected disabled>Selecione uma sala</option>
                     @foreach($servidores as $servidor)
                         <option value="{{$servidor->id}}"
                                 @if(isset($movimento) && $servidor->id == $movimento->user_destino_id)selected @endif>{{$servidor->name}}</option>
                     @endforeach
                 </select>
-            </div> --}}
+
+                @error('sala_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{$message}}</strong>
+                    </span>
+                @enderror
+            </div>
         </div>
 
 
@@ -201,19 +277,29 @@
             document.querySelector("#devolucao").classList.add("d-none");
             document.querySelector("#transferencia").classList.add("d-none");
             document.querySelector("#patrimonio").classList.add("d-none");
+            document.querySelector("#emprestimo").classList.add("d-none");
 
         }else if(valor == 2){
+            document.querySelector("#emprestimo").classList.remove("d-none");
+            document.querySelector("#patrimonio").classList.remove("d-none");
+            document.querySelector("#solicitacao").classList.add("d-none");
+            document.querySelector("#transferencia").classList.add("d-none");
+            document.querySelector("#devolucao").classList.add("d-none");
 
         }else if(valor == 3){
             document.querySelector("#devolucao").classList.remove("d-none");
             document.querySelector("#patrimonio").classList.remove("d-none");
             document.querySelector("#solicitacao").classList.add("d-none");
             document.querySelector("#transferencia").classList.add("d-none");
+            document.querySelector("#emprestimo").classList.add("d-none");
+
         }else if(valor == 4){
             document.querySelector("#transferencia").classList.remove("d-none");
             document.querySelector("#patrimonio").classList.remove("d-none");
             document.querySelector("#solicitacao").classList.add("d-none");
             document.querySelector("#devolucao").classList.add("d-none");
+            document.querySelector("#emprestimo").classList.add("d-none");
+
 
         }
     }

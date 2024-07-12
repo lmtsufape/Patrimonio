@@ -13,10 +13,16 @@ class StoreMovimentoRequest extends FormRequest
         return [
             'tipo' => 'required|integer|',
             'patrimonios_id'   => 'required',
-            'user_destino_id' => 'required|integer|exists:users,id',
+            'user_destino_id' => 'required_if:tipo,4|integer|exists:users,id',
             'observacao' => 'required_if:tipo,3','string','max:255',
             'user_origem_id' => 'integer|exists:users,id',
-            'data_movimento' => 'date'
+            'data_movimento' => 'date',
+            'cidade' =>  'required_if:tipo,2','string',
+            'numero' =>  'required_if:tipo,2','string',
+            'logradouro' =>  'required_if:tipo,2','string',
+            'bairro' =>  'required_if:tipo,2','string',
+            'evento' =>  'required_if:tipo,2','string',
+            'data_devolucao' =>  'required_if:tipo,2','date',
         ];
     }
 
