@@ -71,13 +71,13 @@
                             <li>
                                 <a href="{{ route('movimento.index') }}"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">
-                                    Criar
+                                    Nova Movimentação
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('movimento.pedidos.index') }}"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">
-                                    Pedidos
+                                    Solicitações
                                 </a>
                             </li>
                         </ul>

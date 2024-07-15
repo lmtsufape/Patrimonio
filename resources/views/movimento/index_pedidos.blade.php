@@ -13,79 +13,65 @@
     ])
 
     <div class="col-md-10 mx-auto">
-        @if(Auth::user()->hasAnyRoles(['Administrador']))
-            @include('layouts.components.table', [
-                'header' => ['#', 'Servidor de Origem', 'Servidor de Destino', 'Tipo do Movimento', 'Itens do Movimento', 'Ações'],
 
-                'content' => [
-                    $movimentos->pluck('id'),
-                    $movimentos->map(function ($movimento) {
-                        return $movimento->userOrigem->name;
-                    }),
-                    $movimentos->map(function ($movimento) {
-                        return $movimento->userDestino->name;
-                    }),
-                    $movimentos->map(function ($movimento) {
-                        return array_search($movimento->tipo, $movimento::$tipos);
-                    }),
-                    $movimentos->map(function ($movimento) {
-                        return $movimento->patrimonios()->pluck('nome');
-                    }),
-                ],
+        <table class="table table-hover">
+            <thead class="text-md-center align-middle">
+                <tr>
+                    <th>#</th>
+                    <th>Servidor de Origem</th>
+                    <th>Servidor de Destino</th>
+                    <th>Tipo do Movimento</th>
+                    <th>Itens do Movimento</th>
+                    <th>Ações</th>
 
-                'acoes' => [
-                    [
-                        'link' => 'movimento.finalizar',
-                        'param' => 'id',
-                        'img' => asset('/assets/check.svg'),
-                        'type' => 'link',
-                    ],
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($movimentos as $i => $movimento)
+                    <tr class="text-md-center">
+                        <td class="py-4">
+                            {{$movimento->id}}
+                        </td>
+                        <td class="py-4">
+                            {{$movimento->userOrigem->name}}
+                        </td>
+                        <td class="py-4">
+                            @if($movimento->tipo == 4)
+                                {{$movimento->userDestino->name}}
+                            @else
+                                Não aplicavel ao tipo de Movimentação
+                            @endif
+                        </td>
+                        <td class="py-4">
+                            {{array_search($movimento->tipo, $movimento::$tipos)}}
+                        </td>
+                        <td class="py-4">
+                            {{$movimento->patrimonios()->pluck('nome')}}
+                        </td>
+                        <td class="py-4">
+                            <div class="d-flex justify-content-center">
+                                <a class="btn me-1 p-0" href="{{route('movimento.detalhamento', ['movimento_id' => $movimento->id])}}">
+                                    <img src="{{asset('/images/vision.png')}}" alt="Ícone de Detalhamento">
+                                </a>
+                                @if(Auth::user()->hasAnyRoles(['Administrador']))
+                                    <a class="btn me-1 p-0" href="{{route('movimento.finalizar', ['movimento_id' => $movimento->id])}}">
+                                        <img src="{{asset('/assets/check.svg')}}" alt="Ícone de Finalização">
+                                    </a>
+                                @else
+                                    <a class="btn me-1 p-0" href="{{route('movimento.reprovar', ['movimento_id' => $movimento->id])}}">
+                                        <img src="{{asset('/assets/cancel.svg')}}" alt="Ícone de Finalização">
+                                    </a>
 
-                ],
-            ])
-        @else
-            @include('layouts.components.table', [
-                'header' => ['#', 'Servidor de Origem', 'Servidor de Destino', 'Tipo do Movimento', 'Itens do Movimento', 'Ações'],
-
-                'content' => [
-                    $movimentos->pluck('id'),
-                    $movimentos->map(function ($movimento) {
-                        return $movimento->userOrigem->name;
-                    }),
-                    $movimentos->map(function ($movimento) {
-                        return $movimento->userDestino->name;
-                    }),
-                    $movimentos->map(function ($movimento) {
-                        return array_search($movimento->tipo, $movimento::$tipos);
-                    }),
-                    $movimentos->map(function ($movimento) {
-                        return $movimento->patrimonios()->pluck('nome');
-                    }),
-                ],
-
-                'acoes' => [
-                    [
-                        'link' => 'movimento.reprovar',
-                        'param' => 'id',
-                        'img' => asset('/assets/vision.svg'),
-                        'type' => 'link',
-                    ],
-                    [
-                        'link' => 'movimento.reprovar',
-                        'param' => 'id',
-                        'img' => asset('/assets/cancel.svg'),
-                        'type' => 'link',
-                    ],
-                    [
-                        'link' => 'movimento.aprovar',
-                        'param' => 'id',
-                        'img' => asset('/assets/check.svg'),
-                        'type' => 'link',
-                    ],
-
-                ],
-            ])
-        @endif
+                                    <a class="btn me-1 p-0" href="{{route('movimento.aprovar', ['movimento_id' => $movimento->id])}}">
+                                        <img src="{{asset('/assets/check.svg')}}" alt="Ícone de Finalização">
+                                    </a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
         <div class="d-flex justify-content-center">
             {{ $movimentos->links('pagination::bootstrap-4') }}

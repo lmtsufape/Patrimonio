@@ -127,10 +127,10 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
     });
 
     Route::prefix('movimento')->name('movimento.')->controller(MovimentoController::class)->group(function () {
-        Route::get('/test/{id}', 'finalizarMovimentacao')->name('finalizar');
+        Route::get('/finalizar/{movimento_id}', 'finalizarMovimentacao')->name('finalizar');
         Route::get('/listar', 'index')->name('index');
-        Route::get('/aprovar/{id}', 'aprovarMovimentacao')->name('aprovar');
-        Route::get('/reprovar/{id}', 'reprovarMovimentacao')->name('reprovar');
+        Route::get('/aprovar/{movimento_id}', 'aprovarMovimentacao')->name('aprovar');
+        Route::get('/reprovar/{movimento_id}', 'reprovarMovimentacao')->name('reprovar');
         Route::get('/listar/pedidos', 'indexPedidosMovimentos')->name('pedidos.index');
         Route::get('/cadastrar', 'create')->name('create');
         Route::post('/store', 'store')->name('store');

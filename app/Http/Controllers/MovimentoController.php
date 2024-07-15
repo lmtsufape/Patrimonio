@@ -84,7 +84,7 @@ class MovimentoController extends Controller
                                                 });
                                             })->pluck('id')->first();
                 $data['motivo'] = $request->motivo;
-                $data['status'] = 'Aprovado';//preciso tratar o condicional do default
+                $data['status'] = 'Aprovado';
                 $data['cargo_id'] = 3;
                 $data['sala_id'] = 1;
 
@@ -131,6 +131,7 @@ class MovimentoController extends Controller
     {
         $movimento = Movimento::find($movimento_id);
         if($movimento->status == 'Pendente'){
+            $movimento->patrimonios()->detach();
             $movimento->forceDelete();
             return redirect()->route('movimento.index')->with('success', 'Movimento removido com sucesso!');
         }
@@ -185,6 +186,8 @@ class MovimentoController extends Controller
     }
 
     public function detalhamento($movimento_id){
-        return view('movimento.detalhamento');
+        $movimento = Movimento::find($movimento_id);
+
+        return view('movimento.detalhamento', compact('movimento'));
     }
 }

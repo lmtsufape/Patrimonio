@@ -127,7 +127,7 @@
         <div class="d-none row" id="transferencia">
             <div class="col-4">
                 <label>Servidor de Destino:<strong style="color: red">*</strong></label>
-                <select class="form-control @error('user_destino_id') is-invalid @enderror" name="user_destino_id" required>
+                <select class="form-control @error('user_destino_id') is-invalid @enderror" name="user_destino_id" id="user_destino_id" required>
                     <option selected disabled>Selecione o Servidor de Destino</option>
                     @foreach($servidores as $servidor)
                         <option value="{{$servidor->id}}"
@@ -142,15 +142,12 @@
                 @enderror
             </div>
 
-            <div class="col-4">
+            <div class="col-4 d-none" id="salas">
                 <label for="sala_id">Sala: </label>
 
                 <select class="form-select @error('sala_id') is-invalid @enderror" name="sala_id" id="sala_id">
                     <option selected disabled>Selecione uma sala</option>
-                    @foreach($servidores as $servidor)
-                        <option value="{{$servidor->id}}"
-                                @if(isset($movimento) && $servidor->id == $movimento->user_destino_id)selected @endif>{{$servidor->name}}</option>
-                    @endforeach
+
                 </select>
 
                 @error('sala_id')
