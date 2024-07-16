@@ -9,7 +9,7 @@ class Sala extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'telefone', 'predio_id'];
+    protected $fillable = ['nome', 'telefone', 'predio_id', 'user_id'];
 
     public function predio()
     {
@@ -27,6 +27,6 @@ class Sala extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'sala_user', 'sala_id', 'user_id');
     }
 }

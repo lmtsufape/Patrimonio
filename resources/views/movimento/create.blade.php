@@ -297,8 +297,23 @@
             document.querySelector("#devolucao").classList.add("d-none");
             document.querySelector("#emprestimo").classList.add("d-none");
 
-
         }
+
+        $('#user_destino_id').change(function() {
+            let servidorId = $(this).val();
+            axios.get('{{route('salas.buscar', ['user_id'=>':userId'])}}'.replace(':userId', servidorId))
+                .then(function(response) {
+                    $('#salas').removeClass("d-none")
+                    let salas = response.data;
+                    $('#sala_id').empty().append('<option selected disabled>Selecione uma sala</option>');
+                    $.each(salas, function(index, sala) {
+                        $('#sala_id').append('<option value="' + sala.id + '">' + sala.nome + '</option>');
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Erro ao buscar salas:', error);
+                });
+        });
     }
 </script>
 @endsection

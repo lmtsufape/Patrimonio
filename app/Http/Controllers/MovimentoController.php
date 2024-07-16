@@ -62,6 +62,7 @@ class MovimentoController extends Controller
         switch ($request->tipo) {
             case 1://Solicitação
                 $data['user_origem_id'] = Auth::user()->id;
+                $data['sala_id'] = $request->sala_id;
                 $data['status'] = 'Aprovado';
                 break;
             case 2://Emprestimo
@@ -92,7 +93,7 @@ class MovimentoController extends Controller
             case 4://Transferência
                 $data['user_origem_id'] = Auth::user()->id;
                 $data['user_destino_id'] = $request->user_destino_id;
-                $data['sala_id'] = 1;
+                $data['sala_id'] = $request->sala_id;
                 break;
         }
 
@@ -190,4 +191,16 @@ class MovimentoController extends Controller
 
         return view('movimento.detalhamento', compact('movimento'));
     }
+
+    public function buscarSalas($user_id){
+    $user = User::find($user_id);
+
+    if (!$user) {
+        return response()->json(['error' => 'Servidor não encontrado'], 404);
+    }
+
+    $salas = $user->salas()->get();
+
+    return response()->json($salas);
+}
 }
