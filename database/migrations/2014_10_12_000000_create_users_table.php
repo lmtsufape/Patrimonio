@@ -24,7 +24,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->boolean('ativo')->default(false);
 
-            $table->foreignId('sala_id')->nullable()->constrained();
             $table->foreignId('unidade_admin_id')->nullable()->constrained('unidades_administrativas');
 
             $table->softDeletes();

@@ -144,4 +144,5 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/delete/patrimonio/{movimento_id}', 'removerPatrimonio')->name('patrimonio.delete');
         Route::get('/search', 'search')->name('buscar');
     });
+    Route::get('/buscar-salas/{user_id}', [MovimentoController::class, 'buscarSalas'])->name('salas.buscar');
 });

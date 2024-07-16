@@ -26,7 +26,8 @@ class User extends Authenticatable
         'password',
         'cpf',
         'matricula',
-        'ativo'
+        'ativo',
+        'sala_id'
     ];
 
     /**
@@ -58,9 +59,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Cargo::class);
     }
 
-    public function sala()
+    public function salas()
     {
-        return $this->belongsTo(Sala::class);
+        return $this->belongsToMany(Sala::class, 'sala_user', 'user_id', 'sala_id');
     }
 
     public function patrimonios()
