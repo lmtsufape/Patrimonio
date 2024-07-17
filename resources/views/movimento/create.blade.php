@@ -89,7 +89,7 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="bairro">Bairro</label>
                 <input class="form-control @error('bairro') is-invalid @enderror" type="text" id="bairro" name="bairro" value="{{old('bairro')}}">
 
@@ -100,7 +100,7 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="evento">Evento</label>
                 <input class="form-control @error('evento') is-invalid @enderror" type="text" id="evento" name="evento" value="{{old('evento')}}">
 
@@ -203,9 +203,38 @@
     </form>
 
 <script>
-
     let patrimoniosData = @json($patrimonios);
     patrimonios = document.querySelector('#patrimonios_id');
+
+    document.addEventListener('DOMContentLoaded', function(){
+        let tabela = document.getElementsByClassName('patrimoniolist')[0];
+        let tbody = tabela.getElementsByTagName('tbody')[0];
+
+        patrimonios.value = JSON.parse(localStorage.getItem('patrimoniosAdicionados'))
+        if(patrimonios.value != ''){
+            console.log(patrimonios.value)
+            patrimonios.value.split(",").forEach(function (patrimonioId, indice){
+                let exibirpatrimonio = patrimoniosData.find(function(element){
+                        return element.id == patrimonioId}
+                        );
+                let linha = tbody.insertRow();
+                linha.insertCell(0).textContent = ++indice;
+                linha.insertCell(1).textContent = exibirpatrimonio.nome;
+                linha.insertCell(2).textContent = exibirpatrimonio.sala.predio.nome;
+                linha.insertCell(3).textContent = exibirpatrimonio.sala.nome;
+                linha.insertCell(4).innerHTML = '<td><button class="btn btn-danger" type="button" onclick="removerPatrimonio(this)">Remover</button></td>';
+
+
+                document.querySelector(`#patrimonio_id option[value="${patrimonioId}"]`).disabled = true;
+
+                document.querySelector('#patrimonio_id').value = '';
+           })
+        }
+    })
+
+    document.addEventListener("submit", function(){
+        localStorage.removeItem("patrimoniosAdicionados")
+    })
 
     function adicionarPatrimonio(){
         let patrimonioId = document.querySelector('#patrimonio_id').value;
@@ -220,6 +249,7 @@
                 patrimonios.value = patrimonioId
             }else{
                 patrimonios.value = patrimonios.value.split(',').concat(patrimonioId).join(',');
+                localStorage.setItem('patrimoniosAdicionados', JSON.stringify(patrimonios.value));
             }
 
 

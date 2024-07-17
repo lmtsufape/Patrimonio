@@ -27,7 +27,8 @@ class User extends Authenticatable
         'cpf',
         'matricula',
         'ativo',
-        'sala_id'
+        'sala_id',
+        'unidade_admin_id'
     ];
 
     /**
@@ -69,9 +70,9 @@ class User extends Authenticatable
         return $this->hasMany(Patrimonio::class);
     }
 
-    public function unidade()
+    public function unidades()
     {
-        return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_admin_id');
+        return $this->belongsToMany(UnidadeAdministrativa::class, 'unidade_user', 'user_id', 'unidade_admin_id');
     }
 
     public function hasAnyRoles($tipo)

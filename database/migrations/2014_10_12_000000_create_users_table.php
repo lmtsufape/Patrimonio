@@ -24,8 +24,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->boolean('ativo')->default(false);
 
-            $table->foreignId('unidade_admin_id')->nullable()->constrained('unidades_administrativas');
-
             $table->softDeletes();
             $table->timestamps();
         });

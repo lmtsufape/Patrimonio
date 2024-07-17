@@ -10,7 +10,7 @@ class UnidadeAdministrativa extends Model
     use HasFactory;
 
     protected $table = 'unidades_administrativas';
-    protected $fillable = ['nome', 'codigo', 'unidade_admin_pai_id', 'unidade_admin_folha', 'predio_id'];
+    protected $fillable = ['nome', 'codigo', 'unidade_admin_pai_id', 'unidade_admin_folha', 'predio_id', 'user_id'];
 
     public function unidadeAdmin_pai(){
         return $this->belongsTo(UnidadeAdministrativa::class, 'unidade_admin_pai_id');
@@ -36,6 +36,6 @@ class UnidadeAdministrativa extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'unidade_admin_id');
+        return $this->belongsToMany(User::class, 'unidade_user', 'unidade_admin_id', 'user_id');
     }
 }

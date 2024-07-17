@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,6 +20,11 @@ class Movimento extends Model
         'Devolução' => 3,
         'Transferência' => 4
     ];
+
+    public function getDataFormatadaAttribute()
+    {
+        return Carbon::parse($this->attributes['data'])->locale('pt_BR')->isoFormat('D [de] MMMM [de] YYYY');
+    }
 
     public function patrimonios()
     {

@@ -5,11 +5,12 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class FinalizacaoMovimentoMail extends Mailable
+class LembreteDevolucaoMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +19,6 @@ class FinalizacaoMovimentoMail extends Mailable
      *
      * @return void
      */
-
     protected $movimento;
     public function __construct($movimento)
     {
@@ -33,7 +33,8 @@ class FinalizacaoMovimentoMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Finalizacao Movimento Mail',
+            from: new Address(config('mail.from.address'), config('mail.from.name')),
+            subject: 'Lembrete para Devolução',
         );
     }
 
@@ -45,7 +46,7 @@ class FinalizacaoMovimentoMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'mails.name',
         );
     }
 

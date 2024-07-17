@@ -63,7 +63,12 @@ class MovimentoController extends Controller
             case 1://Solicitação
                 $data['user_origem_id'] = Auth::user()->id;
                 $data['sala_id'] = $request->sala_id;
-                $data['status'] = 'Aprovado';
+                if(Auth::user()->hasAnyRoles(['Administrador'])){
+                    $data['status'] = 'Finalizado';
+                }else{
+                    $data['status'] = 'Aprovado';
+                };
+
                 break;
             case 2://Emprestimo
                 $data['user_origem_id'] = Auth::user()->id;
@@ -73,7 +78,11 @@ class MovimentoController extends Controller
                 $data['bairro'] = $request->bairro;
                 $data['evento'] = $request->evento;
                 $data['data_devolucao'] = $request->data_devolucao;
-                $data['status'] = 'Aprovado';
+                if(Auth::user()->hasAnyRoles(['Administrador'])){
+                    $data['status'] = 'Finalizado';
+                }else{
+                    $data['status'] = 'Aprovado';
+                };
                 break;
             case 3://Devolução
                 $data['user_origem_id'] = Auth::user()->id;
@@ -85,7 +94,11 @@ class MovimentoController extends Controller
                                                 });
                                             })->pluck('id')->first();
                 $data['motivo'] = $request->motivo;
-                $data['status'] = 'Aprovado';
+                if(Auth::user()->hasAnyRoles(['Administrador'])){
+                    $data['status'] = 'Finalizado';
+                }else{
+                    $data['status'] = 'Aprovado';
+                };
                 $data['cargo_id'] = 3;
                 $data['sala_id'] = 1;
 
@@ -100,8 +113,9 @@ class MovimentoController extends Controller
         $data['data'] = now();
         $movimento = Movimento::create($data);
         $movimento->patrimonios()->attach(array_map('intval',(explode(',', (implode(',', $request->patrimonios_id))))));
-
-        Mail::to(Auth::user()->email)->send(new CriacaoMovimentoMail($movimento));
+        if($request->tipo == 4){//Tranferência
+            Mail::to($movimento->userDestino->email)->send(new CriacaoMovimentoMail($movimento));
+        }
 
         return redirect()->route('movimento.index')->with('success', 'Movimento Cadastrado com Sucesso!');
     }
