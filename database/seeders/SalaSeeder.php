@@ -15,7 +15,10 @@ class SalaSeeder extends Seeder
      */
     public function run()
     {
-        Sala::factory(10)->create();
-        Sala::factory(10)->create(['predio_id' => 2]);
+        $salas = Sala::factory(10)->create();
+        
+        foreach($salas as $sala){
+            $sala->unidades()->attach(2);
+        }
     }
 }

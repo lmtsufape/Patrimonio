@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('movimentos', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('tipo');
+            $table->string('status')->default('Pendente');//aprovada/reprovada -> entregue -> finalizada
             $table->date('data');
             $table->string('cidade')->nullable();
             $table->string('logradouro')->nullable();
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->string('evento')->nullable();
             $table->date('data_devolucao')->nullable();
             $table->string('motivo')->nullable();
-            $table->string('status')->default('Pendente');//aprovada/reprovada -> entregue -> finalizada
 
             $table->foreignId('sala_id')->nullable()->constrained();
             $table->foreignId('user_origem_id')->constrained('users');

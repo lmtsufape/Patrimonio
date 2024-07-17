@@ -19,7 +19,7 @@
             <p>Nome: {{$movimento->userOrigem->name}}</p>
             <p>Matrícula: {{$movimento->userOrigem->matricula}}</p>
             <p>E-mail: {{$movimento->userOrigem->email}}</p>
-            <p>Unidade Administrativa: {{$movimento->userOrigem->unidade->nome}}</p>
+            <p>Unidade Administrativa: {{$movimento->userOrigem->unidades->first()->nome}}</p>
         </div>
         @if($movimento->userDestino)
             <div class="col-md-6">
@@ -27,7 +27,7 @@
                 <p>Nome: {{$movimento->userDestino->name}}</p>
                 <p>Matrícula: {{$movimento->userDestino->matricula}}</p>
                 <p>E-mail: {{$movimento->userDestino->email}}</p>
-                <p>Unidade Administrativa: {{$movimento->userDestino->unidade->nome}}</p>
+                <p>Unidade Administrativa: {{$movimento->userDestino->unidades->first()->nome}}</p>
 
             </div>
         @endif
