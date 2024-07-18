@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -45,7 +46,7 @@ class UserController extends Controller
         $cargos = Cargo::all();
         $roles = Role::all();
 
-        return view('servidor.edit', compact('servidor', 'cargos', 'roles'));
+        return view('servidor.editar', compact('servidor', 'cargos', 'roles'));
     }
 
     public function update(UpdateServidorRequest $request, $id)
@@ -90,5 +91,34 @@ class UserController extends Controller
         $roles = Role::where('nome', '<>', 'Administrador')->get();
 
         return view('servidor.index', compact('servidores', 'cargos', 'roles'));
+    }
+
+    public function editar_dados()
+    {
+        $servidor = User::with('roles', 'cargos')->findOrFail(Auth::user()->id);
+
+        $cargos_id = $servidor->cargos->pluck('id')->toArray();
+        $cargos = Cargo::whereNotIn('id', $cargos_id)->get();
+        $roles = Role::all();
+
+        return view('servidor.editar', compact('servidor', 'cargos', 'roles'));
+    }
+
+    public function update_dados(UpdateServidorRequest $request)
+    {
+        $user = Auth::user();
+        $validatedData = $request->validated();
+
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->password);
+
+        } else {
+            unset($validatedData['password']);
+        }
+
+        $user->update($validatedData);
+        $user->cargos()->sync($request->cargos);
+
+        return redirect()->route('patrimonio.index')->with('success', 'Dados atualizados com sucesso!');
     }
 }

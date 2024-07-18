@@ -112,9 +112,11 @@
                 <li class="mb-2">
                     <img src="{{ asset('assets/sidebar-icons/configuracoes.svg') }}" alt="cadastro-icon">
 
-                    <button class="btn d-inline-flex align-items-center rounded border-0">
-                        Configurações
-                    </button>
+                    <a href="{{route("servidor.editar_dados")}}">
+                        <button class="btn d-inline-flex align-items-center rounded border-0">
+                            Editar Perfil
+                        </button>
+                    </a>
                 </li>
 
                 <li>
