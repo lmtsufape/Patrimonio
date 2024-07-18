@@ -45,7 +45,7 @@
                             </span>
                         @enderror
                     </div>
-                    <input type="hidden" id="role_id" name="role_id" value="4">
+                    <input type="hidden" id="role_id" name="role_id" value="2">
                     <div class="col">
                         <label for="cargo_id">{{ __('Cargo') }}</label>
                         <select class="form-control @error('cargo_id') is-invalid @enderror" id="cargo_id" name="cargo_id" required>

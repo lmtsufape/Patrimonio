@@ -95,6 +95,9 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::get('/{id}/delete', 'delete')->name('delete');
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
         Route::get('/search', 'search')->name('buscar');
+
+        Route::get('/editar-dados', 'editar_dados')->name('editar_dados');
+        Route::put('/update-dados', 'update_dados')->name('update_dados');
     });
 
     Route::prefix('unidade')->name('unidade.')->controller(UnidadeAdministrativaController::class)->group(function () {
