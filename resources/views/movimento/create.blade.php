@@ -113,7 +113,7 @@
 
             <div class="form-group col-md-4">
                 <label for="data_devolucao">Data de devolução</label>
-                <input class="form-control @error('data_devolucao') is-invalid @enderror" type="date" id="data_devolucacao" name="data_devolucao" value="{{old('data_devolucao')}}">
+                <input class="form-control @error('data_devolucao') is-invalid @enderror" type="date" min="{{Date::tomorrow()->toDateString()}}" id="data_devolucacao" name="data_devolucao" value="{{old('data_devolucao')}}">
 
                 @error('data_devolucao')
                     <span class="invalid-feedback" role="alert">

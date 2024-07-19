@@ -16,13 +16,10 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Nome','Data de Criação', 'Ações'],
+            'header' => ['ID', 'Nome', 'Ações'],
             'content' => [
                 $predios->pluck('id'),
-                $predios->pluck('nome'),
-                $predios->pluck('created_at')->map(function($date) {
-                    return \Carbon\Carbon::parse($date)->format('d-m-Y');
-                })
+                $predios->pluck('nome')
             ],
             'acoes' => [
                 [

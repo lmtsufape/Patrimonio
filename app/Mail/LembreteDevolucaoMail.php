@@ -19,7 +19,7 @@ class LembreteDevolucaoMail extends Mailable
      *
      * @return void
      */
-    protected $movimento;
+    public $movimento;
     public function __construct($movimento)
     {
         $this->movimento = $movimento;
@@ -46,7 +46,7 @@ class LembreteDevolucaoMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'mails.name',
+            view: 'mails.lembrete_devolucao',
         );
     }
 

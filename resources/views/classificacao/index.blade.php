@@ -14,14 +14,12 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Código' , 'Nome', 'Data de Criação', 'Ações'],
+            'header' => ['ID', 'Nome' , 'Código', 'Vida útil (Meses)', 'Ações'],
             'content' => [
                 $classificacaos->pluck('id'),
-                $classificacaos ->pluck ('codigo'),
                 $classificacaos->pluck('nome'),
-                $classificacaos->pluck('created_at')->map(function($date) {
-                    return \Carbon\Carbon::parse($date)->format('d-m-Y');
-                })
+                $classificacaos ->pluck ('codigo'),
+                $classificacaos->pluck('vida_util')
             ],
             'acoes' => [
                 ['type' => 'edit' , 'link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],

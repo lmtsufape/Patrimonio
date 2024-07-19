@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Mail\LembreteDevolucaoMail;
 use App\Models\Movimento;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -9,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
 
 class EnviarEmailJob implements ShouldQueue
 {
@@ -19,9 +21,10 @@ class EnviarEmailJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public $movimento;
+    public function __construct($movimento)
     {
-        //
+        $this->movimento = $movimento;
     }
 
     /**
@@ -31,10 +34,7 @@ class EnviarEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $movimentos = Movimento::where('data', now())->get();
+        Mail::to($this->movimento->userOrigem->email)->send(new LembreteDevolucaoMail($this->movimento));
 
-        foreach($movimentos as $movimento){
-            Mail::to($movimento->userOrigem->email)->send(new CriacaoMovimentoMail($movimento));
-        }
     }
 }

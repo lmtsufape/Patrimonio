@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Movimento\ConcluirMovimentoRequest;
 use App\Http\Requests\Movimento\StoreMovimentoRequest;
 use App\Http\Requests\Movimento\UpdateMovimentoRequest;
+use App\Jobs\EnviarEmailJob;
 use App\Mail\CriacaoMovimentoMail;
 use App\Models\Movimento;
 use App\Models\MovimentoPatrimonio;
@@ -12,6 +13,7 @@ use App\Models\Patrimonio;
 use App\Models\Predio;
 use App\Models\User;
 use App\Models\TipoMovimento;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +36,7 @@ class MovimentoController extends Controller
     {
         if(Auth::user()->hasAnyRoles(['Administrador'])){
             $movimentos = Movimento::where('status', 'Aprovado')->orWhere('user_destino_id', Auth::user()->id)->paginate(10);
-            
+
             return view('movimento.index_pedidos', compact('movimentos'));
         }
         $movimentos = Movimento::where('user_destino_id', Auth::user()->id)->paginate(10);
@@ -81,7 +83,7 @@ class MovimentoController extends Controller
                     $data['status'] = 'Finalizado';
                 }else{
                     $data['status'] = 'Aprovado';
-                };
+                }
                 break;
             case 3://Devolução
                 $data['user_origem_id'] = Auth::user()->id;
@@ -112,7 +114,11 @@ class MovimentoController extends Controller
         $data['data'] = now();
         $movimento = Movimento::create($data);
         $movimento->patrimonios()->attach(array_map('intval',(explode(',', (implode(',', $request->patrimonios_id))))));
-        if($request->tipo == 4){//Tranferência
+
+        if($request->tipo == 2){//Emprestimo
+            EnviarEmailJob::dispatch($movimento)->delay(Carbon::parse($request->data_devolucao));
+
+        }else if($request->tipo == 4){//Transferência
             Mail::to($movimento->userDestino->email)->send(new CriacaoMovimentoMail($movimento));
         }
 
@@ -121,9 +127,12 @@ class MovimentoController extends Controller
 
     public function edit($movimento_id)
     {
+
         $movimento = Movimento::find($movimento_id);
         $servidores = User::where('id', '!=', Auth::user()->id)->get();
-        $patrimonios = Patrimonio::where('user_id', Auth::user()->id)->get();
+        $patrimonios = Patrimonio::where('user_id', Auth::user()->id)->whereNotIn('id',function($query){
+                            $query->select('patrimonio_id')->from('movimento_patrimonio');
+                        })->with('sala.predio')->get();
         $patrimoniosDisponi = Patrimonio::whereIn('sala_id', [21, 22])->get();
 
         return view('movimento.edit', compact('servidores', 'patrimonios', 'patrimoniosDisponi', 'movimento'));
@@ -134,10 +143,13 @@ class MovimentoController extends Controller
         $data = $request->all();
         $movimento = Movimento::find($data['movimento_id']);
 
-        if($movimento->status == 'Aprovado' || $movimento->status == 'Finalizado')
-            return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já concluído!');
+        if($movimento->status == 'Aprovado' || $movimento->status == 'Finalizado'){
+            
+            return redirect()->route('movimento.index')->with('fail', 'Não é possivel editar um movimento já em andamento!');
+        }
 
         $movimento->update($data);
+
         return redirect()->route('movimento.edit', ['movimento_id' => $movimento->id])->with('success', 'Movimento Alterado com Sucesso!');
     }
 
@@ -147,6 +159,7 @@ class MovimentoController extends Controller
         if($movimento->status == 'Pendente'){
             $movimento->patrimonios()->detach();
             $movimento->forceDelete();
+
             return redirect()->route('movimento.index')->with('success', 'Movimento removido com sucesso!');
         }
 
@@ -168,12 +181,14 @@ class MovimentoController extends Controller
 
     public function finalizarMovimentacao($movimento_id){
         $movimento = Movimento::find($movimento_id);
-        $movimento->patrimonios()->update([
-            'user_id'   => $movimento->user_destino_id,
-            'sala_id'   => $movimento->sala_id,
-            'unidade_admin_id'  => $movimento->user_destino_id,
-        ]);
 
+        if($movimento->tipo != 2){//Emprestimo
+            $movimento->patrimonios()->update([
+                'user_id'   => $movimento->user_destino_id,
+                'sala_id'   => $movimento->sala_id,
+                'unidade_admin_id'  => $movimento->user_destino_id,
+            ]);
+        }
         $movimento->status = 'Finalizado';
         $movimento->update();
 

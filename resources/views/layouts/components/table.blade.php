@@ -1,5 +1,5 @@
 @if ($content[0]->count() > 0)
-    <table class="table table-hover">
+    <table class="table table-hover shadow-lg">
         <thead class="text-md-center align-middle">
             <tr>
                 @foreach ($header as $item)
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 @else
-    <h5 class="text-center">Nenhum resultado encontrado.</h4>
+    <h5 class="text-center">Nenhum resultado encontrado.</h5>
 @endif
