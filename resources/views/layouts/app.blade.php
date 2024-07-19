@@ -50,7 +50,7 @@
 
         @includeUnless(in_array(Route::currentRouteName(), ['login', 'register', 'password.request']), 'layouts.components.sidebar')
 
-        <main class="container">
+        <main class="flex-grow-1 container">
             @yield('content')
         </main>
 

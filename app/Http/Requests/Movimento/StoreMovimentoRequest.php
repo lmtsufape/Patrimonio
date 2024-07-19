@@ -28,7 +28,7 @@ class StoreMovimentoRequest extends FormRequest
 
     public function messages(){
         return [
-            'observacao.required_if' => 'Precia da observação'
+            'observacao.required_if' => 'O campo motivação é obrigatório.'
         ];
     }
 }

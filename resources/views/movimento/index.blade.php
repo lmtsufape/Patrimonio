@@ -14,7 +14,7 @@
     ])
     @if($movimentos->count() != 0)
         <div class="col-md-10 mx-auto">
-            <table class="table table-hover">
+            <table class="table table-hover shadow-lg">
                 <thead class="text-md-center align-middle">
                     <tr>
                         <th>#</th>
@@ -70,7 +70,7 @@
                 </tbody>
             </table>
 
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center pb-5">
                 {{ $movimentos->links('pagination::bootstrap-4') }}
             </div>
         </div>

@@ -13,7 +13,7 @@
     ])
     @if($movimentos->count() != 0)
         <div class="col-md-10 mx-auto">
-            <table class="table table-hover">
+            <table class="table table-hover shadow-lg">
                 <thead class="text-md-center align-middle">
                     <tr>
                         <th>#</th>
