@@ -12,16 +12,20 @@ class StoreServidorRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'password' => 'required|string|min:8',
             'cpf' => 'required|regex:/^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/',
-            'matricula' => 'required|regex:/^[0-9]{9}$/',
+            'password' => 'required|string|min:8',
+            'matricula' => 'required|numeric|digits:9|unique:users',
+            'cargo_id' => 'required',
+            'role_id'   => 'required',
         ];
     }
 
-    public function failedValidation(Validator $validator)
+    public function messages(): array
     {
-        $errors = $validator->errors();
-        return redirect()->back()->withErrors($errors)->withInput();
+        return [
+            'matricula.min' => 'O número da matrícula deve ser no mínimo de 9.',
+            'matricula.numeric' => 'A matricula precisa ser numerica'
+        ];
     }
 
 }

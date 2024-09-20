@@ -8,7 +8,7 @@
 @section('content')
     @include('layouts.components.searchbar', [
         'title' => 'Servidores',
-        //'addButtonModal' => 'create-servidor-modal',
+        'addButtonModal' => 'create-servidor-modal',
         'searchForm' => route('servidor.buscar'),
     ])
 
@@ -65,9 +65,8 @@
             ['type' => 'text', 'name' => 'cpf', 'id' => 'cpf', 'label' => 'CPF:'],
             ['type' => 'text', 'name' => 'matricula', 'id' => 'matricula', 'label' => 'Matrícula:'],
             ['type' => 'checkbox', 'name' => 'cargo_id', 'id' => 'cargo_id', 'label' => 'Cargo:', 'options' => $cargos->pluck('nome', 'id'), 'placeholder' => 'Selecione um cargo'],
-            ['type' => 'select', 'name' => 'role_id', 'id' => 'role', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
-            ['type' => 'password', 'name' => 'password', 'id' => 'password', 'label' => 'Senha:'],
-            ['type' => 'password', 'name' => 'confirm_password', 'id' => 'confirm_password', 'label' => 'Confirmar senha:'],
+            ['type' => 'select', 'name' => 'role_id', 'id' => 'role_id', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
+            ['type' => 'password', 'name' => 'password', 'id' => 'password', 'label' => 'Senha:', 'value' => 'password'],
         ],
     ])
 
@@ -113,11 +112,11 @@
         const editModal = $('#edit-servidor-modal');
         const updateRoute = "{{ route('servidor.update', ['id' => ':id']) }}";
         const deleteRoute = "{{ route('servidor.delete', ['id' => ':id']) }}";
-        var servidorId = 0;
+        let servidorId;
 
         $(document).ready(function() {
             editModal.on('show.bs.modal', function(event) {
-                var formAction = updateRoute.replace(':id', servidorId);
+                let formAction = updateRoute.replace(':id', servidorId);
                 editModal.find('form').attr('action', formAction);
                 $('#name-edit').val(dados['name'][servidorId]);
                 $('#email-edit').val(dados['email'][servidorId]);

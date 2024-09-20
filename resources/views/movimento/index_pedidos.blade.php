@@ -44,7 +44,7 @@
                                 {{array_search($movimento->tipo, $movimento::$tipos)}}
                             </td>
                             <td class="py-4">
-                                {{$movimento->patrimonios()->pluck('nome')}}
+                                {{$movimento->patrimonios()->value('nome')}}
                             </td>
                             <td class="py-4">
                                 <div class="d-flex justify-content-center">

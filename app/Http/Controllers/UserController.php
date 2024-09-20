@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -32,9 +33,12 @@ class UserController extends Controller
 
     public function store(StoreServidorRequest $request)
     {
-        $user = User::make($request->except('password'));
-        $user->password = Hash::make($request->password);
-        $user->save();
+        DB::transaction(function () use($request) {
+            $user = User::create(array_merge($request->all(), ['password' => Hash::make($request->password), 'ativo' => true]));
+            $user->roles()->sync($request->role_id);
+            $user->cargos()->sync($request->cargo_id);
+
+        });
 
         return redirect()->route('servidor.index')->with('success', 'Servidor Cadastrado com Sucesso!');
 
@@ -51,14 +55,16 @@ class UserController extends Controller
 
     public function update(UpdateServidorRequest $request, $id)
     {
+        DB::transaction(function() use($request, $id){
+            $user = User::findOrFail($id);
+            $validatedData = $request->validated();
 
-        $user = User::findOrFail($id);
-        $validatedData = $request->validated();
 
+            $user->update($validatedData);
+            $user->roles()->sync($request->role_id);
+            $user->cargos()->sync($request->cargo_id);
 
-        $user->update($validatedData);
-        $user->roles()->sync($request->role_id);
-        $user->cargos()->sync($request->cargo_id);
+        });
 
         return redirect()->route('servidor.index')->with('success', 'Servidor editado com Sucesso!');
     }

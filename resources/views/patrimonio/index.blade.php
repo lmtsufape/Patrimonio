@@ -14,10 +14,11 @@
 
     <div class="col-md-10 mx-auto">
         @include('layouts.components.table', [
-            'header' => ['ID', 'Nome', 'Prédio', 'Sala', 'Ações'],
+            'header' => ['ID', 'Nome', 'Código', 'Prédio', 'Sala', 'Ações'],
             'content' => [
                 $patrimonios->pluck('id'),
                 $patrimonios->pluck('nome'),
+                $patrimonios->pluck('codigos.*.codigo'),
                 $patrimonios->pluck('sala.predio.nome'),
                 $patrimonios->pluck('sala.nome'),
             ],
@@ -46,7 +47,7 @@
         <div class="d-flex justify-content-center">
             {{ $patrimonios->links('pagination::bootstrap-4') }}
         </div>
-    </div> 
+    </div>
 
     @include('layouts.components.modais.filter-modal', [
         'modalTitle' => 'Filtrar patrimônio',
@@ -64,7 +65,7 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar este Patrimonio?',
-        'route' => route('patrimonio.delete', ['patrimonio_id' => 'id']), 
+        'route' => route('patrimonio.delete', ['patrimonio_id' => 'id']),
     ])
 
 @endsection
@@ -75,7 +76,7 @@
     <script>
         var patrimonioId = 0;
         const patrimonioDeleteRoute = "http://127.0.0.1:8000/patrimonio/id/delete";
-            
+
         function openDeleteModal(id) {
             patrimonioId = id;
             $('#deleteConfirmationModal').modal('show');

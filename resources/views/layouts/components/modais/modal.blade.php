@@ -24,11 +24,11 @@
                                 <label for="{{ $field['id'] . "-$type" }}" class="form-label">
                                     {{ $field['label'] }}
                                 </label>
-                                <input type="{{ $field['type'] }}" id="{{ $field['id'] . "-$type" }}" name="{{ $field['name'] }}" class="form-control @error($field['name']) is-invalid @enderror" value="{{old($field['id'])}}" required>
+                                <input type="{{ $field['type'] }}" id="{{ $field['id'] . "-$type" }}" name="{{ $field['name'] }}" class="form-control @error($field['name']) is-invalid @enderror" value="{{$field['value'] ?? old($field['id']) ?? ''}}">
                                 @error($field['name'])
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         @elseif ($field['type'] == 'hidden')
@@ -40,14 +40,14 @@
                                     class="form-label">{{ $field['label'] ?? $field['name'] }}</label>
 
                                 <select type="{{ $field['type'] }}" class="form-control  @error($field['name']) is-invalid @enderror" id="{{ $field['id'] . "-$type" }}"
-                                    name="{{ $field['name'] }}" required>
+                                    name="{{ $field['name'] }}">
 
                                     <option value="" selected disabled>{{ $field['placeholder'] }}</option>
                                     @foreach ($field['options'] as $i => $option)
                                         <option value="{{ $i }}" @if(old($field['name']) == $i) selected @endif>{{ $option }}</option>
                                     @endforeach
                                     @error($field['name'])
-                                        <span class="invalid-feedback">
+                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
@@ -63,7 +63,9 @@
                                     </div>
                                 @endforeach
                                 @error($field['name'])
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         @endif

@@ -42,7 +42,7 @@
             <h4>Dados dos Patrimônios</h4>
             @foreach($movimento->patrimonios as $patrimonio)
                 <p><strong>Nome: </strong>{{$patrimonio->nome}}</p>
-
+                <p><strong>Código: </strong> {!! $patrimonio->codigos->implode('codigo','<br>') !!}</p>
             @endforeach
         </div>
         <div class="col-md-5 border-start-blue">

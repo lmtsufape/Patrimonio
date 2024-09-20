@@ -15,7 +15,7 @@
                         @if (is_array($columnSet[$i]))
                             @if (!empty($columnSet[$i]))
                                 <td class="py-4">
-                                    {{ implode(', ', $columnSet[$i]) }}
+                                    {!! implode('<br>', $columnSet[$i]) !!}
                                 </td>
                             @else
                                 <td class="py-4">
