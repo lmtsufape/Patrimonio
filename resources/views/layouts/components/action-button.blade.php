@@ -3,7 +3,7 @@
         <img src="{{ $img }}" alt="Ícone de Ação">
     </button>
 @elseif ($type == 'edit')
-    <button class="btn p-0" onclick="openEditModal({{ $id }})">
+    <button class="btn p-0" data-bs-toggle="modal" data-bs-target="#{{$modalId . $id}}" entidade-id="{{$id}}">
         <img src="{{ $acao['img'] }}" alt="Ícone de Ação">
     </button>
 @else
@@ -11,3 +11,14 @@
         <img src="{{ $acao['img'] }}" alt="Ícone de Ação">
     </a>
 @endif
+
+@push('modais')
+    @include('layouts.components.modais.modal', [
+        'modalId' => $modalId . $id,
+        'modalTitle' => $modalTitle,
+        'type' => $type,
+        'formAction' => $formAction,
+        'fields' => $modalInputs
+    ])
+
+@endpush

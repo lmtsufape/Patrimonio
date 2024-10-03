@@ -19,7 +19,8 @@ class UserController extends Controller
     {
         $servidores = User::OrderBy('id')->paginate(10);
         $cargos = Cargo::all();
-        $roles = Role::where('nome', '<>', 'Administrador')->get();
+        $roles = Role::all();
+        
         return view('servidor.index', compact('servidores', 'cargos', 'roles'));
     }
 

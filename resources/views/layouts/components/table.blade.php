@@ -10,27 +10,36 @@
 
         <tbody>
             @foreach ($content[0] as $i => $id)
-                <tr class="text-md-center">
+                <tr>
                     @foreach ($content as $columnSet)
                         @if (is_array($columnSet[$i]))
                             @if (!empty($columnSet[$i]))
-                                <td class="py-4">
+                                <td class="text-center py-4">
                                     {!! implode('<br>', $columnSet[$i]) !!}
                                 </td>
                             @else
-                                <td class="py-4">
+                                <td class="text-center py-4">
                                     N/A
                                 </td>
                             @endif
                         @else
-                            <td class="py-4">{{ $columnSet[$i] }}</td>
+                            <td class="text-center py-4">{{ $columnSet[$i] }}</td>
                         @endif
                     @endforeach
 
                     <td class="py-4">
                         <div class="d-flex justify-content-center">
                             @foreach ($acoes as $acao)
-                                @include('layouts.components.action-button', ['link' => route($acao['link'], [$acao['param'] => $id]), 'img' => $acao['img'], 'type' => $acao['type'], 'id' => $id])
+                               @include('layouts.components.action-button', [
+                                                                                'modalId' => $acao['modalId'],
+                                                                                'modalTitle' => $acao['modalTitle'],
+                                                                                'formAction' => route($acao['link'], [$acao['param'] => $id]),
+                                                                                'link' => route($acao['link'], [$acao['param'] => $id]),
+                                                                                'img' => $acao['img'],
+                                                                                'type' => $acao['type'],
+                                                                                'id' => $id,
+                                                                                'modalInputs' => $acao['modalInputs']
+                                                                            ])
                             @endforeach
                         </div>
                     </td>

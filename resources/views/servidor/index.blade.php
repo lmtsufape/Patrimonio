@@ -29,18 +29,36 @@
             ],
             'acoes' => [
                 [
-                    'link' => 'servidor.edit',
+                    'modalId' => 'edit-servidor-modal',
+                    'modalTitle' => 'Editar servidor',
+                    'modalInputs' => [
+                                        ['type' => 'text', 'name' => 'name', 'id' => 'name', 'label' => 'Nome:'],
+                                        ['type' => 'email', 'name' => 'email', 'id' => 'email', 'label' => 'E-mail:'],
+                                        ['type' => 'text', 'name' => 'cpf', 'id' => 'cpf', 'label' => 'CPF:'],
+                                        ['type' => 'text', 'name' => 'matricula', 'id' => 'matricula', 'label' => 'Matrícula:'],
+                                        ['type' => 'checkbox', 'name' => 'cargo_id', 'id' => 'cargo_id', 'label' => 'Cargo:', 'options' => $cargos->pluck('nome', 'id'), 'placeholder' => 'Selecione um cargo'],
+                                        ['type' => 'select', 'name' => 'role_id', 'id' => 'role_id', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
+                                    ],
+                    'link' => 'servidor.update',
                     'param' => 'id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
                 [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar esse servidor?',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'servidor.delete',
                     'param' => 'id',
                     'img' => asset('/images/delete.png'),
                     'type' => 'delete',
                 ],
                 [
+                    'modalId' => 'teste',
+                    'modalTitle' => 'teste',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'servidor.validar',
                     'param' => 'id',
                     'img' => asset('/assets/person-fill-check.svg'),
@@ -53,6 +71,8 @@
             {{ $servidores->links('pagination::bootstrap-4') }}
         </div>
     </div>
+
+    @stack('modais')
 
     @include('layouts.components.modais.modal', [
         'modalId' => 'create-servidor-modal',
@@ -69,27 +89,13 @@
             ['type' => 'password', 'name' => 'password', 'id' => 'password', 'label' => 'Senha:', 'value' => 'password'],
         ],
     ])
-
-    @include('layouts.components.modais.modal', [
-        'modalId' => 'edit-servidor-modal',
-        'modalTitle' => 'Editar servidor',
-        'type' => 'edit',
-        'formAction' => route('servidor.update', ['id' => ':id']),
-        'fields' => [
-            ['type' => 'text', 'name' => 'name', 'id' => 'name', 'label' => 'Nome:'],
-            ['type' => 'email', 'name' => 'email', 'id' => 'email', 'label' => 'E-mail:'],
-            ['type' => 'text', 'name' => 'cpf', 'id' => 'cpf', 'label' => 'CPF:'],
-            ['type' => 'text', 'name' => 'matricula', 'id' => 'matricula', 'label' => 'Matrícula:'],
-            ['type' => 'checkbox', 'name' => 'cargo_id', 'id' => 'cargo_id', 'label' => 'Cargo:', 'options' => $cargos->pluck('nome', 'id'), 'placeholder' => 'Selecione um cargo'],
-            ['type' => 'select', 'name' => 'role_id', 'id' => 'role', 'label' => 'Tipo do usuário:', 'options' => $roles->pluck('nome', 'id'), 'placeholder' => 'Selecione um tipo de usuário'],
-        ]
-    ])
-
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
-        'modalTitle' => 'Tem certeza que deseja apagar esse servidor ?',
-        'route' => route('servidor.delete', ['id' => ':id']),
+        'modalTitle' => 'Tem certeza que deseja apagar esse servidor?',
+        'route' => route('servidor.delete', ['id' => 'id']),
     ])
+
+
 @endsection
 
 @php
@@ -109,40 +115,47 @@
 @push('scripts')
     <script>
         const dados = {!! json_encode($dados) !!};
-        const editModal = $('#edit-servidor-modal');
-        const updateRoute = "{{ route('servidor.update', ['id' => ':id']) }}";
         const deleteRoute = "{{ route('servidor.delete', ['id' => ':id']) }}";
         let servidorId;
 
-        $(document).ready(function() {
-            editModal.on('show.bs.modal', function(event) {
-                let formAction = updateRoute.replace(':id', servidorId);
-                editModal.find('form').attr('action', formAction);
-                $('#name-edit').val(dados['name'][servidorId]);
-                $('#email-edit').val(dados['email'][servidorId]);
-                $('#cpf-edit').val(dados['cpf'][servidorId]);
-                $('#matricula-edit').val(dados['matricula'][servidorId]);
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let modalId = button.getAttribute('data-bs-target');
+                let modalElement = document.querySelector(modalId);
 
-                $('#role-edit option').prop('selected', false);
-                $('#role-edit').val(dados['role'][servidorId]);
+                let entidadeId = button.getAttribute('entidade-id');
 
-                $('input[type="checkbox"]').prop('checked', false);
+                modalElement.querySelector('#name-edit').value = dados['name'][entidadeId];
+                modalElement.querySelector('#email-edit').value = dados['email'][entidadeId];
+                modalElement.querySelector('#cpf-edit').value = dados['cpf'][entidadeId];
+                modalElement.querySelector('#matricula-edit').value = dados['matricula'][entidadeId];
 
-                dados['cargos'][servidorId].forEach(element => {
-                    $('#cargo_id-edit-' + element).prop('checked', true);
+                let roleElement = modalElement.querySelector('#role_id-edit');
+                roleElement.querySelectorAll('option').forEach(function(option) {
+                    option.selected = false;
                 });
-            });
+                roleElement.value = dados['role'][entidadeId];
+                console.log(dados);
 
-            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = deleteRoute.replace(':id', servidorId);
-                $(this).find('form').attr('action', formAction);
+                modalElement.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+
+                dados['cargos'][entidadeId].forEach(function(cargoId) {
+                    let cargoCheckbox = modalElement.querySelector('#cargo_id-edit-' + cargoId);
+                    if (cargoCheckbox) {
+                        cargoCheckbox.checked = true;
+                    }
+                });
             });
         });
 
-        function openEditModal(id) {
-            servidorId = id;
-            editModal.modal('show');
-        }
+        $(document).ready(function() {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                    var formAction = deleteRoute.replace(':id', servidorId);
+                    $(this).find('form').attr('action', formAction);
+                });
+            });
 
         function openDeleteModal(id) {
             servidorId = id;

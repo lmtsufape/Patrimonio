@@ -92,7 +92,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{id}/editar', 'edit')->name('edit');
         Route::put('/{id}/update', 'update')->name('update');
-        Route::get('/{id}/delete', 'delete')->name('delete');
+        Route::delete('/{id}/delete', 'delete')->name('delete');
         Route::get('/{id}/validar', 'validar')->name('validar')->middleware('check-role:Administrador,Diretor');
         Route::get('/search', 'search')->name('buscar');
 
