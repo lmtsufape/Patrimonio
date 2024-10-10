@@ -135,7 +135,6 @@
                     option.selected = false;
                 });
                 roleElement.value = dados['role'][entidadeId];
-                console.log(dados);
 
                 modalElement.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
                     checkbox.checked = false;

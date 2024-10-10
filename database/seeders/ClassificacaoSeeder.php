@@ -15,7 +15,11 @@ class ClassificacaoSeeder extends Seeder
      */
     public function run()
     {
-        Classificacao::factory(1)->create();
+        Classificacao::factory(1)->create([
+            'nome' => 'APARELHOS DE MEDIÇÃO E ORIENTAÇÃO',
+            'residual' => 10,
+            'vida_util' => 180
+        ]);
         Classificacao::factory(1)->create([
             'nome' => 'APARELHOS E EQUIPAMENTOS DE COMUNICAÇÃO',
             'residual' => 20,

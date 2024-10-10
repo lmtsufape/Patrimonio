@@ -18,10 +18,7 @@ class ClassificacaoFactory extends Factory
     public function definition()
     {
         return [
-            'nome' => 'APARELHOS DE MEDIÇÃO E ORIENTAÇÃO',
             'codigo' => Str::random(10),
-            'residual' => 10,
-            'vida_util' => 180
         ];
     }
 }

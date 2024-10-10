@@ -27,18 +27,37 @@
                 $subgrupos->pluck('nome'),
                 $subgrupos->pluck('marca'),
                 $subgrupos->pluck('modelo'),
-                $subgrupos->map(function ($subgrupo) {
-                    return $subgrupo->classificacao->nome;
-                }),
+                $subgrupos->pluck('classificacao.nome')
             ],
             'acoes' => [
                 [
-                    'link' => 'subgrupo.edit',
+                    'modalId' => 'editarSubgrupoModal',
+                    'modalTitle' => 'Editar Subgrupo',
+                    'modalInputs' => [
+                                        ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
+                                        ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
+                                        ['name' => 'modelo', 'id' => 'modelo', 'type' => 'text', 'label' => 'Modelo:'],
+                                        [
+                                            'name' => 'classificacao_id',
+                                            'id' => 'classificacao',
+                                            'type' => 'select',
+                                            'label' => 'Classificação:',
+                                            'options' => $classificacoes->pluck('nome', 'id'),
+                                            'placeholder' => 'Escolha uma Classificação'
+                                        ],
+                                    ],
+                    'link' => 'subgrupo.update',
                     'param' => 'subgrupo_id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
-                ['link' => 'subgrupo.delete', 'param' => 'subgrupo_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
+                [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar este Subgrupo?',
+                    'modalInputs' => [
+
+                                    ],
+                    'link' => 'subgrupo.delete', 'param' => 'subgrupo_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
             ],
         ])
 
@@ -47,45 +66,22 @@
         </div>
     </div>
 
+    @stack('modais')
+
         @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarSubgrupoModal',
         'modalTitle' => 'Cadastrar Subgrupo',
         'formAction' => route('subgrupo.store'),
         'type'=> 'create',
         'fields' => [
-            ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
-            ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
-            ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
-            [
-                'name' => 'classificacao_id',
-                'id' => 'classificacao_id',
-                'type' => 'select',
-                'label' => 'Classificação:',
-                'options' => $classificacoes->pluck('nome'),
-                'placeholder' => 'Escolha uma Classificação'
+                ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
+                ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
+                ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
+                ['name' => 'classificacao_id', 'id' => 'classificacao', 'type' => 'select', 'label' => 'Classificação:', 'options' => $classificacoes->pluck('nome', 'id'), 'placeholder' => 'Escolha uma Classificação'
+                ],
             ],
-        ],
-    ])
+        ])
 
-    @include('layouts.components.modais.modal', [
-        'modalId' => 'editarSubgrupoModal',
-        'modalTitle' => 'Editar Subgrupo',
-        'formAction' => route('subgrupo.update', ['subgrupo_id' => 'id']),
-        'type'=> 'edit',
-        'fields' => [
-            ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
-            ['name' => 'marca', 'id' => 'marca', 'type' => 'text', 'label' => 'Marca:'],
-            ['name' => 'modelo', 'id' => 'Modelo', 'type' => 'text', 'label' => 'Modelo:'],
-            [
-                'name' => 'classificacao_id',
-                'id' => 'classificacao_id',
-                'type' => 'select',
-                'label' => 'Classificação:',
-                'options' => $classificacoes->pluck('nome'),
-                'placeholder' => 'Escolha uma Classificação'
-            ],
-        ],
-    ])
 
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
@@ -95,29 +91,39 @@
 
 @endsection
 
+@php
+    $dados = [
+        'nome' => $subgrupos->pluck('nome', 'id'),
+        'marca' => $subgrupos->pluck('marca', 'id'),
+        'modelo' => $subgrupos->pluck('modelo', 'id'),
+        'classificacao' => $subgrupos->pluck('classificacao_id', 'id'),
+    ];
+
+@endphp
+
 @push('scripts')
 
     <script>
         var subgrupoId = 0;
-        const subgruposNome = {!! json_encode($subgrupos->pluck('nome', 'id')) !!};
-        const subgruposMarca = {!! json_encode($subgrupos->pluck('marca', 'id')) !!};
-        const subgruposModelo = {!! json_encode($subgrupos->pluck('modelo', 'id')) !!};
-        const subgruposClassificacao = {!! json_encode($subgrupos->pluck('classificacao_id', 'id')) !!};
+        const dados = {!! json_encode($dados) !!};
 
-        $(document).ready(function () {
-            $('#editarSubgrupoModal').on('show.bs.modal', function(event) {
-                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', subgrupoId));
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let modalId = button.getAttribute('data-bs-target');
+                let modalElement = document.querySelector(modalId);
+
+                let entidadeId = button.getAttribute('entidade-id');
+
+                modalElement.querySelector('#nome-edit').value = dados['nome'][entidadeId];
+                modalElement.querySelector('#marca-edit').value = dados['marca'][entidadeId];
+                modalElement.querySelector('#modelo-edit').value = dados['modelo'][entidadeId];
+                let classificacaoElement = modalElement.querySelector('#classificacao-edit');
+                classificacaoElement.querySelectorAll('option').forEach(function(option) {
+                    option.selected = false;
+                });
+                classificacaoElement.value = dados['classificacao'][entidadeId];
             });
         });
-
-        function openEditModal(id) {
-            subgrupoId = id;
-            $('#editarSubgrupoModal').modal('show');
-            $('#nome-edit').val(subgruposNome[subgrupoId]);
-            $('#marca-edit').val(subgruposMarca[subgrupoId]);
-            $('#Modelo-edit').val(subgruposModelo[subgrupoId]);
-            $('#classificacao_id-edit').val(subgruposClassificacao[subgrupoId]);
-        }
 
         function openDeleteModal(id) {
             subgrupoId = id;

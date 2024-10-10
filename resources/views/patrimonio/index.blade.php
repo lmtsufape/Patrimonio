@@ -24,18 +24,30 @@
             ],
             'acoes' => [
                 [
+                    'modalId' => '',
+                    'modalTitle' => '',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'patrimonio.edit',
                     'param' => 'patrimonio_id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'editLink',
                 ],
                 [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar este Patrimônio?',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'patrimonio.delete',
                     'param' => 'patrimonio_id',
                     'img' => asset('/images/delete.png'),
                     'type' => 'delete',
                 ],
                 [
+                    'modalId' => '',
+                    'modalTitle' => '',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'patrimonio.patrimonio',
                     'param' => 'patrimonio_id',
                     'img' => asset('/images/info.png'),
@@ -48,6 +60,8 @@
             {{ $patrimonios->links('pagination::bootstrap-4') }}
         </div>
     </div>
+
+    @stack('modais')
 
     @include('layouts.components.modais.filter-modal', [
         'modalTitle' => 'Filtrar patrimônio',
@@ -65,7 +79,7 @@
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar este Patrimonio?',
-        'route' => route('patrimonio.delete', ['patrimonio_id' => 'id']),
+        'route' => route('patrimonio.delete', ['patrimonio_id' => ':id']),
     ])
 
 @endsection
@@ -75,7 +89,7 @@
 
     <script>
         var patrimonioId = 0;
-        const patrimonioDeleteRoute = "http://127.0.0.1:8000/patrimonio/id/delete";
+        const patrimonioDeleteRoute = "{{ route('patrimonio.delete', ['patrimonio_id' => ':id']) }}";
 
         function openDeleteModal(id) {
             patrimonioId = id;
@@ -84,7 +98,7 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                var formAction = patrimonioDeleteRoute.replace('id', patrimonioId);
+                var formAction = patrimonioDeleteRoute.replace(':id', patrimonioId);
                 $(this).find('form').attr('action', formAction);
             });
         });

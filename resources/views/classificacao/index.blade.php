@@ -22,8 +22,25 @@
                 $classificacaos->pluck('vida_util')
             ],
             'acoes' => [
-                ['type' => 'edit' , 'link' => 'classificacao.edit', 'param' => 'classificacao_id', 'img' => asset('/images/pencil.png')],
-                ['type' => 'delete' , 'link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
+                [
+                    'modalId' => 'editarClassificacaoModal',
+                    'modalTitle' => 'Editar Classificação',
+                    'modalInputs' => [
+                                        ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:'],
+                                        ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
+                                        ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
+                                        ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
+                                    ],
+                    'type' => 'edit' ,
+                    'link' => 'classificacao.update',
+                    'param' => 'classificacao_id',
+                    'img' => asset('/images/pencil.png')],
+                [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar esta classificação?',
+                    'modalInputs' => [
+                                    ],
+                    'type' => 'delete' , 'link' => 'classificacao.delete', 'param' => 'classificacao_id', 'img' => asset('/images/delete.png')]
             ],
         ])
 
@@ -31,6 +48,8 @@
             {{ $classificacaos->links('pagination::bootstrap-4') }}
         </div>
     </div>
+
+    @stack('modais')
 
     @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarClassificacaoModal',
@@ -45,62 +64,53 @@
         ]
     ])
 
-    @include('layouts.components.modais.modal', [
-        'modalId' => 'editarClassificacaoModal',
-        'modalTitle' => 'Editar Classificação',
-        'type' => 'edit',
-        'formAction' => route('classificacao.update', ['classificacao_id' => 'id']),
-        'fields' => [
-            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:'],
-            ['type' => 'text','name' => 'codigo', 'id' => 'codigo',  'label' => 'Código'],
-            ['type' => 'text','name' => 'residual', 'id' => 'residual',  'label' => 'Valor residual em meses (%):'],
-            ['type' => 'text','name' => 'vida_util', 'id' => 'vida_util',  'label' => 'Vida útil (em meses):']
-        ]
-    ])
 
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar esta classificação?',
-        'route' => route('classificacao.delete', ['classificacao_id' => 'id']),
+        'route' => route('classificacao.delete', ['classificacao_id' => ':id']),
     ])
 @endsection
+@php
+    $dados = [
+        'nome' => $classificacaos->pluck('nome', 'id'),
+        'codigo' => $classificacaos->pluck('codigo', 'id'),
+        'residual' => $classificacaos->pluck('residual', 'id'),
+        'vidaUtil' => $classificacaos->pluck('vida_util', 'id'),
+    ];
+@endphp
 
 @push('scripts')
     <script>
         var classificacaoId = 0;
-        const classificacao = {!!json_encode($classificacaos->pluck('nome', 'id'))!!}
-        const codigo = {!!json_encode($classificacaos->pluck('codigo', 'id'))!!}
-        const residual = {!!json_encode($classificacaos->pluck('residual', 'id'))!!}
-        const vidaUtil = {!!json_encode($classificacaos->pluck('vida_util', 'id'))!!}
+        const dados = {!!json_encode($dados)!!}
+        const deleteRoute = "{{ route('classificacao.delete', ['classificacao_id' => ':id']) }}";
 
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let modalId = button.getAttribute('data-bs-target');
+                let modalElement = document.querySelector(modalId);
+
+                let entidadeId = button.getAttribute('entidade-id');
+
+                modalElement.querySelector('#nome-edit').value = dados['nome'][entidadeId];
+                modalElement.querySelector('#codigo-edit').value = dados['codigo'][entidadeId];
+                modalElement.querySelector('#residual-edit').value = dados['residual'][entidadeId];
+                modalElement.querySelector('#vida_util-edit').value = dados['vidaUtil'][entidadeId];
+            });
+        });
+
+        $(document).ready(function () {
+            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
+                $(this).find('form').attr('action', $(this).find('form').attr('action').replace(':id', classificacaoId));
+
+            });
+        });
 
         function openDeleteModal(id) {
             classificacaoId = id;
             $('#deleteConfirmationModal').modal('show');
         }
-
-        $(document).ready(function () {
-            $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', classificacaoId));
-
-            });
-        });
-
-
-            function openEditModal(id) {
-                classificacaoId = id;
-                $('#editarClassificacaoModal').modal('show');
-            }
-
-            $(document).ready(function () {
-                $('#editarClassificacaoModal').on('show.bs.modal', function(event) {
-                    $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', classificacaoId));
-                    $('#nome-edit').val(classificacao[classificacaoId]);
-                    $('#codigo-edit').val(codigo[classificacaoId]);
-                    $('#residual-edit').val(residual[classificacaoId]);
-                    $('#vida_util-edit').val(vidaUtil[classificacaoId]);
-                });
-            });
 
     </script>
 @endpush

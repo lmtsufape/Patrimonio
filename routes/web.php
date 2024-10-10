@@ -117,7 +117,7 @@ Route::middleware(['auth', 'valid:true'])->group(function () {
         Route::post('/store', 'store')->name('store');
         Route::get('/{patrimonio_id}/editar', 'edit')->name('edit');
         Route::put('/update/{id}', 'update')->name('update');
-        Route::get('/{patrimonio_id}/delete', 'delete')->name('delete');
+        Route::delete('/{patrimonio_id}/delete', 'delete')->name('delete');
         Route::get('/{patrimonio_id}/restore', 'restore')->name('restore');
         Route::get('/{patrimonio_id}/codigos', 'codigosPatrimonio')->name('codigo.index');
         Route::get('/codigos/{codigo_id}/delete', 'codigoDelete')->name('codigo.delete');

@@ -26,12 +26,38 @@
             ],
             'acoes' => [
                 [
+                    'modalId' => 'editarUnidadeModal',
+                    'modalTitle' => 'Editar Unidade Administrativa',
+                    'modalInputs' => [
+                                        ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
+                                        ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text', 'label' => 'Codigo:'],
+                                        [
+                                            'name' => 'predio_id',
+                                            'id' => 'predio',
+                                            'type' => 'select',
+                                            'label' => 'Prédio:',
+                                            'placeholder' => 'Selecione o Prédio',
+                                            'options' => $predios->pluck('nome', 'id'),
+                                        ],
+                                        [
+                                            'name' => 'unidade_admin_pai_id',
+                                            'id' => 'unidade_admin_pai',
+                                            'type' => 'select',
+                                            'label' => 'Unidade:',
+                                            'placeholder' => 'Selecione a Unidade',
+                                            'options' => $unidadesAll->pluck('nome', 'id'),
+                                        ],
+                                    ],
                     'link' => 'unidade.edit',
                     'param' => 'unidade_admin_id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
                 [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar essa Unidade Administrativa?',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'unidade.delete',
                     'param' => 'unidade_admin_id',
                     'img' => asset('/images/delete.png'),
@@ -45,6 +71,8 @@
     </div>
     </div>
     </div>
+
+    @stack('modais')
 
     @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarUnidadeModal',
@@ -71,33 +99,6 @@
         ],
     ])
 
-    @include('layouts.components.modais.modal', [
-        'modalId' => 'editarUnidadeModal',
-        'modalTitle' => 'Editar Unidade Administrativa',
-        'formAction' => route('unidade.update', ['unidade_admin_id' => ':id']),
-        'type' => 'edit',
-        'fields' => [
-            ['name' => 'nome', 'id' => 'nome', 'type' => 'text', 'label' => 'Nome:'],
-            ['name' => 'codigo', 'id' => 'codigo', 'type' => 'text', 'label' => 'Codigo:'],
-            [
-                'name' => 'predio_id',
-                'id' => 'predio',
-                'type' => 'select',
-                'label' => 'Prédio:',
-                'placeholder' => 'Selecione o Prédio',
-                'options' => $predios->pluck('nome', 'id'),
-            ],
-            [
-                'name' => 'unidade_admin_pai_id',
-                'id' => 'unidade_admin_pai',
-                'type' => 'select',
-                'label' => 'Unidade:',
-                'placeholder' => 'Selecione a Unidade',
-                'options' => $unidadesAll->pluck('nome', 'id'),
-            ],
-        ],
-    ])
-
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar essa Unidade Administrativa?',
@@ -105,37 +106,50 @@
     ])
 @endsection
 
+@php
+    $dados = [
+        'nome' => $unidades->pluck('nome', 'id'),
+        'codigo' => $unidades->pluck('codigo', 'id'),
+        'predio' => $unidades->pluck('predio_id', 'id'),
+        'unidade' => $unidades->pluck('unidade_admin_pai_id', 'id'),
+    ];
+
+@endphp
+
 @push('scripts')
     <script>
         var unidadeId = 0;
-        const unidadesNome = {!! json_encode($unidades->pluck('nome', 'id')) !!};
-        const unidadesCodigo = {!! json_encode($unidades->pluck('codigo', 'id')) !!};
-        const unidadesPredio = {!! json_encode($unidades->pluck('predio_id', 'id')) !!}
-        const unidadesPai = {!! json_encode($unidadesAll->pluck('unidade_admin_pai_id', 'id')) !!}
+        const dados = {!! json_encode($dados) !!};
+        const deleteRoute = "{{ route('unidade.delete', ['unidade_admin_id' => ':id']) }}";
+
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let modalId = button.getAttribute('data-bs-target');
+                let modalElement = document.querySelector(modalId);
+
+                let entidadeId = button.getAttribute('entidade-id');
+
+                modalElement.querySelector('#nome-edit').value = dados['nome'][entidadeId];
+                modalElement.querySelector('#codigo-edit').value = dados['codigo'][entidadeId];
+                modalElement.querySelector('#predio-edit').value = dados['predio'][entidadeId];
+                let unidadeElement = modalElement.querySelector('#unidade_admin_pai-edit');
+                unidadeElement.querySelectorAll('option').forEach(function(option) {
+                    option.selected = false;
+                });
+                unidadeElement.value = dados['unidade'][entidadeId];
+            });
+        });
 
         function openDeleteModal(id) {
             unidadeId = id;
             $('#deleteConfirmationModal').modal('show');
         }
 
-        $(document).ready(function() {
-            $('#editarUnidadeModal').on('show.bs.modal', function(event) {
-                $(this).find('form').attr('action', $(this).find('form').attr('action').replace(':id', unidadeId));
-                $('#nome-edit').val(unidadesNome[unidadeId]);
-                $('#codigo-edit').val(unidadesCodigo[unidadeId]);
-                $('#predio-edit').val(unidadesPredio[unidadeId]);
-                $('#unidade_admin_pai-edit').val(unidadesPai[unidadeId]);
-
-            });
-
+        $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                $(this).find('form').attr('action', $(this).find('form').attr('action').replace(':id', unidadeId));
+                var formAction = deleteRoute.replace(':id', unidadeId);
+                $(this).find('form').attr('action', formAction);
             });
         });
-
-        function openEditModal(id) {
-            unidadeId = id;
-            $('#editarUnidadeModal').modal('show');
-        }
     </script>
 @endpush

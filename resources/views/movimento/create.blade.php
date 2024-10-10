@@ -212,7 +212,6 @@
 
         patrimonios.value = JSON.parse(localStorage.getItem('patrimoniosAdicionados'))
         if(patrimonios.value != ''){
-            console.log(patrimonios.value)
             patrimonios.value.split(",").forEach(function (patrimonioId, indice){
                 let exibirpatrimonio = patrimoniosData.find(function(element){
                         return element.id == patrimonioId}

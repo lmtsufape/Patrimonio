@@ -30,12 +30,24 @@
             ],
             'acoes' => [
                 [
-                    'link' => 'sala.edit',
+                    'modalId' => 'editarSalaModal',
+                    'modalTitle' => 'Editar Sala',
+                    'modalInputs' => [
+                        ['type' => 'hidden', 'name' => 'predio_id', 'id' => 'predio_id', 'value' => $predio->id],
+                        ['type' => 'text', 'name' => 'nome', 'id' => 'nome', 'label' => 'Nome:'],
+                        ['name' => 'telefone', 'id' => 'telefone', 'type' => 'text' , 'label' => 'Telefone:'],
+
+                                    ],
+                    'link' => 'sala.update',
                     'param' => 'sala_id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
                 [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar esta Sala?',
+                    'modalInputs' => [
+                                    ],
                     'link' => 'sala.delete',
                     'param' => 'sala_id',
                     'img' => asset('/images/delete.png'),
@@ -49,23 +61,13 @@
         </div>
     </div>
 
+    @stack('modais')
+
     @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarSalaModal',
         'modalTitle' => 'Cadastrar Sala',
         'formAction' => route('sala.store'),
         'type' => ('create'),
-        'fields' => [
-            ['type' => 'hidden', 'name' => 'predio_id', 'id' => 'predio_id', 'value' => $predio->id],
-            ['type' => 'text', 'name' => 'nome', 'id' => 'nome', 'label' => 'Nome:'],
-            ['name' => 'telefone', 'id' => 'telefone', 'type' => 'text' , 'label' => 'Telefone:'],
-        ]
-    ])
-
-    @include('layouts.components.modais.modal', [
-        'modalId' => 'editarSalaModal',
-        'modalTitle' => 'Editar Sala',
-        'formAction' => route('sala.update', ['sala_id' => 'id']),
-        'type' => ('edit'),
         'fields' => [
             ['type' => 'hidden', 'name' => 'predio_id', 'id' => 'predio_id', 'value' => $predio->id],
             ['type' => 'text', 'name' => 'nome', 'id' => 'nome', 'label' => 'Nome:'],
@@ -81,11 +83,32 @@
 
 @endsection
 
+@php
+  $dados = [
+        'nome' => $salas->pluck('nome', 'id'),
+        'telefone' => $salas->pluck('telefone', 'id'),
+
+    ];
+@endphp
+
 @push('scripts')
     <script>
         var salaId = 0;
-        const salasNome = {!! json_encode($salas->pluck('nome', 'id')) !!};
-        const salasTelefone = {!! json_encode($salas->pluck('telefone', 'id')) !!};
+        const dados = {!! json_encode($dados) !!};
+        const deleteRoute = "{{ route('sala.delete', ['sala_id' => ':id']) }}";
+
+
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let modalId = button.getAttribute('data-bs-target');
+                let modalElement = document.querySelector(modalId);
+
+                let entidadeId = button.getAttribute('entidade-id');
+
+                modalElement.querySelector('#nome-edit').value = dados['nome'][entidadeId];
+                modalElement.querySelector('#telefone-edit').value = dados['telefone'][entidadeId];
+            });
+        });
 
         $(document).ready(function () {
             $('#editarSalaModal').on('show.bs.modal', function(event) {
@@ -97,10 +120,6 @@
             });
         });
 
-        function openEditModal(id) {
-            salaId = id;
-            $('#editarSalaModal').modal('show');
-        }
 
         function openDeleteModal(id) {
             salaId = id;
@@ -109,7 +128,8 @@
 
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', salaId));
+                var formAction = deleteRoute.replace(':id', salaId);
+                $(this).find('form').attr('action', formAction);
             });
         });
     </script>

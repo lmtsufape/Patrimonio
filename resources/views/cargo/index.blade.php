@@ -22,12 +22,23 @@
             ],
             'acoes' => [
                 [
-                    'link' => 'cargo.edit',
+                    'modalId' => 'editarCargoModal',
+                    'modalTitle' => 'Editar Cargo',
+                    'modalInputs' => [
+                                        ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
+                                    ],
+                    'link' => 'cargo.update',
                     'param' => 'cargo_id',
                     'img' => asset('/images/pencil.png'),
                     'type' => 'edit',
                 ],
-                ['link' => 'cargo.delete', 'param' => 'cargo_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
+                [
+                    'modalId' => 'deleteConfirmationModal',
+                    'modalTitle' => 'Tem certeza que deseja apagar este Cargo?',
+                    'modalInputs' => [
+
+                                    ],
+                    'link' => 'cargo.delete', 'param' => 'cargo_id', 'img' => asset('/images/delete.png') , 'type' => 'delete'],
             ],
         ])
 
@@ -36,6 +47,7 @@
         </div>
     </div>
 
+    @stack('modais')
 
     @include('layouts.components.modais.modal', [
         'modalId' => 'cadastrarCargoModal',
@@ -47,50 +59,50 @@
         ]
     ])
 
-    @include('layouts.components.modais.modal', [
-        'modalId' => 'editarCargoModal',
-        'modalTitle' => 'Editar Cargo',
-        'formAction' => route('cargo.update', ['cargo_id' => 'id']),
-        'type' => ('edit'),
-        'fields' => [
-            ['type' => 'text','name' => 'nome', 'id' => 'nome',  'label' => 'Nome:']
-        ]
-    ])
-
     @include('layouts.components.modais.modal_delete', [
         'modalId' => 'deleteConfirmationModal',
         'modalTitle' => 'Tem certeza que deseja apagar este Cargo?',
-        'route' => route('cargo.delete', ['cargo_id' => 'id']),
+        'route' => route('cargo.delete', ['cargo_id' => ':id']),
     ])
 
 @endsection
 
+@php
+    $dados = [
+        'nome' => $cargos->pluck('nome', 'id'),
+    ];
+
+@endphp
+
 @push('scripts')
     <script>
-        const editModal = $('#editarCargoModal');
+        const dados = {!! json_encode($dados) !!};
+        const deleteRoute = "{{ route('cargo.delete', ['cargo_id' => ':id']) }}";
+
         var cargoId = 0;
-        const cargos = {!! json_encode($cargos->pluck('nome', 'id')) !!}
-        $(document).ready(function() {
-            editModal.on('show.bs.modal', function(event) {
-                editModal.find('form').attr('action', $(this).find('form').attr('action').replace('id', cargoId));
-                $('#nome-edit').val(cargos[cargoId]);
+
+        document.querySelectorAll('[data-bs-toggle="modal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                let modalId = button.getAttribute('data-bs-target');
+                let modalElement = document.querySelector(modalId);
+
+                let entidadeId = button.getAttribute('entidade-id');
+
+                modalElement.querySelector('#nome-edit').value = dados['nome'][entidadeId];
 
             });
         });
-
-        function openEditModal(id) {
-            cargoId = id;
-            editModal.modal('show');
-        }
 
         function openDeleteModal(id) {
             cargoId = id;
             $('#deleteConfirmationModal').modal('show');
         }
 
+
         $(document).ready(function () {
             $('#deleteConfirmationModal').on('show.bs.modal', function(event) {
-                $(this).find('form').attr('action', $(this).find('form').attr('action').replace('id', cargoId));
+                var formAction = deleteRoute.replace(':id', cargoId);
+                $(this).find('form').attr('action', formAction);
             });
         });
 
