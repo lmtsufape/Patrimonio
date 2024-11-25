@@ -66,11 +66,13 @@
             @endif
         </div>
     </div>
-    <div class="d-flex justify-content-center gap-4 pt-5 pb-5">
-        <a class="btn btn-blue btn-lg" href="{{route('movimento.aprovar', ['movimento_id' => $movimento->id])}}">Aceitar</a>
-        <a class="btn btn-ligth btn-lg border-dark" href="{{route('movimento.reprovar', ['movimento_id' => $movimento->id])}}">Recusar</a>
-    </div>
 
-
-
+    @if (!in_array($movimento->status, ['Aprovado', 'Reprovado']))
+        <div class="d-flex justify-content-center gap-4 pt-5 pb-5">
+            <a class="btn btn-blue btn-lg" href="{{route('movimento.aprovar', ['movimento_id' => $movimento->id])}}">Aceitar</a>
+            <a class="btn btn-ligth btn-lg border-dark" href="{{route('movimento.reprovar', ['movimento_id' => $movimento->id])}}">Recusar</a>
+        </div>
+    @else
+        <h5 class="text-center">Status do movimento: {{ $movimento->status }}</h3>
+    @endif
 @endsection
